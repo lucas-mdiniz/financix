@@ -1,9 +1,22 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import SideBar from './containers/SideBar/SideBar';
+import Main from './containers/Main/Main';
+import { StyledApp, GlobalStyle } from './styles/styles';
 
 function App() {
-  return <div className='App'></div>;
+  return (
+    <>
+      <GlobalStyle />
+      <StyledApp>
+        <SideBar>
+          <p>asdas</p>
+        </SideBar>
+        <Main>
+          <p>asdas</p>
+        </Main>
+      </StyledApp>
+    </>
+  );
 }
 
 export default App;
