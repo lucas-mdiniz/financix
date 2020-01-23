@@ -1,5 +1,5 @@
 import React from 'react';
-import StyledMain from './styles';
+import StyledMain from './MainStyles';
 
 function Main({ children }) {
   return <StyledMain>{children}</StyledMain>;

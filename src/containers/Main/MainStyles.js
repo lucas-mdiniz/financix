@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const StyledMain = styled.main`
-  background: red;
+  background: #e2e2e2;
   flex-grow: 1;
 `;
 
