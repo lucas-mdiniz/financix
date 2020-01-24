@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
     * {
@@ -19,8 +18,8 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const StyledApp = styled.div`
-  display: flex;
-  height: 100%;
+    display: flex;
+    height: 100%;
 `;
 
 export { StyledApp, GlobalStyle };
