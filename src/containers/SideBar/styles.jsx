@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const StyledSideBar = styled.aside`
     width: 300px;
@@ -10,8 +10,7 @@ const StyledIcons = styled.i`
     margin-left: 10px;
 `;
 
-const StyledLink = styled(Link)`
-    color: #696969;
+const StyledNavLink = styled(NavLink)`
     font-weight: bold;
     text-decoration: none;
     display: flex;
@@ -22,10 +21,15 @@ const StyledLink = styled(Link)`
         transition: 300ms;
     }
 
+    &:hover,
+    &.selected {
+        color: #ff8300;
+    }
+
     &:hover ${StyledIcons} {
         transform: rotate(360deg);
         transition: 300ms;
     }
 `;
 
-export { StyledSideBar, StyledLink, StyledIcons };
+export { StyledSideBar, StyledNavLink, StyledIcons };

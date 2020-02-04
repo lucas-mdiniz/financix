@@ -5,9 +5,8 @@ const StyledCard = styled.div`
   background-color: ${props => props.backgroundColor};
   padding: 10px;
   flex-grow: 1;
-  margin: 15px;
+  margin: 15px ${props => props.horizontalMargin || '0'};
   min-width: 200px;
-  0px 0px 10px -5px rgba(0,0,0,0.75);
 `;
 
 export default StyledCard;

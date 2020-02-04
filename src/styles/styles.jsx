@@ -15,11 +15,19 @@ const GlobalStyle = createGlobalStyle`
         -webkit-font-smoothing: antialiased !important;
         font-family: 'Montserrat', sans-serif;
     }
+
+    ul{
+        list-style: none;
+    }
+
+    p,h1,h2,h3,h4,h5,h6,a,li,span,label{
+        color:#696969;
+    }
 `;
 
 const StyledApp = styled.div`
-    display: flex;
-    height: 100%;
+  display: flex;
+  height: 100%;
 `;
 
 export { StyledApp, GlobalStyle };

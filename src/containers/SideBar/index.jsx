@@ -1,30 +1,37 @@
 import React from 'react';
 import { FaExchangeAlt, FaHome } from 'react-icons/fa';
-import { StyledSideBar, StyledLink, StyledIcons } from './styles';
+import { MdAttachMoney } from 'react-icons/md';
+import { StyledSideBar, StyledNavLink, StyledIcons } from './styles';
 
 function SideBar() {
-    return (
-        <StyledSideBar>
-            <nav>
-                <ul>
-                    <li>
-                        <StyledLink to="/">
-                            Home{' '}
-                            <StyledIcons>
-                                <FaHome />
-                            </StyledIcons>
-                        </StyledLink>
-                        <StyledLink to="/transactions">
-                            Transactions{' '}
-                            <StyledIcons>
-                                <FaExchangeAlt />
-                            </StyledIcons>
-                        </StyledLink>
-                    </li>
-                </ul>
-            </nav>
-        </StyledSideBar>
-    );
+  return (
+    <StyledSideBar>
+      <nav>
+        <ul>
+          <li>
+            <StyledNavLink to="/" activeClassName="selected" exact>
+              Home
+              <StyledIcons>
+                <FaHome />
+              </StyledIcons>
+            </StyledNavLink>
+            <StyledNavLink to="/transactions" activeClassName="selected" exact>
+              Transactions
+              <StyledIcons>
+                <FaExchangeAlt />
+              </StyledIcons>
+            </StyledNavLink>
+            <StyledNavLink to="/budgets" activeClassName="selected" exact>
+              Budget
+              <StyledIcons>
+                <MdAttachMoney />
+              </StyledIcons>
+            </StyledNavLink>
+          </li>
+        </ul>
+      </nav>
+    </StyledSideBar>
+  );
 }
 
 export default SideBar;
