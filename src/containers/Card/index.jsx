@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import StyledCard from './styles';
 
 function Card({ borderRadius, backgroundColor, horizontalMargin, children }) {
@@ -12,5 +13,18 @@ function Card({ borderRadius, backgroundColor, horizontalMargin, children }) {
     </StyledCard>
   );
 }
+
+Card.defaultProps = {
+  borderRadius: '0',
+  backgroundColor: '#fff',
+  horizontalMargin: '0',
+};
+
+Card.propTypes = {
+  borderRadius: PropTypes.string,
+  backgroundColor: PropTypes.string,
+  horizontalMargin: PropTypes.string,
+  children: PropTypes.node.isRequired,
+};
 
 export default Card;

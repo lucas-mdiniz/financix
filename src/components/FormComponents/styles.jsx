@@ -5,6 +5,8 @@ const StyledInput = styled.input`
   border-radius: 5px;
   border: 1px solid #c1c1c1;
   width: 100%;
+  height: 40px;
+  background: #fff;
 `;
 
 const StyledLabel = styled.label`
@@ -18,6 +20,7 @@ const StyledDatePickerWrapper = styled.div`
     border-radius: 5px;
     border: 1px solid #c1c1c1;
     width: 100%;
+    height: 40px;
   }
 
   & .react-datepicker-wrapper {
@@ -37,14 +40,39 @@ const StyledDatePickerWrapper = styled.div`
   }
 `;
 
+const StyledRadio = styled.div`
+  display: inline-block;
+  margin: 10px;
+  cursor: pointer;
+
+  & input {
+    display: none;
+  }
+
+  & label {
+    cursor: pointer;
+  }
+`;
+
+const StyledCheckBox = styled.label`
+  & input {
+    margin-right: 5px;
+  }
+`;
+
 const InputItem = styled.div`
   margin-bottom: 10px;
+`;
+
+const InputItemCenter = styled.div`
+  margin-bottom: 10px;
+  text-align: center;
 `;
 
 const InputGroup = styled.div`
   display: grid;
   grid-gap: 20px;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr 1fr;
 `;
 
 const ErrorMessage = styled.span`
@@ -61,4 +89,7 @@ export {
   InputGroup,
   StyledDatePickerWrapper,
   ErrorMessage,
+  InputItemCenter,
+  StyledRadio,
+  StyledCheckBox,
 };

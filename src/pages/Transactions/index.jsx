@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import PageTitle from '../../components/PageTitle';
 import Card from '../../containers/Card';
@@ -10,12 +10,13 @@ import {
   TransactionValue,
   TransactionDate,
 } from './styles';
-import Button from '../../components/Button';
+import { Button } from '../../components/Button';
 import Modal from '../../containers/Modal';
 import AddTransaction from '../../components/AddTransaction';
+import { TransactionsContext } from '../../contexts/TransactionContext';
 
 const Transactions = () => {
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useContext(TransactionsContext);
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -31,10 +32,8 @@ const Transactions = () => {
     getTransactions();
   }, []);
 
-  const handleClose = e => {
-    if (e.target === e.currentTarget) {
-      setModalOpen(false);
-    }
+  const handleClose = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -45,7 +44,9 @@ const Transactions = () => {
           {transactions.map(transaction => {
             return (
               <TransactionItem key={transaction.id}>
-                <TransactionDate>{transaction.date}</TransactionDate>
+                <TransactionDate>
+                  {new Date(transaction.date).toLocaleDateString()}
+                </TransactionDate>
                 <TransactionTitle>{transaction.title}</TransactionTitle>
                 <TransactionStatus status={transaction.paid}>
                   {transaction.paid ? <FaCheck /> : <FaTimes />}
@@ -58,7 +59,7 @@ const Transactions = () => {
       </Card>
       <Button onClick={() => setModalOpen(true)}>Add Transaction</Button>
       <Modal open={modalOpen} onClose={handleClose}>
-        <AddTransaction />
+        <AddTransaction modalClose={handleClose} />
       </Modal>
     </>
   );

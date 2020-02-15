@@ -7,6 +7,8 @@ const StyledCard = styled.div`
   flex-grow: 1;
   margin: 15px ${props => props.horizontalMargin || '0'};
   min-width: 200px;
+  max-height: 85%;
+  overflow: auto;
 `;
 
 export default StyledCard;

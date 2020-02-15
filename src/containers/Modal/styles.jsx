@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { FaTimes } from 'react-icons/fa';
 
 const ModalWrapper = styled.div`
   position: fixed;
@@ -20,6 +21,21 @@ const ModalBox = styled.div`
   max-height: 90%;
   overflow-y: auto;
   padding: 50px;
+  position: relative;
 `;
 
-export { ModalWrapper, ModalBox };
+const StyledFaTimes = styled(FaTimes)`
+  position: absolute;
+  right: 25px;
+  top: 25px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #696969;
+  z-index: 999;
+
+  &:hover {
+    color: #ff8300;
+  }
+`;
+
+export { ModalWrapper, ModalBox, StyledFaTimes };
