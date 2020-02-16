@@ -16,6 +16,7 @@ const MyDateField = ({ label, ...props }) => {
       <StyledLabel htmlFor={id || name}>{label}</StyledLabel>
       <StyledDatePickerWrapper>
         <DatePicker
+          id={id || name}
           selected={meta.value}
           onChange={date => setFieldValue('date', date)}
           name={name}

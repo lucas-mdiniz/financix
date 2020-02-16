@@ -12,6 +12,7 @@ const MyTextInput = ({ label, ...props }) => {
     <>
       <StyledLabel htmlFor={id || name}>{label}</StyledLabel>
       <StyledInput
+        id={id || name}
         onChange={onChange}
         name={name}
         value={value}

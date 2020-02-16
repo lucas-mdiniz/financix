@@ -12,6 +12,7 @@ const MyTextArea = ({ label, ...props }) => {
     <>
       <StyledLabel htmlFor={id || name}>{label}</StyledLabel>
       <StyledInput
+        id={id || name}
         as="textarea"
         rows="4"
         onChange={onChange}

@@ -7,11 +7,13 @@ const MyCheckbox = ({ children, ...props }) => {
   const [field, meta] = useField({ ...props, type: 'checkbox' });
 
   const { name, value, onBlur, onChange } = field;
+  const { id } = props;
 
   return (
     <>
       <StyledCheckBox>
         <input
+          id={id || name}
           onChange={onChange}
           name={name}
           value={value}
@@ -27,8 +29,13 @@ const MyCheckbox = ({ children, ...props }) => {
   );
 };
 
+MyCheckbox.defaultProps = {
+  id: '',
+};
+
 MyCheckbox.propTypes = {
   children: PropTypes.node.isRequired,
+  id: PropTypes.string,
 };
 
 export default MyCheckbox;

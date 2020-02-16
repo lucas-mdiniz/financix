@@ -16,6 +16,7 @@ const MySelect = ({ label, ...props }) => {
     <>
       <StyledLabel htmlFor={id || name}>{label}</StyledLabel>
       <StyledInput
+        id={id || name}
         as={Select}
         onChange={category => setFieldValue('category', category)}
         name={name}

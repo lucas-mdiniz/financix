@@ -14,6 +14,7 @@ const MyMaskedInput = ({ label, ...props }) => {
     <>
       <StyledLabel htmlFor={id || name}>{label}</StyledLabel>
       <StyledInput
+        id={id || name}
         as={MaskedInput}
         name={name}
         value={value}
