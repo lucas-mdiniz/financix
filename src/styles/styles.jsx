@@ -16,12 +16,20 @@ const GlobalStyle = createGlobalStyle`
         font-family: 'Montserrat', sans-serif;
     }
 
+    input {
+        font-family: 'Montserrat', sans-serif;
+    }
+
     ul{
         list-style: none;
     }
 
     p,h1,h2,h3,h4,h5,h6,a,li,span,label{
         color:#696969;
+    }
+    
+    svg, img {
+        vertical-align: top;
     }
 `;
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import StyledMain from './styles';
 
 function Main({ children }) {
@@ -6,3 +7,7 @@ function Main({ children }) {
 }
 
 export default Main;
+
+Main.propTypes = {
+  children: PropTypes.node.isRequired,
+};

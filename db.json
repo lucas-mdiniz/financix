@@ -3,32 +3,6 @@
     {
       "category": [
         "icon",
-        "Bar & restaurants"
-      ],
-      "type": "expense",
-      "date": "25/01/2020",
-      "amount": "80.80",
-      "description": "Bougth 50 Big Mac's",
-      "paid": false,
-      "title": "Big Mac",
-      "id": "1518"
-    },
-    {
-      "category": [
-        "icon",
-        "Clothing"
-      ],
-      "type": "expense",
-      "date": "25/01/2020",
-      "amount": "215.00",
-      "description": "Bougth a lot of underwears",
-      "paid": true,
-      "title": "Underwears",
-      "id": "1519"
-    },
-    {
-      "category": [
-        "icon",
         "Salary"
       ],
       "type": "earning",
@@ -40,32 +14,6 @@
       "id": "1520"
     },
     {
-      "category": [
-        "icon",
-        "Education"
-      ],
-      "type": "expense",
-      "date": "25/01/2020",
-      "amount": "40.00",
-      "description": "Udemy Node.js course ",
-      "paid": false,
-      "title": "Udemy",
-      "id": "1521"
-    },
-    {
-      "category": [
-        "icon",
-        "Investments"
-      ],
-      "type": "earning",
-      "date": "15/01/2020",
-      "amount": "80.00",
-      "description": "payback of stocks",
-      "paid": false,
-      "title": "WEG Stocks",
-      "id": "1522"
-    },
-    {
       "amount": "35",
       "title": "bought a robot",
       "description": "not a robot",
@@ -74,150 +22,224 @@
       "id": "q_FYGQ-"
     },
     {
-      "amount": "800",
-      "title": "robot",
-      "description": "not",
-      "date": "2020-02-04T14:50:24.000Z",
-      "paid": true,
+      "amount": "R$ 34",
+      "title": "aa",
+      "description": "cc",
+      "date": "2020-02-12T23:30:59.788Z",
+      "paid": false,
       "type": "expense",
-      "id": "A4YTMkz"
+      "id": "7224c0f7-1105-499f-bfc8-dfe3f539062c"
     },
     {
-      "amount": "50",
-      "title": "asd",
-      "description": "as",
-      "date": "2020-02-05T13:32:42.000Z",
-      "paid": true,
+      "amount": "R$ 35,55",
+      "title": "dca",
+      "description": "123",
+      "date": "2020-02-12T23:30:59.788Z",
+      "paid": false,
       "type": "expense",
-      "id": "hP7LKqB"
+      "id": "003b05f0-01e4-41c4-a956-7937a956e71e"
     },
     {
-      "amount": "50",
-      "title": "hoje",
-      "description": "hoje",
-      "date": "2020-02-04T13:32:42.000Z",
+      "amount": "3.520,55",
+      "title": "sd",
+      "description": "aaa",
+      "date": "2020-02-13T22:22:17.237Z",
+      "paid": false,
+      "type": "expense",
+      "id": "187a9758-5ff1-4f63-a07b-56819c36e4ba"
+    },
+    {
+      "amount": "1.233",
+      "title": "asaa",
+      "description": "teste",
+      "date": "2020-02-15T14:02:14.916Z",
+      "paid": false,
+      "type": "expense",
+      "category": {
+        "icon": "icon",
+        "type": "expense",
+        "id": "2",
+        "label": "Clothing"
+      },
+      "id": "910cbf6b-c165-456b-b5f1-88e0c42b7ae5"
+    },
+    {
+      "amount": "21.323",
+      "title": "x\\'",
+      "description": "aaa",
+      "date": "2020-02-15T14:07:00.634Z",
+      "paid": true,
+      "type": "expense",
+      "category": {
+        "value": "1964",
+        "label": "1964"
+      },
+      "id": "d6a17c91-ebd6-4294-a7ec-47f4d56691bd"
+    },
+    {
+      "amount": "123",
+      "title": "aaa",
+      "description": "aaa",
+      "date": "2020-02-15T15:07:38.700Z",
       "paid": true,
       "type": "income",
-      "id": "UoPgic_"
+      "category": {
+        "label": "Loan",
+        "value": "Loan",
+        "icon": "icon"
+      },
+      "id": "48793975-52f0-40d6-98f7-9feab415c336"
+    },
+    {
+      "amount": "123.123",
+      "title": "asd",
+      "description": "teste",
+      "date": "2020-02-15T15:18:51.151Z",
+      "paid": true,
+      "type": "income",
+      "category": {
+        "label": "Entertainment & hobbies",
+        "value": "Entertainment & hobbies",
+        "icon": "icon"
+      },
+      "id": "a0812449-f2ce-4b45-a6fc-42e9419d3d1b"
+    },
+    {
+      "amount": "5.666",
+      "title": "teste",
+      "description": "hoje",
+      "date": "2020-02-13T20:20:09.000Z",
+      "paid": true,
+      "type": "income",
+      "category": {
+        "label": "Loan",
+        "value": "Loan",
+        "icon": "icon"
+      },
+      "id": "4c49e06b-5d85-4de9-8400-8c67e1b9690b"
     }
   ],
-  "categories": [
-    {
-      "name": "Bar & restaurants",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Clothing",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Debts & loans",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Education",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Entertainment & hobbies",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Familly & children",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Food",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Groceries",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Health",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Home",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Investments",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Others",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Personal care",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Pets",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Shopping",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Subsriptions & services",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Taxes",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Transportation",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Travel",
-      "icon": "icon",
-      "type": "expense"
-    },
-    {
-      "name": "Salary",
-      "icon": "icon",
-      "type": "earning"
-    },
-    {
-      "name": "Loan",
-      "icon": "icon",
-      "type": "earning"
-    },
-    {
-      "name": "Investments",
-      "icon": "icon",
-      "type": "earning"
-    },
-    {
-      "name": "Other Earnings",
-      "icon": "icon",
-      "type": "earning"
-    }
-  ],
+  "categories": {
+    "expense": [
+      {
+        "name": "Bar & restaurants",
+        "icon": "icon",
+        "id": "1"
+      },
+      {
+        "name": "Clothing",
+        "icon": "icon",
+        "id": "2"
+      },
+      {
+        "name": "Debts & loans",
+        "icon": "icon",
+        "id": "3"
+      },
+      {
+        "name": "Education",
+        "icon": "icon",
+        "id": "4"
+      },
+      {
+        "name": "Entertainment & hobbies",
+        "icon": "icon",
+        "id": "5"
+      },
+      {
+        "name": "Familly & children",
+        "icon": "icon",
+        "id": "6"
+      },
+      {
+        "name": "Food",
+        "icon": "icon",
+        "id": "7"
+      },
+      {
+        "name": "Groceries",
+        "icon": "icon",
+        "id": "8"
+      },
+      {
+        "name": "Health",
+        "icon": "icon",
+        "id": "9"
+      },
+      {
+        "name": "Home",
+        "icon": "icon",
+        "id": "10"
+      },
+      {
+        "name": "Investments",
+        "icon": "icon",
+        "id": "11"
+      },
+      {
+        "name": "Others",
+        "icon": "icon",
+        "id": "12"
+      },
+      {
+        "name": "Personal care",
+        "icon": "icon",
+        "id": "13"
+      },
+      {
+        "name": "Pets",
+        "icon": "icon",
+        "id": "14"
+      },
+      {
+        "name": "Shopping",
+        "icon": "icon",
+        "id": "15"
+      },
+      {
+        "name": "Subsriptions & services",
+        "icon": "icon",
+        "id": "16"
+      },
+      {
+        "name": "Taxes",
+        "icon": "icon",
+        "id": "17"
+      },
+      {
+        "name": "Transportation",
+        "icon": "icon",
+        "id": "18"
+      },
+      {
+        "name": "Travel",
+        "icon": "icon",
+        "id": "19"
+      }
+    ],
+    "earning": [
+      {
+        "name": "Salary",
+        "icon": "icon",
+        "id": "20"
+      },
+      {
+        "name": "Loan",
+        "icon": "icon",
+        "id": "21"
+      },
+      {
+        "name": "Investments",
+        "icon": "icon",
+        "id": "22"
+      },
+      {
+        "name": "Other Earnings",
+        "icon": "icon",
+        "id": "23"
+      }
+    ]
+  },
   "profile": {
     "name": "typicode"
   }
