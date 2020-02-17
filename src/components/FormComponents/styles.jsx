@@ -7,6 +7,7 @@ const StyledInput = styled.input`
   width: 100%;
   height: 40px;
   background: #fff;
+  font-size: 15px;
 `;
 
 const StyledLabel = styled.label`
@@ -21,6 +22,7 @@ const StyledDatePickerWrapper = styled.div`
     border: 1px solid #c1c1c1;
     width: 100%;
     height: 40px;
+    font-size: 15px;
   }
 
   & .react-datepicker-wrapper {

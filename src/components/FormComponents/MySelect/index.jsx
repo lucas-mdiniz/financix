@@ -3,7 +3,20 @@ import PropTypes from 'prop-types';
 import { useField, useFormikContext } from 'formik';
 import Select from 'react-select';
 import 'react-datepicker/dist/react-datepicker.css';
-import { StyledInput, StyledLabel, ErrorMessage } from '../styles';
+import { StyledLabel, ErrorMessage, StyledSelect } from '../styles';
+
+const customStyles = {
+  control: styles => ({
+    ...styles,
+    backgroundColor: 'white',
+    borderRadius: '5px',
+    border: '1px solid #c1c1c1',
+    width: '100%',
+    height: '40px',
+    background: '#fff',
+    fontSize: '15px',
+  }),
+};
 
 const MySelect = ({ label, ...props }) => {
   const [field, meta] = useField(props);
@@ -15,9 +28,9 @@ const MySelect = ({ label, ...props }) => {
   return (
     <>
       <StyledLabel htmlFor={id || name}>{label}</StyledLabel>
-      <StyledInput
+      <Select
         id={id || name}
-        as={Select}
+        styles={customStyles}
         onChange={category => setFieldValue('category', category)}
         name={name}
         value={value}
