@@ -76,7 +76,7 @@ const MySelect = ({ label, ...props }) => {
 
 MySelect.defaultProps = {
   label: '',
-  placeholder: '  ',
+  placeholder: ' ',
   id: null,
 };
 
