@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useField, useFormikContext } from 'formik';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import 'react-datepicker/dist/react-datepicker.css';
-import { StyledLabel, ErrorMessage, StyledSelect } from '../styles';
+import { StyledLabel, ErrorMessage } from '../styles';
+import StyledOption from './styles';
 
 const customStyles = {
   control: styles => ({
@@ -16,6 +17,33 @@ const customStyles = {
     background: '#fff',
     fontSize: '15px',
   }),
+
+  option: (styles, { isSelected, isFocused }) => {
+    let backgroundColor;
+
+    if (isSelected) {
+      backgroundColor = null;
+    } else if (isFocused) {
+      backgroundColor = '#B2D4FF';
+    }
+
+    return {
+      ...styles,
+      backgroundColor,
+      color: isSelected ? '#b3b3b3' : '#000',
+    };
+  },
+};
+
+const Option = props => {
+  const { data } = props;
+
+  return (
+    <StyledOption style={{ display: 'flex', alignItems: 'center' }}>
+      {data.icon && <i className="input-select__icon">{data.icon}</i>}
+      <components.Option {...props} />
+    </StyledOption>
+  );
 };
 
 const MySelect = ({ label, ...props }) => {
@@ -37,6 +65,7 @@ const MySelect = ({ label, ...props }) => {
         onBlur={onBlur}
         placeholder={placeholder}
         options={options}
+        components={{ Option }}
       />
       {meta.touched && meta.error ? (
         <ErrorMessage>{meta.error}</ErrorMessage>
@@ -47,7 +76,7 @@ const MySelect = ({ label, ...props }) => {
 
 MySelect.defaultProps = {
   label: '',
-  placeholder: '',
+  placeholder: '  ',
   id: null,
 };
 
@@ -58,4 +87,7 @@ MySelect.propTypes = {
   placeholder: PropTypes.string,
 };
 
+Option.propTypes = {
+  data: PropTypes.objectOf(PropTypes.node).isRequired,
+};
 export default MySelect;

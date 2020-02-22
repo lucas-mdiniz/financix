@@ -19,7 +19,7 @@ const ModalBox = styled.div`
   width: 800px;
   max-width: 90%;
   max-height: 90%;
-  overflow-y: auto;
+  ${props => props.overflowY && 'overflow-y: auto;'}
   padding: 50px;
   position: relative;
 `;

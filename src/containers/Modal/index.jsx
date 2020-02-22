@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ModalWrapper, ModalBox, StyledFaTimes } from './styles';
 
-const Modal = ({ children, open, onClose }) => {
+const Modal = ({ children, open, onClose, overflowY }) => {
   document.body.addEventListener('keydown', e => {
     if (e.keyCode === 27) {
       onClose();
@@ -20,7 +20,7 @@ const Modal = ({ children, open, onClose }) => {
   };
 
   return (
-    <ModalWrapper open={open} onClick={handleOutsideClose}>
+    <ModalWrapper open={open} onClick={handleOutsideClose} overflowY>
       <ModalBox>
         <StyledFaTimes onClick={handleButtonClose} />
         {children}
