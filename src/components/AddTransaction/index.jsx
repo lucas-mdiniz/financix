@@ -77,13 +77,21 @@ const AddTransaction = ({ modalClose }) => {
       {({ values }) => (
         <Form>
           <InputItemCenter>
-            <MyTransactionTypeButton name="type" value="expense">
+            <MyTransactionTypeButton
+              name="type"
+              value="expense"
+              valueSelected={values.type}
+            >
               <StyledFaMinus>
                 <FaMinus />
               </StyledFaMinus>
               Expense
             </MyTransactionTypeButton>
-            <MyTransactionTypeButton name="type" value="income">
+            <MyTransactionTypeButton
+              name="type"
+              value="income"
+              valueSelected={values.type}
+            >
               <StyledFaPlus>
                 <FaPlus />
               </StyledFaPlus>

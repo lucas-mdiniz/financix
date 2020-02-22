@@ -53,6 +53,17 @@ const StyledRadio = styled.div`
 
   & label {
     cursor: pointer;
+    font-weight: bold;
+    color: ${props => {
+      if (props.valueSelected === 'expense') {
+        return props.valueSelected === props.value ? '#e20000' : '#696969';
+      }
+      return props.valueSelected === props.value ? '#08b34f' : '#696969';
+    }};
+
+    &:hover {
+      color: ${props => (props.value === 'expense' ? '#e20000' : '#08b34f')};
+    }
   }
 `;
 

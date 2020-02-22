@@ -6,10 +6,10 @@ import { ErrorMessage, StyledRadio } from '../styles';
 const MyTransactionTypeButton = ({ children, ...props }) => {
   const [field, meta] = useField({ ...props, type: 'radio' });
   const { name, value, onBlur, onChange } = field;
-  const { id } = props;
+  const { id, valueSelected } = props;
 
   return (
-    <StyledRadio>
+    <StyledRadio value={value} valueSelected={valueSelected}>
       <label>
         <input
           id={id || name}
@@ -35,6 +35,7 @@ MyTransactionTypeButton.defaultProps = {
 MyTransactionTypeButton.propTypes = {
   children: PropTypes.node.isRequired,
   id: PropTypes.string,
+  valueSelected: PropTypes.string.isRequired,
 };
 
 export default MyTransactionTypeButton;
