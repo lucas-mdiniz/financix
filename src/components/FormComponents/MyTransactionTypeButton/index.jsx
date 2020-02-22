@@ -1,19 +1,24 @@
 import React from 'react';
-import { useField } from 'formik';
+import { useField, useFormikContext } from 'formik';
 import PropTypes from 'prop-types';
 import { ErrorMessage, StyledRadio } from '../styles';
 
 const MyTransactionTypeButton = ({ children, ...props }) => {
   const [field, meta] = useField({ ...props, type: 'radio' });
-  const { name, value, onBlur, onChange } = field;
+  const { name, value, onBlur } = field;
   const { id, valueSelected } = props;
+
+  const { setFieldValue } = useFormikContext();
 
   return (
     <StyledRadio value={value} valueSelected={valueSelected}>
       <label>
         <input
           id={id || name}
-          onChange={onChange}
+          onChange={() => {
+            setFieldValue('category', null);
+            setFieldValue('type', value);
+          }}
           name={name}
           value={value}
           onBlur={onBlur}

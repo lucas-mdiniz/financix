@@ -25,7 +25,7 @@ import useCategories from '../../hooks/useCategories';
 const AddTransaction = ({ modalClose }) => {
   const [transactions, setTransactions] = useContext(TransactionsContext);
 
-  const [expensesCategories, earningsCategories] = useCategories([]);
+  const [expensesCategories, earningsCategories] = useCategories();
 
   const initialFormValues = {
     amount: '',
@@ -34,7 +34,7 @@ const AddTransaction = ({ modalClose }) => {
     date: new Date(),
     paid: false,
     type: 'expense',
-    category: 'Others',
+    category: null,
   };
 
   const addTransactionSchema = Yup.object({
@@ -112,6 +112,7 @@ const AddTransaction = ({ modalClose }) => {
                     ? expensesCategories
                     : earningsCategories
                 }
+                placeholder="Select..."
               />
             </InputItem>
           </InputGroup>
