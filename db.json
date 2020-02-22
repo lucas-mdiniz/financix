@@ -1,10 +1,7 @@
 {
   "transactions": [
     {
-      "category": [
-        "icon",
-        "Salary"
-      ],
+      "category": ["icon", "Salary"],
       "type": "earning",
       "date": "10/01/2020",
       "amount": "1500.00",
@@ -123,119 +120,119 @@
     "expense": [
       {
         "name": "Bar & restaurants",
-        "icon": "icon",
+        "slug": "bar_restaurants",
         "id": "1"
       },
       {
         "name": "Clothing",
-        "icon": "icon",
+        "slug": "clothing",
         "id": "2"
       },
       {
         "name": "Debts & loans",
-        "icon": "icon",
+        "slug": "debts_loans",
         "id": "3"
       },
       {
         "name": "Education",
-        "icon": "icon",
+        "slug": "education",
         "id": "4"
       },
       {
         "name": "Entertainment & hobbies",
-        "icon": "icon",
+        "slug": "entertainment_hobbies",
         "id": "5"
       },
       {
         "name": "Familly & children",
-        "icon": "icon",
+        "slug": "familly_children",
         "id": "6"
       },
       {
         "name": "Food",
-        "icon": "icon",
+        "slug": "food",
         "id": "7"
       },
       {
         "name": "Groceries",
-        "icon": "icon",
+        "slug": "groceries",
         "id": "8"
       },
       {
         "name": "Health",
-        "icon": "icon",
+        "slug": "health",
         "id": "9"
       },
       {
         "name": "Home",
-        "icon": "icon",
+        "slug": "home",
         "id": "10"
       },
       {
         "name": "Investments",
-        "icon": "icon",
+        "slug": "investments",
         "id": "11"
       },
       {
         "name": "Others",
-        "icon": "icon",
+        "slug": "others",
         "id": "12"
       },
       {
         "name": "Personal care",
-        "icon": "icon",
+        "slug": "personal_care",
         "id": "13"
       },
       {
         "name": "Pets",
-        "icon": "icon",
+        "slug": "pets",
         "id": "14"
       },
       {
         "name": "Shopping",
-        "icon": "icon",
+        "slug": "shopping",
         "id": "15"
       },
       {
-        "name": "Subsriptions & services",
-        "icon": "icon",
+        "name": "Subscriptions & services",
+        "slug": "subscriptions_services",
         "id": "16"
       },
       {
         "name": "Taxes",
-        "icon": "icon",
+        "slug": "taxes",
         "id": "17"
       },
       {
         "name": "Transportation",
-        "icon": "icon",
+        "slug": "transportation",
         "id": "18"
       },
       {
         "name": "Travel",
-        "icon": "icon",
+        "slug": "travel",
         "id": "19"
       }
     ],
     "earning": [
       {
         "name": "Salary",
-        "icon": "icon",
+        "slug": "salary",
         "id": "20"
       },
       {
         "name": "Loan",
-        "icon": "icon",
+        "slug": "loan",
         "id": "21"
       },
       {
         "name": "Investments",
-        "icon": "icon",
+        "slug": "investments",
         "id": "22"
       },
       {
         "name": "Other Earnings",
-        "icon": "icon",
+        "slug": "other_earnings",
         "id": "23"
       }
     ]

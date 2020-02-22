@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Icons from '../assets/Icons';
 import api from '../services/api';
 
 const useCategories = () => {
@@ -23,7 +24,7 @@ const useCategories = () => {
     return {
       label: expense.name,
       value: expense.name,
-      icon: expense.icon,
+      icon: Icons.expense[expense.slug],
     };
   });
 
@@ -31,7 +32,7 @@ const useCategories = () => {
     return {
       label: earning.name,
       value: earning.name,
-      icon: earning.icon,
+      icon: Icons.earnings[earning.slug],
     };
   });
 
