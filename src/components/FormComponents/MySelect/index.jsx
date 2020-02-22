@@ -63,9 +63,9 @@ const MySelect = ({ label, ...props }) => {
         name={name}
         value={value}
         onBlur={onBlur}
-        placeholder={placeholder}
         options={options}
         components={{ Option }}
+        placeholder={placeholder}
       />
       {meta.touched && meta.error ? (
         <ErrorMessage>{meta.error}</ErrorMessage>
@@ -76,7 +76,7 @@ const MySelect = ({ label, ...props }) => {
 
 MySelect.defaultProps = {
   label: '',
-  placeholder: ' ',
+  placeholder: '',
   id: null,
 };
 
