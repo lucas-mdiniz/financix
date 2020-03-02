@@ -50,10 +50,15 @@ const AddTransaction = ({ modalClose }) => {
     type: Yup.string()
       .oneOf(['income', 'expense'])
       .required('Required'),
+    category: Yup.object().required(),
   });
 
   const handleSubmit = (values, { resetForm }) => {
-    const newTransaction = { ...values, id: uuidv4() };
+    const newTransaction = {
+      ...values,
+      id: uuidv4(),
+      date: values.date.toUTCString(),
+    };
 
     api.post('/transactions', newTransaction);
     setTransactions([...transactions, newTransaction]);
