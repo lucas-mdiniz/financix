@@ -1,121 +1,203 @@
 {
   "transactions": [
     {
-      "category": ["icon", "Salary"],
-      "type": "earning",
-      "date": "10/01/2020",
-      "amount": "1500.00",
-      "description": "Salary",
+      "amount": "1.500,90",
+      "title": "asda",
+      "description": "teste",
+      "date": "Sun, 23 Feb 2020 19:52:45 GMT",
+      "paid": false,
+      "type": "expense",
+      "category": {
+        "label": "Clothing",
+        "value": "clothing",
+        "icon": {
+          "type": {
+            "attrs": [],
+            "componentStyle": {
+              "rules": [
+                "\n  background: #70d49a;\n  color: #fff;\n  border-radius: 50%;\n  padding: 10px;\n  text-align: center;\n  font-size: 20px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n",
+                "\n  background: #d66865;\n"
+              ],
+              "staticRulesId": "",
+              "isStatic": false,
+              "componentId": "sc-fzXfNh",
+              "baseHash": 573909596
+            },
+            "displayName": "Styled(styled.i)",
+            "foldedComponentIds": ["sc-fzXfNg"],
+            "styledComponentId": "sc-fzXfNh",
+            "target": "i"
+          },
+          "key": null,
+          "ref": null,
+          "props": {
+            "children": {
+              "key": null,
+              "ref": null,
+              "props": {},
+              "_owner": null,
+              "_store": {}
+            }
+          },
+          "_owner": null,
+          "_store": {}
+        }
+      },
+      "id": "05858de0-41dc-466c-bbdb-8cdfcdff87b4"
+    },
+    {
+      "amount": "123,65",
+      "title": "tesas",
+      "description": "qwe",
+      "date": "Tue, 11 Feb 2020 19:54:08 GMT",
       "paid": true,
-      "title": "Monthly Salary",
-      "id": "1520"
+      "type": "expense",
+      "category": null,
+      "id": "af91fc23-8b59-45ea-8242-3782f3edb0b1"
+    },
+    {
+      "amount": "1.500,10",
+      "title": "aaaa",
+      "description": "as",
+      "date": "Sun, 23 Feb 2020 19:54:08 GMT",
+      "paid": false,
+      "type": "expense",
+      "category": {
+        "label": "Entertainment & hobbies",
+        "value": "entertainment_hobbies",
+        "icon": {
+          "type": {
+            "attrs": [],
+            "componentStyle": {
+              "rules": [
+                "\n  background: #70d49a;\n  color: #fff;\n  border-radius: 50%;\n  padding: 10px;\n  text-align: center;\n  font-size: 20px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n",
+                "\n  background: #d66865;\n"
+              ],
+              "staticRulesId": "",
+              "isStatic": false,
+              "componentId": "sc-fzXfNh",
+              "baseHash": 573909596
+            },
+            "displayName": "Styled(styled.i)",
+            "foldedComponentIds": ["sc-fzXfNg"],
+            "styledComponentId": "sc-fzXfNh",
+            "target": "i"
+          },
+          "key": null,
+          "ref": null,
+          "props": {
+            "children": {
+              "key": null,
+              "ref": null,
+              "props": {},
+              "_owner": null,
+              "_store": {}
+            }
+          },
+          "_owner": null,
+          "_store": {}
+        }
+      },
+      "id": "883893f1-9408-48a5-ba50-7d431c4944a7"
     },
     {
       "amount": "35",
-      "title": "bought a robot",
-      "description": "not a robot",
-      "date": "2020-02-04T14:49:09.000Z",
-      "paid": true,
-      "id": "q_FYGQ-"
-    },
-    {
-      "amount": "R$ 34",
-      "title": "aa",
-      "description": "cc",
-      "date": "2020-02-12T23:30:59.788Z",
-      "paid": false,
-      "type": "expense",
-      "id": "7224c0f7-1105-499f-bfc8-dfe3f539062c"
-    },
-    {
-      "amount": "R$ 35,55",
-      "title": "dca",
-      "description": "123",
-      "date": "2020-02-12T23:30:59.788Z",
-      "paid": false,
-      "type": "expense",
-      "id": "003b05f0-01e4-41c4-a956-7937a956e71e"
-    },
-    {
-      "amount": "3.520,55",
-      "title": "sd",
-      "description": "aaa",
-      "date": "2020-02-13T22:22:17.237Z",
-      "paid": false,
-      "type": "expense",
-      "id": "187a9758-5ff1-4f63-a07b-56819c36e4ba"
-    },
-    {
-      "amount": "1.233",
-      "title": "asaa",
-      "description": "teste",
-      "date": "2020-02-15T14:02:14.916Z",
-      "paid": false,
-      "type": "expense",
-      "category": {
-        "icon": "icon",
-        "type": "expense",
-        "id": "2",
-        "label": "Clothing"
-      },
-      "id": "910cbf6b-c165-456b-b5f1-88e0c42b7ae5"
-    },
-    {
-      "amount": "21.323",
-      "title": "x\\'",
-      "description": "aaa",
-      "date": "2020-02-15T14:07:00.634Z",
-      "paid": true,
-      "type": "expense",
-      "category": {
-        "value": "1964",
-        "label": "1964"
-      },
-      "id": "d6a17c91-ebd6-4294-a7ec-47f4d56691bd"
-    },
-    {
-      "amount": "123",
-      "title": "aaa",
-      "description": "aaa",
-      "date": "2020-02-15T15:07:38.700Z",
-      "paid": true,
-      "type": "income",
-      "category": {
-        "label": "Loan",
-        "value": "Loan",
-        "icon": "icon"
-      },
-      "id": "48793975-52f0-40d6-98f7-9feab415c336"
-    },
-    {
-      "amount": "123.123",
       "title": "asd",
-      "description": "teste",
-      "date": "2020-02-15T15:18:51.151Z",
-      "paid": true,
-      "type": "income",
+      "description": "aaa",
+      "date": "Sun, 23 Feb 2020 19:56:26 GMT",
+      "paid": false,
+      "type": "expense",
       "category": {
-        "label": "Entertainment & hobbies",
-        "value": "Entertainment & hobbies",
-        "icon": "icon"
+        "label": "Clothing",
+        "value": "clothing",
+        "icon": {
+          "type": {
+            "attrs": [],
+            "componentStyle": {
+              "rules": [
+                "\n  background: #70d49a;\n  color: #fff;\n  border-radius: 50%;\n  padding: 10px;\n  text-align: center;\n  font-size: 20px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n",
+                "\n  background: #d66865;\n"
+              ],
+              "staticRulesId": "",
+              "isStatic": false,
+              "componentId": "sc-fzXfNh",
+              "baseHash": 573909596
+            },
+            "displayName": "Styled(styled.i)",
+            "foldedComponentIds": ["sc-fzXfNg"],
+            "styledComponentId": "sc-fzXfNh",
+            "target": "i"
+          },
+          "key": null,
+          "ref": null,
+          "props": {
+            "children": {
+              "key": null,
+              "ref": null,
+              "props": {},
+              "_owner": null,
+              "_store": {}
+            }
+          },
+          "_owner": null,
+          "_store": {}
+        }
       },
-      "id": "a0812449-f2ce-4b45-a6fc-42e9419d3d1b"
+      "id": "0ff47488-b13e-4bcf-a1a0-1b38d8757aab"
     },
     {
-      "amount": "5.666",
+      "amount": "5.000",
       "title": "teste",
-      "description": "hoje",
-      "date": "2020-02-13T20:20:09.000Z",
-      "paid": true,
+      "description": "aa",
+      "date": "Tue, 25 Feb 2020 13:49:40 GMT",
+      "paid": false,
       "type": "income",
       "category": {
-        "label": "Loan",
-        "value": "Loan",
-        "icon": "icon"
+        "label": "Investments",
+        "value": "investments",
+        "icon": {
+          "type": {
+            "attrs": [],
+            "componentStyle": {
+              "rules": [
+                "\n  background: #70d49a;\n  color: #fff;\n  border-radius: 50%;\n  padding: 10px;\n  text-align: center;\n  font-size: 20px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n"
+              ],
+              "staticRulesId": "",
+              "isStatic": false,
+              "componentId": "sc-fzXfNg",
+              "baseHash": 573909595
+            },
+            "displayName": "styled.i",
+            "foldedComponentIds": [],
+            "styledComponentId": "sc-fzXfNg",
+            "target": "i"
+          },
+          "key": null,
+          "ref": null,
+          "props": {
+            "children": {
+              "key": null,
+              "ref": null,
+              "props": {},
+              "_owner": null,
+              "_store": {}
+            }
+          },
+          "_owner": null,
+          "_store": {}
+        }
       },
-      "id": "4c49e06b-5d85-4de9-8400-8c67e1b9690b"
+      "id": "2bfdfb8c-ea07-4d24-a6e3-6b63cdf2dde8"
     }
   ],
+  "totals": {
+    "expenses": "0",
+    "predictedExpenses": "0",
+    "earnings": "0",
+    "predictedEarnings": "0",
+    "balance": "0",
+    "predictedBalance": "0"
+  },
   "categories": {
     "expense": [
       {
