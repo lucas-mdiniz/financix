@@ -60,10 +60,14 @@ const AddTransaction = ({ modalClose }) => {
       date: values.date.toUTCString(),
     };
 
-    api.post('/transactions', newTransaction);
-    setTransactions([...transactions, newTransaction]);
-    modalClose();
-    resetForm();
+    api
+      .post('/transactions', newTransaction)
+      .then(() => {
+        setTransactions([...transactions, newTransaction]);
+        modalClose();
+        resetForm();
+      })
+      .catch(error => console.log(error));
   };
 
   const numberMask = createNumberMask({
