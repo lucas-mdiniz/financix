@@ -78,6 +78,7 @@ const BalanceValue = styled.span`
 
 const PaidButton = styled.i`
   color: ${props => props.status && '#008000'};
+  cursor: pointer;
 `;
 
 export {

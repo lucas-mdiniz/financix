@@ -25,8 +25,8 @@ export default transactions => {
 
   predictedExpenses += expenses;
   predictedIncome += income;
-  const balance = income - expenses;
-  const predictedBalance = predictedIncome - predictedExpenses;
+  const balance = (income - expenses).toFixed(2);
+  const predictedBalance = (predictedIncome - predictedExpenses).toFixed(2);
 
   return {
     income,

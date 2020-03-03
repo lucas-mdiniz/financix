@@ -5,7 +5,7 @@
       "title": "asda",
       "description": "teste",
       "date": "Sun, 23 Feb 2020 19:52:45 GMT",
-      "paid": false,
+      "paid": true,
       "type": "expense",
       "category": {
         "label": "Clothing",
@@ -24,7 +24,9 @@
               "baseHash": 573909596
             },
             "displayName": "Styled(styled.i)",
-            "foldedComponentIds": ["sc-fzXfNg"],
+            "foldedComponentIds": [
+              "sc-fzXfNg"
+            ],
             "styledComponentId": "sc-fzXfNh",
             "target": "i"
           },
@@ -50,100 +52,10 @@
       "title": "tesas",
       "description": "qwe",
       "date": "Tue, 11 Feb 2020 19:54:08 GMT",
-      "paid": true,
+      "paid": false,
       "type": "expense",
       "category": null,
       "id": "af91fc23-8b59-45ea-8242-3782f3edb0b1"
-    },
-    {
-      "amount": "1.500,10",
-      "title": "aaaa",
-      "description": "as",
-      "date": "Sun, 23 Feb 2020 19:54:08 GMT",
-      "paid": false,
-      "type": "expense",
-      "category": {
-        "label": "Entertainment & hobbies",
-        "value": "entertainment_hobbies",
-        "icon": {
-          "type": {
-            "attrs": [],
-            "componentStyle": {
-              "rules": [
-                "\n  background: #70d49a;\n  color: #fff;\n  border-radius: 50%;\n  padding: 10px;\n  text-align: center;\n  font-size: 20px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n",
-                "\n  background: #d66865;\n"
-              ],
-              "staticRulesId": "",
-              "isStatic": false,
-              "componentId": "sc-fzXfNh",
-              "baseHash": 573909596
-            },
-            "displayName": "Styled(styled.i)",
-            "foldedComponentIds": ["sc-fzXfNg"],
-            "styledComponentId": "sc-fzXfNh",
-            "target": "i"
-          },
-          "key": null,
-          "ref": null,
-          "props": {
-            "children": {
-              "key": null,
-              "ref": null,
-              "props": {},
-              "_owner": null,
-              "_store": {}
-            }
-          },
-          "_owner": null,
-          "_store": {}
-        }
-      },
-      "id": "883893f1-9408-48a5-ba50-7d431c4944a7"
-    },
-    {
-      "amount": "35",
-      "title": "asd",
-      "description": "aaa",
-      "date": "Sun, 23 Feb 2020 19:56:26 GMT",
-      "paid": false,
-      "type": "expense",
-      "category": {
-        "label": "Clothing",
-        "value": "clothing",
-        "icon": {
-          "type": {
-            "attrs": [],
-            "componentStyle": {
-              "rules": [
-                "\n  background: #70d49a;\n  color: #fff;\n  border-radius: 50%;\n  padding: 10px;\n  text-align: center;\n  font-size: 20px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n",
-                "\n  background: #d66865;\n"
-              ],
-              "staticRulesId": "",
-              "isStatic": false,
-              "componentId": "sc-fzXfNh",
-              "baseHash": 573909596
-            },
-            "displayName": "Styled(styled.i)",
-            "foldedComponentIds": ["sc-fzXfNg"],
-            "styledComponentId": "sc-fzXfNh",
-            "target": "i"
-          },
-          "key": null,
-          "ref": null,
-          "props": {
-            "children": {
-              "key": null,
-              "ref": null,
-              "props": {},
-              "_owner": null,
-              "_store": {}
-            }
-          },
-          "_owner": null,
-          "_store": {}
-        }
-      },
-      "id": "0ff47488-b13e-4bcf-a1a0-1b38d8757aab"
     },
     {
       "amount": "5.000",
@@ -188,6 +100,147 @@
         }
       },
       "id": "2bfdfb8c-ea07-4d24-a6e3-6b63cdf2dde8"
+    },
+    {
+      "amount": "12.312",
+      "title": "teste",
+      "description": "aaa",
+      "date": "Tue, 03 Mar 2020 23:10:22 GMT",
+      "paid": false,
+      "type": "expense",
+      "category": {
+        "label": "Debts & loans",
+        "value": "debts_loans",
+        "icon": {
+          "type": {
+            "attrs": [],
+            "componentStyle": {
+              "rules": [
+                "\n  background: #70d49a;\n  color: #fff;\n  border-radius: 50%;\n  padding: 10px;\n  text-align: center;\n  font-size: 20px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n",
+                "\n  background: #d66865;\n"
+              ],
+              "staticRulesId": "",
+              "isStatic": false,
+              "componentId": "sc-fzXfNL",
+              "baseHash": 573909568
+            },
+            "displayName": "Styled(styled.i)",
+            "foldedComponentIds": [
+              "sc-fzXfNK"
+            ],
+            "styledComponentId": "sc-fzXfNL",
+            "target": "i"
+          },
+          "key": null,
+          "ref": null,
+          "props": {
+            "children": {
+              "key": null,
+              "ref": null,
+              "props": {},
+              "_owner": null,
+              "_store": {}
+            }
+          },
+          "_owner": null,
+          "_store": {}
+        }
+      },
+      "id": "9d45bf41-68c9-4c67-9e07-780b6174ba55"
+    },
+    {
+      "amount": "566",
+      "title": "asdas",
+      "description": "a",
+      "date": "Tue, 03 Mar 2020 23:20:45 GMT",
+      "paid": false,
+      "type": "expense",
+      "category": {
+        "label": "Clothing",
+        "value": "clothing",
+        "icon": {
+          "type": {
+            "attrs": [],
+            "componentStyle": {
+              "rules": [
+                "\n  background: #70d49a;\n  color: #fff;\n  border-radius: 50%;\n  padding: 10px;\n  text-align: center;\n  font-size: 20px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n",
+                "\n  background: #d66865;\n"
+              ],
+              "staticRulesId": "",
+              "isStatic": false,
+              "componentId": "sc-fzXfNL",
+              "baseHash": 573909568
+            },
+            "displayName": "Styled(styled.i)",
+            "foldedComponentIds": [
+              "sc-fzXfNK"
+            ],
+            "styledComponentId": "sc-fzXfNL",
+            "target": "i"
+          },
+          "key": null,
+          "ref": null,
+          "props": {
+            "children": {
+              "key": null,
+              "ref": null,
+              "props": {},
+              "_owner": null,
+              "_store": {}
+            }
+          },
+          "_owner": null,
+          "_store": {}
+        }
+      },
+      "id": "ca592dc1-22f4-4657-9639-80a89fb80b96"
+    },
+    {
+      "amount": "5.555",
+      "title": "asd",
+      "description": "jj",
+      "date": "Tue, 03 Mar 2020 23:26:10 GMT",
+      "paid": false,
+      "type": "expense",
+      "category": {
+        "label": "Clothing",
+        "value": "clothing",
+        "icon": {
+          "type": {
+            "attrs": [],
+            "componentStyle": {
+              "rules": [
+                "\n  background: #70d49a;\n  color: #fff;\n  border-radius: 50%;\n  padding: 10px;\n  text-align: center;\n  font-size: 20px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n",
+                "\n  background: #d66865;\n"
+              ],
+              "staticRulesId": "",
+              "isStatic": false,
+              "componentId": "sc-fzXfNL",
+              "baseHash": 573909568
+            },
+            "displayName": "Styled(styled.i)",
+            "foldedComponentIds": [
+              "sc-fzXfNK"
+            ],
+            "styledComponentId": "sc-fzXfNL",
+            "target": "i"
+          },
+          "key": null,
+          "ref": null,
+          "props": {
+            "children": {
+              "key": null,
+              "ref": null,
+              "props": {},
+              "_owner": null,
+              "_store": {}
+            }
+          },
+          "_owner": null,
+          "_store": {}
+        }
+      },
+      "id": "07df9128-928f-4c7b-b711-c46e32859b61"
     }
   ],
   "totals": {

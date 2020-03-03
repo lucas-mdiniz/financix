@@ -61,7 +61,16 @@ const Transactions = () => {
         : transaction
     );
 
-    //setTransactions(newTransactions);
+    const [newTransaction] = newTransactions.filter(
+      transaction => transaction.id === id
+    );
+
+    api
+      .put(`/transactions/${id}`, newTransaction)
+      .then(() => {
+        setTransactions(newTransactions);
+      })
+      .catch(error => console.log(error));
   };
 
   return (
@@ -78,12 +87,18 @@ const Transactions = () => {
                 <TransactionTitle>{transaction.title}</TransactionTitle>
                 <TransactionStatus>
                   <PaidButton
-                    onClick={handlePaidButton(transaction.id)}
-                    status={transaction.paid}
+                    onClick={() => {
+                      handlePaidButton(transaction.id);
+                    }}
+                    status={transaction.paid ? 1 : 0}
                     as={transaction.paid ? FaCheck : FaTimes}
                   />
                 </TransactionStatus>
-                <TransactionValue>{transaction.amount}</TransactionValue>
+                <TransactionValue>
+                  {transaction.type === 'expense'
+                    ? `-${transaction.amount}`
+                    : transaction.amount}
+                </TransactionValue>
               </TransactionItem>
             );
           })}
