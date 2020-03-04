@@ -1,26 +1,5 @@
 {
-  "transactions": [
-    {
-      "amount": "500",
-      "title": "teste",
-      "description": "a",
-      "date": "Wed, 04 Mar 2020 22:50:24 GMT",
-      "paid": true,
-      "type": "expense",
-      "category": "clothing",
-      "id": "40be16c0-4a77-42bb-9df2-c1a9daeeabff"
-    },
-    {
-      "amount": "5.000",
-      "title": "ganhos",
-      "description": "aa",
-      "date": "Wed, 04 Mar 2020 22:50:24 GMT",
-      "paid": false,
-      "type": "income",
-      "category": "investments",
-      "id": "154224cd-bc35-41de-a824-0eee95f00728"
-    }
-  ],
+  "transactions": [],
   "totals": {
     "expenses": "0",
     "predictedExpenses": "0",

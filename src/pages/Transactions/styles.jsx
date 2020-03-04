@@ -1,6 +1,21 @@
 import styled from 'styled-components';
 
+const DeleteButton = styled.i`
+  cursor: pointer;
+  min-width: 16px;
+  position: absolute;
+  right: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: 500ms;
+
+  &:hover {
+    color: #e20000;
+  }
+`;
+
 const TransactionItem = styled.li`
+  position: relative;
   margin: 0 10px;
   padding: 10px 0;
   border-bottom: 1px solid #f1f1f1;
@@ -8,6 +23,14 @@ const TransactionItem = styled.li`
   align-items: center;
   &:last-child {
     border-bottom: none;
+  }
+
+  &:hover {
+    ${DeleteButton} {
+      opacity: 1;
+      pointer-events: all;
+      transition: 300ms;
+    }
   }
 `;
 
@@ -94,4 +117,5 @@ export {
   BalanceDetails,
   BalanceValue,
   PaidButton,
+  DeleteButton,
 };
