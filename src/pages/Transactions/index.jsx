@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { FaCheck, FaTimes, FaMinus, FaPlus } from 'react-icons/fa';
+import { FaCheck, FaTimes, FaMinus, FaPlus, FaTrashAlt } from 'react-icons/fa';
 import PageTitle from '../../components/PageTitle';
 import Card from '../../containers/Card';
 import api from '../../services/api';
@@ -16,6 +16,7 @@ import {
   BalanceDetails,
   BalanceValue,
   PaidButton,
+  DeleteButton,
 } from './styles';
 import { Button } from '../../components/Button';
 import Modal from '../../containers/Modal';
@@ -52,6 +53,20 @@ const Transactions = () => {
 
   const handleClose = () => {
     setModalOpen(false);
+  };
+
+  const handleDelete = id => {
+    const newTransactions = transactions.filter(
+      transaction => id !== transaction.id
+    );
+
+    console.log(newTransactions);
+    api
+      .delete(`/transactions/${id}`)
+      .then(() => {
+        setTransactions(newTransactions);
+      })
+      .catch(error => console.log(error));
   };
 
   const handlePaidButton = id => {
@@ -99,6 +114,12 @@ const Transactions = () => {
                     ? `-${transaction.amount}`
                     : transaction.amount}
                 </TransactionValue>
+                <DeleteButton
+                  as={FaTrashAlt}
+                  onClick={() => {
+                    handleDelete(transaction.id);
+                  }}
+                />
               </TransactionItem>
             );
           })}
