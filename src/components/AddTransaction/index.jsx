@@ -56,6 +56,7 @@ const AddTransaction = ({ modalClose }) => {
   const handleSubmit = (values, { resetForm }) => {
     const newTransaction = {
       ...values,
+      category: values.category.value,
       id: uuidv4(),
       date: values.date.toUTCString(),
     };
