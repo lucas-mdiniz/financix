@@ -43,9 +43,7 @@ const AddTransaction = ({ modalClose }) => {
       .required('Required'),
     amount: Yup.string().required('Required'),
     date: Yup.date().required('Required'),
-    description: Yup.string()
-      .max(15, 'Must be 500 characters or less')
-      .required('Required'),
+    description: Yup.string().max(140, 'Must be 280 characters or less'),
     paid: Yup.boolean().required('Required'),
     type: Yup.string()
       .oneOf(['income', 'expense'])
