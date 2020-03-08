@@ -43,7 +43,7 @@ const TransactionDate = styled.span`
 
 const TransactionTitle = styled.span`
   display: inline-block;
-  width: 50%;
+  width: 60%;
   min-width: 200px;
   padding: 0 5px;
 `;
@@ -56,7 +56,7 @@ const TransactionStatus = styled.i`
 `;
 
 const TransactionValue = styled.span`
-  width: 20%;
+  width: 10%;
   display: inline-block;
   min-width: 100px;
   padding: 0 5px;

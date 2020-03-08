@@ -1,5 +1,76 @@
 {
-  "transactions": [],
+  "transactions": [
+    {
+      "amount": "123",
+      "title": "aaa",
+      "description": "aa",
+      "date": "Wed, 04 Mar 2020 23:16:33 GMT",
+      "paid": true,
+      "type": "expense",
+      "category": "clothing",
+      "id": "5b6e09ec-b80c-4a6c-bb72-a15f66a1cf86"
+    },
+    {
+      "amount": "456",
+      "title": "teste",
+      "description": "teste",
+      "date": "Wed, 04 Mar 2020 23:17:31 GMT",
+      "paid": true,
+      "type": "income",
+      "category": "investments",
+      "id": "4bcc95d4-37f2-4246-8138-d42170f6c81c"
+    },
+    {
+      "amount": "500",
+      "title": "casa",
+      "description": "moveis",
+      "date": "Wed, 04 Mar 2020 23:28:50 GMT",
+      "paid": true,
+      "type": "income",
+      "category": "other_earnings",
+      "id": "345f64ae-71b9-4e39-a3c8-ff0a23b6280a"
+    },
+    {
+      "amount": "500",
+      "title": "aluguel",
+      "description": "",
+      "date": "Thu, 05 Mar 2020 22:21:12 GMT",
+      "paid": true,
+      "type": "expense",
+      "category": "home",
+      "id": "30301b69-e768-46d7-a93e-991dea99f6ee"
+    },
+    {
+      "amount": "344",
+      "title": "qw",
+      "description": "",
+      "date": "Fri, 06 Mar 2020 23:22:09 GMT",
+      "paid": true,
+      "type": "expense",
+      "category": "clothing",
+      "id": "1cac41d8-9d91-49ec-9972-13416edd6580"
+    },
+    {
+      "amount": "700",
+      "title": "teste novo",
+      "description": "",
+      "date": "Mon, 09 Mar 2020 21:30:35 GMT",
+      "paid": true,
+      "type": "expense",
+      "category": "clothing",
+      "id": "b700a76c-f7d3-43bb-b3e0-f80ccdaf2b3b"
+    },
+    {
+      "amount": "1.253",
+      "title": "aa",
+      "description": "",
+      "date": "Sun, 08 Mar 2020 14:20:08 GMT",
+      "paid": false,
+      "type": "expense",
+      "category": "debts_loans",
+      "id": "d9b48fb8-e9d3-4d3f-b627-69739bc9205d"
+    }
+  ],
   "totals": {
     "expenses": "0",
     "predictedExpenses": "0",
@@ -8,127 +79,154 @@
     "balance": "0",
     "predictedBalance": "0"
   },
-  "categories": {
-    "expense": [
-      {
-        "name": "Bar & restaurants",
-        "slug": "bar_restaurants",
-        "id": "1"
-      },
-      {
-        "name": "Clothing",
-        "slug": "clothing",
-        "id": "2"
-      },
-      {
-        "name": "Debts & loans",
-        "slug": "debts_loans",
-        "id": "3"
-      },
-      {
-        "name": "Education",
-        "slug": "education",
-        "id": "4"
-      },
-      {
-        "name": "Entertainment & hobbies",
-        "slug": "entertainment_hobbies",
-        "id": "5"
-      },
-      {
-        "name": "Familly & children",
-        "slug": "familly_children",
-        "id": "6"
-      },
-      {
-        "name": "Food",
-        "slug": "food",
-        "id": "7"
-      },
-      {
-        "name": "Groceries",
-        "slug": "groceries",
-        "id": "8"
-      },
-      {
-        "name": "Health",
-        "slug": "health",
-        "id": "9"
-      },
-      {
-        "name": "Home",
-        "slug": "home",
-        "id": "10"
-      },
-      {
-        "name": "Investments",
-        "slug": "investments",
-        "id": "11"
-      },
-      {
-        "name": "Others",
-        "slug": "others",
-        "id": "12"
-      },
-      {
-        "name": "Personal care",
-        "slug": "personal_care",
-        "id": "13"
-      },
-      {
-        "name": "Pets",
-        "slug": "pets",
-        "id": "14"
-      },
-      {
-        "name": "Shopping",
-        "slug": "shopping",
-        "id": "15"
-      },
-      {
-        "name": "Subscriptions & services",
-        "slug": "subscriptions_services",
-        "id": "16"
-      },
-      {
-        "name": "Taxes",
-        "slug": "taxes",
-        "id": "17"
-      },
-      {
-        "name": "Transportation",
-        "slug": "transportation",
-        "id": "18"
-      },
-      {
-        "name": "Travel",
-        "slug": "travel",
-        "id": "19"
-      }
-    ],
-    "earning": [
-      {
-        "name": "Salary",
-        "slug": "salary",
-        "id": "20"
-      },
-      {
-        "name": "Loan",
-        "slug": "loan",
-        "id": "21"
-      },
-      {
-        "name": "Investments",
-        "slug": "investments",
-        "id": "22"
-      },
-      {
-        "name": "Other Earnings",
-        "slug": "other_earnings",
-        "id": "23"
-      }
-    ]
-  },
+  "categories": [
+    {
+      "name": "Bar & restaurants",
+      "slug": "bar_restaurants",
+      "type": "expense",
+      "amount": "100",
+      "id": "1"
+    },
+    {
+      "name": "Clothing",
+      "slug": "clothing",
+      "type": "expense",
+      "id": "2",
+      "amount": "300"
+    },
+    {
+      "name": "Debts & loans",
+      "slug": "debts_loans",
+      "type": "expense",
+      "id": "3",
+      "amount": "100"
+    },
+    {
+      "name": "Education",
+      "slug": "education",
+      "type": "expense",
+      "amount": "1000",
+      "id": "4"
+    },
+    {
+      "name": "Entertainment & hobbies",
+      "slug": "entertainment_hobbies",
+      "type": "expense",
+      "amount": "500",
+      "id": "5"
+    },
+    {
+      "name": "Familly & children",
+      "slug": "familly_children",
+      "type": "expense",
+      "id": "6"
+    },
+    {
+      "name": "Food",
+      "slug": "food",
+      "type": "expense",
+      "id": "7"
+    },
+    {
+      "name": "Groceries",
+      "slug": "groceries",
+      "type": "expense",
+      "id": "8"
+    },
+    {
+      "name": "Health",
+      "slug": "health",
+      "type": "expense",
+      "id": "9",
+      "amount": "200"
+    },
+    {
+      "name": "Home",
+      "slug": "home",
+      "type": "expense",
+      "id": "10"
+    },
+    {
+      "name": "Investments",
+      "slug": "investments",
+      "type": "expense",
+      "id": "11"
+    },
+    {
+      "name": "Others",
+      "slug": "others",
+      "type": "expense",
+      "id": "12",
+      "amount": "500"
+    },
+    {
+      "name": "Personal care",
+      "slug": "personal_care",
+      "type": "expense",
+      "id": "13"
+    },
+    {
+      "name": "Pets",
+      "slug": "pets",
+      "type": "expense",
+      "id": "14"
+    },
+    {
+      "name": "Shopping",
+      "slug": "shopping",
+      "type": "expense",
+      "id": "15"
+    },
+    {
+      "name": "Subscriptions & services",
+      "slug": "subscriptions_services",
+      "type": "expense",
+      "id": "16",
+      "amount": "50"
+    },
+    {
+      "name": "Taxes",
+      "slug": "taxes",
+      "type": "expense",
+      "id": "17"
+    },
+    {
+      "name": "Transportation",
+      "slug": "transportation",
+      "type": "expense",
+      "id": "18"
+    },
+    {
+      "name": "Travel",
+      "slug": "travel",
+      "type": "expense",
+      "id": "19"
+    },
+    {
+      "name": "Salary",
+      "slug": "salary",
+      "type": "earning",
+      "id": "20"
+    },
+    {
+      "name": "Loan",
+      "slug": "loan",
+      "type": "earning",
+      "id": "21"
+    },
+    {
+      "name": "Investments",
+      "slug": "investments",
+      "type": "earning",
+      "id": "22"
+    },
+    {
+      "name": "Other Earnings",
+      "slug": "other_earnings",
+      "type": "earning",
+      "id": "23"
+    }
+  ],
   "profile": {
     "name": "typicode"
   }
