@@ -3,6 +3,7 @@ import api from '../services/api';
 
 const useBudgets = () => {
   const [budgets, setBudgets] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     api.get('/categories').then(response => {
@@ -17,10 +18,11 @@ const useBudgets = () => {
         });
 
       setBudgets(budgetsData);
+      setLoading(false);
     });
   }, []);
 
-  return [budgets, setBudgets];
+  return { budgets, setBudgets, loading };
 };
 
 export default useBudgets;
