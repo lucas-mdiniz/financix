@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { Formik, Form } from 'formik';
 import api from '../../services/api';
@@ -8,7 +9,7 @@ import { InputItem, InputGroup } from '../FormComponents/styles';
 import { CenteredButton } from '../Button';
 import useCategories from '../../hooks/useCategories';
 
-const AddBudgets = ({ modalClose }) => {
+const AddBudgets = ({ modalClose, handleSetBudgets }) => {
   const [expensesCategories] = useCategories();
 
   const initialValues = {
@@ -24,13 +25,21 @@ const AddBudgets = ({ modalClose }) => {
   });
 
   const handleSubmit = values => {
-    api
-      .patch(`/categories/${values.category.id}`, {
-        amount: values.amount,
-      })
-      .then(() => {
+    const value = values.amount.replace('.', '').replace(',', '.');
+    handleSetBudgets(values);
+
+    async function patchCategory() {
+      try {
+        api.patch(`/categories/${values.category.id}`, {
+          amount: value,
+        });
         modalClose();
-      });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    patchCategory();
   };
 
   return (
@@ -58,6 +67,11 @@ const AddBudgets = ({ modalClose }) => {
       </Form>
     </Formik>
   );
+};
+
+AddBudgets.propTypes = {
+  modalClose: PropTypes.func.isRequired,
+  handleSetBudgets: PropTypes.func.isRequired,
 };
 
 export default AddBudgets;

@@ -6,20 +6,26 @@ const useBudgets = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get('/categories').then(response => {
-      const budgetsData = response.data
-        .filter(category => category.type === 'expense' && category.amount)
-        .map(budget => {
-          return {
-            name: budget.name,
-            value: parseFloat(budget.amount),
-            id: budget.id,
-          };
-        });
+    async function getCategories() {
+      try {
+        const response = await api.get('/categories');
+        const budgetsData = response.data
+          .filter(category => category.type === 'expense' && category.amount)
+          .map(budget => {
+            return {
+              name: budget.name,
+              value: parseFloat(budget.amount),
+              id: budget.slug,
+            };
+          });
+        setBudgets(budgetsData);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    }
 
-      setBudgets(budgetsData);
-      setLoading(false);
-    });
+    getCategories();
   }, []);
 
   return { budgets, setBudgets, loading };

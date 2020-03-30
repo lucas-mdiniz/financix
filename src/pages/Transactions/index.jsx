@@ -28,6 +28,7 @@ const Transactions = () => {
   const [transactions, setTransactions] = useContext(TransactionsContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [showBalanceDetails, setShowBalanceDetails] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const {
     income,
@@ -43,6 +44,7 @@ const Transactions = () => {
       try {
         const response = await api.get('/transactions');
         setTransactions(response.data);
+        setLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -88,7 +90,9 @@ const Transactions = () => {
       .catch(error => console.log(error));
   };
 
-  return (
+  return loading ? (
+    <p>Loading...</p>
+  ) : (
     <>
       <PageTitle>Transactions</PageTitle>
       <Card backgroundColor="#fff" borderRadius="10px">

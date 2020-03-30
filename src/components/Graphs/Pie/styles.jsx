@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 const PieWrapper = styled.div`
-  display: grid;
+  ${props => props.legend && 'display: grid;'}
   grid-template-columns: repeat(auto-fit, minmax(300px, auto));
   align-items: center;
   justify-content: center;
-  grid-gap: 20px;
+  grid-gap: 50px;
 `;
 
 const LegendColorBox = styled.span`
