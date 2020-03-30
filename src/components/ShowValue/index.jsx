@@ -21,7 +21,7 @@ ShowValue.defaultProps = {
 ShowValue.propTypes = {
   color: PropTypes.string,
   title: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.number,
 };
 
 export default ShowValue;

@@ -6,7 +6,6 @@ export default transactions => {
   let predictedIncome = 0;
   let predictedExpenses = 0;
 
-  // vou filtrar por pago ou n e add, depois fazer o post
   transactions.forEach(transaction => {
     if (transaction.type === 'expense') {
       if (transaction.paid) {
@@ -25,6 +24,7 @@ export default transactions => {
 
   predictedExpenses += expenses;
   predictedIncome += income;
+
   const balance = (income - expenses).toFixed(2);
   const predictedBalance = (predictedIncome - predictedExpenses).toFixed(2);
 

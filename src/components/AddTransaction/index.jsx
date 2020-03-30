@@ -52,21 +52,27 @@ const AddTransaction = ({ modalClose }) => {
   });
 
   const handleSubmit = (values, { resetForm }) => {
+    const amount = values.amount.replace('.', '').replace(',', '.');
     const newTransaction = {
       ...values,
+      amount,
       category: values.category.value,
       id: uuidv4(),
       date: values.date.toUTCString(),
     };
 
-    api
-      .post('/transactions', newTransaction)
-      .then(() => {
+    async function postTransaction() {
+      try {
+        await api.post('/transactions', newTransaction);
         setTransactions([...transactions, newTransaction]);
         modalClose();
         resetForm();
-      })
-      .catch(error => console.log(error));
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    postTransaction();
   };
 
   const numberMask = createNumberMask({

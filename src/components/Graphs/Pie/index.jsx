@@ -1,8 +1,8 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import 'tippy.js/dist/tippy.css';
 import * as d3 from 'd3';
-import tippy, { followCursor } from 'tippy.js';
+import usePie from './utils/usePie';
 import {
   LegendColorBox,
   LegendTitle,
@@ -14,11 +14,13 @@ import {
 const Pie = ({
   data,
   outerRadius,
-  innerRadius = 0,
+  innerRadius,
   width,
   height,
-  legend = false,
+  legend,
   colors,
+  tooltip,
+  sort,
 }) => {
   const graphRef = useRef(null);
 
@@ -26,47 +28,21 @@ const Pie = ({
     value: accumulator.value + currentData.value,
   }));
 
-  const arcs = d3
-    .pie()
-    .value(value => value.value)(data)
-    .sort((a, b) => a.data.name.localeCompare(b.data.name));
+  let arcs = d3.pie();
 
-  const arc = d3
+  if (sort) {
+    arcs = arcs.value(value => value.value)(data);
+  } else arcs = arcs.sort(null).value(value => value.value)(data);
+
+  const pieRadius = d3
     .arc()
     .innerRadius(innerRadius)
     .outerRadius(outerRadius);
 
-  useEffect(() => {
-    const graphContainer = d3.select(graphRef.current);
-
-    graphContainer
-      .selectAll('path')
-      .data(arcs)
-      .enter()
-      .append('path')
-      .attr('fill', d => {
-        return colors[d.index];
-      })
-      .attr('stroke', 'white')
-      .attr('d', arc)
-      .each(function creatTolltip(d) {
-        const pathReference = d3.select(this)._groups[0][0];
-
-        tippy(pathReference, {
-          content: `${d.data.name}: ${(
-            (d.data.value / total.value) *
-            100
-          ).toFixed(2)}%`,
-          theme: 'light',
-          arrow: false,
-          followCursor: true,
-          plugins: [followCursor],
-        });
-      });
-  });
+  usePie(graphRef, arcs, colors, pieRadius, tooltip, total);
 
   return (
-    <PieWrapper>
+    <PieWrapper legend={legend}>
       <div>
         <svg width={width} height={height}>
           <g
@@ -93,6 +69,8 @@ const Pie = ({
 Pie.defaultProps = {
   legend: false,
   innerRadius: 0,
+  tooltip: false,
+  sort: false,
 };
 
 Pie.propTypes = {
@@ -102,6 +80,8 @@ Pie.propTypes = {
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
   legend: PropTypes.bool,
+  tooltip: PropTypes.bool,
+  sort: PropTypes.bool,
   colors: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
