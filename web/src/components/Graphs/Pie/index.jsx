@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import 'tippy.js/dist/tippy.css';
 import * as d3 from 'd3';
 import usePie from './utils/usePie';
 import {
@@ -54,7 +53,7 @@ const Pie = ({
       {legend && (
         <ul>
           {arcs.map(currentArc => (
-            <LegendItem key={currentArc.data.id}>
+            <LegendItem key={currentArc.data._id}>
               <LegendColorBox color={colors[currentArc.index]} />
               <LegendTitle>{currentArc.data.name}: </LegendTitle>
               <LegendPercentage>{currentArc.data.value}</LegendPercentage>

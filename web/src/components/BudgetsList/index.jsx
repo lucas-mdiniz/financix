@@ -17,19 +17,19 @@ const BudgetList = ({ data }) => {
 
   data.forEach(budget => {
     const [expense] = transactions.filter(
-      transaction => transaction.category === budget.id
+      transaction => transaction.category === budget.slug
     );
 
     if (expense) {
       budgets.push([
         {
           name: expense.title,
-          value: parseFloat(expense.amount),
-          id: expense.id,
+          value: expense.amount,
+          id: expense._id,
         },
         {
           ...budget,
-          value: budget.value - parseFloat(expense.amount),
+          value: budget.value - expense.amount,
         },
       ]);
     }
@@ -40,7 +40,7 @@ const BudgetList = ({ data }) => {
     <p>Loading...</p>
   ) : (
     budgets.map(budget => (
-      <BudgetWrapper key={budget[1].id}>
+      <BudgetWrapper key={budget[1]._id}>
         <BudgetData>
           <Pie
             data={budget}

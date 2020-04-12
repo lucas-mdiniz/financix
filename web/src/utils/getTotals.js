@@ -1,5 +1,3 @@
-import parseCurrencyFloat from '../utils/parseCurrencyFloat';
-
 export default transactions => {
   let income = 0;
   let expenses = 0;
@@ -9,15 +7,15 @@ export default transactions => {
   transactions.forEach(transaction => {
     if (transaction.type === 'expense') {
       if (transaction.paid) {
-        expenses += parseCurrencyFloat(transaction.amount);
+        expenses += transaction.amount;
       } else {
-        predictedExpenses += parseCurrencyFloat(transaction.amount);
+        predictedExpenses += transaction.amount;
       }
     } else if (transaction.type === 'income') {
       if (transaction.paid) {
-        income += parseCurrencyFloat(transaction.amount);
+        income += transaction.amount;
       } else {
-        predictedIncome += parseCurrencyFloat(transaction.amount);
+        predictedIncome += transaction.amount;
       }
     }
   });
