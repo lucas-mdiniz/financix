@@ -25,14 +25,22 @@ const AddBudgets = ({ modalClose, handleSetBudgets }) => {
   });
 
   const handleSubmit = values => {
-    const value = values.amount.replace('.', '').replace(',', '.');
-    handleSetBudgets(values);
+    const value = parseFloat(values.amount.replace('.', '').replace(',', '.'));
+
+    const budget = {
+      name: values.category.label,
+      _id: values.category.id,
+      value,
+      slug: values.category.value,
+      type: values.category.type,
+    };
 
     async function patchCategory() {
       try {
-        api.patch(`/categories/${values.category.id}`, {
+        await api.patch(`/budgets/${budget._id}`, {
           amount: value,
         });
+        handleSetBudgets(budget);
         modalClose();
       } catch (error) {
         console.log(error);

@@ -16,17 +16,10 @@ const Budgets = () => {
 
   const handleSetBudgets = newBudget => {
     const filteredBudgets = budgets.filter(
-      budget => newBudget.category.value !== budget.id
+      budget => newBudget._id !== budget._id
     );
 
-    const newBudgets = [
-      ...filteredBudgets,
-      {
-        name: newBudget.category.label,
-        value: parseFloat(newBudget.amount.replace('.', '').replace(',', '.')),
-        id: newBudget.category.value,
-      },
-    ];
+    const newBudgets = [...filteredBudgets, newBudget];
     setBudgets(newBudgets);
   };
   const colors = chroma

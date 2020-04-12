@@ -59,6 +59,16 @@
       "type": "income",
       "category": "investments",
       "id": "ef8e8b7f-d489-41ac-b82b-4845515cac71"
+    },
+    {
+      "amount": "250.00",
+      "title": "teste",
+      "description": "teste",
+      "date": "Fri, 27 Mar 2020 22:23:33 GMT",
+      "paid": false,
+      "type": "expense",
+      "category": "debts_loans",
+      "id": "1b0c5547-a990-4970-8999-25fc7601a930"
     }
   ],
   "totals": {
@@ -79,10 +89,10 @@
     },
     {
       "name": "Clothing",
-      "slug": "clothing",
+      "slug": "bar_restaurants",
       "type": "expense",
       "id": "2",
-      "amount": "500"
+      "amount": "700"
     },
     {
       "name": "Debts & loans",

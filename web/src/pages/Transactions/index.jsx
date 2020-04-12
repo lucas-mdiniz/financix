@@ -22,7 +22,7 @@ import { Button } from '../../components/Button';
 import Modal from '../../containers/Modal';
 import AddTransaction from '../../components/AddTransaction';
 import { TransactionsContext } from '../../contexts/TransactionContext';
-import totals from '../../backend/totals';
+import getTotals from '../../utils/getTotals';
 
 const Transactions = () => {
   const [transactions, setTransactions] = useContext(TransactionsContext);
@@ -37,7 +37,7 @@ const Transactions = () => {
     predictedExpenses,
     balance,
     predictedBalance,
-  } = totals(transactions);
+  } = getTotals(transactions);
 
   useEffect(() => {
     async function getTransactions() {
@@ -59,10 +59,9 @@ const Transactions = () => {
 
   const handleDelete = id => {
     const newTransactions = transactions.filter(
-      transaction => id !== transaction.id
+      transaction => id !== transaction._id
     );
 
-    console.log(newTransactions);
     api
       .delete(`/transactions/${id}`)
       .then(() => {
@@ -73,17 +72,17 @@ const Transactions = () => {
 
   const handlePaidButton = id => {
     const newTransactions = transactions.map(transaction =>
-      transaction.id === id
+      transaction._id === id
         ? { ...transaction, paid: !transaction.paid }
         : transaction
     );
 
     const [newTransaction] = newTransactions.filter(
-      transaction => transaction.id === id
+      transaction => transaction._id === id
     );
 
     api
-      .put(`/transactions/${id}`, newTransaction)
+      .patch(`/transactions/${id}`, { paid: newTransaction.paid })
       .then(() => {
         setTransactions(newTransactions);
       })
@@ -99,7 +98,7 @@ const Transactions = () => {
         <ul>
           {transactions.map(transaction => {
             return (
-              <TransactionItem key={transaction.id}>
+              <TransactionItem key={transaction._id}>
                 <TransactionDate>
                   {new Date(transaction.date).toLocaleDateString()}
                 </TransactionDate>
@@ -107,7 +106,7 @@ const Transactions = () => {
                 <TransactionStatus>
                   <PaidButton
                     onClick={() => {
-                      handlePaidButton(transaction.id);
+                      handlePaidButton(transaction._id);
                     }}
                     status={transaction.paid ? 1 : 0}
                     as={transaction.paid ? FaCheck : FaTimes}
@@ -121,7 +120,7 @@ const Transactions = () => {
                 <DeleteButton
                   as={FaTrashAlt}
                   onClick={() => {
-                    handleDelete(transaction.id);
+                    handleDelete(transaction._id);
                   }}
                 />
               </TransactionItem>

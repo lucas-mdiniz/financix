@@ -7,7 +7,7 @@ const usePie = (graphRef, arcs, colors, pieRadius, tooltip, total) => {
   useEffect(() => {
     const graphContainer = d3.select(graphRef.current);
 
-    const arc = graphContainer.selectAll('path').data(arcs, d => d.data.id);
+    const arc = graphContainer.selectAll('path').data(arcs, d => d.data._id);
 
     arc.join(
       enter => {

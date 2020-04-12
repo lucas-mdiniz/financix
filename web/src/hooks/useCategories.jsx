@@ -4,20 +4,20 @@ import api from '../services/api';
 
 const useCategories = () => {
   const [expenseCategories, setExpenseCategories] = useState([{}]);
-  const [earningCategories, setEarningCategories] = useState([{}]);
+  const [incomeCategories, setIncomeCategories] = useState([{}]);
 
   useEffect(() => {
     async function getCategories() {
       try {
-        const response = await api.get('/categories');
+        const response = await api.get('/budgets');
         setExpenseCategories(
           response.data.filter(category => category.type === 'expense')
         );
-        setEarningCategories(
-          response.data.filter(category => category.type === 'earning')
+        setIncomeCategories(
+          response.data.filter(category => category.type === 'income')
         );
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     }
 
@@ -29,22 +29,22 @@ const useCategories = () => {
       label: expense.name || '',
       value: expense.slug || '',
       icon: Icons.expense[expense.slug] || '',
-      id: expense.id,
+      id: expense._id,
       type: expense.type,
     };
   });
 
-  const earnings = earningCategories.map(earning => {
+  const incomes = incomeCategories.map(income => {
     return {
-      label: earning.name || '',
-      value: earning.slug || '',
-      icon: Icons.earnings[earning.slug] || '',
-      id: earning.id,
-      type: earning.type,
+      label: income.name || '',
+      value: income.slug || '',
+      icon: Icons.incomes[income.slug] || '',
+      id: income.id,
+      type: income.type,
     };
   });
 
-  return [expenses, earnings];
+  return [expenses, incomes];
 };
 
 export default useCategories;

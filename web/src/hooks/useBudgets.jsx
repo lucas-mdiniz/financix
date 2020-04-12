@@ -8,17 +8,18 @@ const useBudgets = () => {
   useEffect(() => {
     async function getCategories() {
       try {
-        const response = await api.get('/categories');
-        const budgetsData = response.data
-          .filter(category => category.type === 'expense' && category.amount)
+        const response = await api.get('/budgets');
+        const budgetsData = response.data;
+
+        const filteredBudgets = budgetsData
+          .filter(budget => budget.type === 'expense' && budget.amount > 0)
           .map(budget => {
-            return {
-              name: budget.name,
-              value: parseFloat(budget.amount),
-              id: budget.slug,
-            };
+            budget['value'] = budget['amount'];
+            delete budget['amount'];
+            return budget;
           });
-        setBudgets(budgetsData);
+
+        setBudgets(filteredBudgets);
         setLoading(false);
       } catch (error) {
         console.log(error);

@@ -63,8 +63,9 @@ const AddTransaction = ({ modalClose }) => {
 
     async function postTransaction() {
       try {
-        await api.post('/transactions', newTransaction);
-        setTransactions([...transactions, newTransaction]);
+        const response = await api.post('/transactions', newTransaction);
+
+        setTransactions([...transactions, response.data]);
         modalClose();
         resetForm();
       } catch (error) {
