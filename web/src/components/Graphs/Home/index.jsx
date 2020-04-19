@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import tippy from 'tippy.js';
 import 'tippy.js/themes/light.css';
-import { compareAsc } from 'date-fns';
 import { ChartGrid, ChartHorizontalAxis, ChartContainer } from './styles';
 import { format, lastDayOfWeek } from 'date-fns';
 
@@ -12,10 +11,15 @@ const ReportGraph = ({ width, height, data }) => {
   const horizontalGridRef = useRef(null);
   const horizontalAxisRef = useRef(null);
 
-  const sortedData = data.sort((a, b) => compareAsc(a.date, b.date));
+  const sortedIncome = data.filter(data => data.type === 'income');
+  const sortedExpense = data.filter(data => data.type === 'expense');
 
-  const sortedIncome = sortedData.filter(data => data.type === 'income');
-  const sortedExpense = sortedData.filter(data => data.type === 'expense');
+  const balanceData = data.filter((currentData, i, dataArray) => {
+    if (i + 1 < dataArray.length) {
+      return currentData.name !== dataArray[i + 1].name;
+    }
+    return true;
+  });
 
   useEffect(() => {
     const svg = d3.select(graphRef.current);
@@ -30,15 +34,25 @@ const ReportGraph = ({ width, height, data }) => {
     const xValue = d => d.name;
 
     /* Creates a linear scale for the Y axis */
+
     const yScale = d3
       .scaleLinear()
-      .domain([0, d3.max(sortedData, yValue)])
+      .domain([
+        Math.min(
+          d3.min(data, d => d.balance),
+          d3.max(data, yValue)
+        ),
+        Math.max(
+          d3.max(data, yValue),
+          d3.max(data, d => d.balance)
+        ),
+      ])
       .range([innerHeight, 0]);
 
     /* Creates a Band scale for horizontal axis */
     const xScale = d3
       .scaleBand()
-      .domain(sortedData.map(xValue))
+      .domain(data.map(xValue))
       .range([0, innerWidth])
       .padding(0.3);
 
@@ -67,7 +81,7 @@ const ReportGraph = ({ width, height, data }) => {
     horizontalGrid.append('g').call(
       d3
         .axisLeft(yScale)
-        .ticks(4)
+        .ticks(8)
         .tickFormat('')
         .tickSize(-width)
     );
@@ -82,6 +96,48 @@ const ReportGraph = ({ width, height, data }) => {
         .style('font-size', newFontSize);
     }
 
+    /* create the line for the balance chart */
+    var line = d3
+      .line()
+      .x(d => xScale(xValue(d)) + xScale.bandwidth() / 2 - 0.75)
+      .y(d => yScale(d.balance))
+      .curve(d3.curveMonotoneX);
+
+    /* create the area for the balance chart */
+    const area = d3
+      .area()
+      .x(d => xScale(xValue(d)) + xScale.bandwidth() / 2 - 0.75)
+      .y1(d => yScale(d.balance))
+      .y0(yScale(0))
+      .curve(d3.curveMonotoneX);
+
+    svg
+      .append('path')
+      .attr('fill', 'rgba(90, 212, 171, 0.1)')
+      .attr('d', area(balanceData))
+      .call(function(d) {
+        const pathReference = d._groups[0][0];
+
+        const tippyInstance = tippy(pathReference, {
+          content: 'teste',
+          arrow: false,
+          theme: 'light',
+        });
+
+        d.on('mousemove', mousemove);
+
+        function mousemove() {
+          const x0 = d3.mouse(pathReference)[0];
+        }
+      });
+
+    svg
+      .append('g')
+      .append('path')
+      .attr('stroke', '#5ad4ab')
+      .attr('fill', 'none')
+      .attr('d', line(balanceData));
+
     /* create the expenses bars */
     svg
       .append('g')
@@ -91,7 +147,7 @@ const ReportGraph = ({ width, height, data }) => {
       .append('rect')
       .attr('x', d => xScale(xValue(d)) - 1.5)
       .attr('y', d => yScale(yValue(d)))
-      .attr('height', d => innerHeight - yScale(yValue(d)))
+      .attr('height', d => yScale(0) - yScale(yValue(d)))
       .attr('width', xScale.bandwidth() / 2 - 1.5)
       .attr('fill', '#FF7F7F')
       .each(function(d) {
@@ -125,7 +181,7 @@ const ReportGraph = ({ width, height, data }) => {
       .append('rect')
       .attr('x', d => xScale(xValue(d)) + xScale.bandwidth() / 2 + 1.5)
       .attr('y', d => yScale(yValue(d)))
-      .attr('height', d => innerHeight - yScale(yValue(d)))
+      .attr('height', d => yScale(0) - yScale(yValue(d)))
       .attr('width', xScale.bandwidth() / 2 - 1.5)
       .attr('fill', '#5ad4ab')
       .each(function(d) {

@@ -1,6 +1,5 @@
 const express = require('express');
 const Transaction = require('../models/transaction');
-const { v4: uuidv4 } = require('uuid');
 
 const router = express.Router();
 
@@ -42,7 +41,11 @@ router.get('/filter', async (req, res) => {
       return res.status(404).send();
     }
 
-    res.send(transactions);
+    const sortedTransactions = transactions.sort(
+      (a, b) => a._id.week - b._id.week
+    );
+
+    res.send(sortedTransactions);
   } catch (e) {
     res.status(500).send();
   }

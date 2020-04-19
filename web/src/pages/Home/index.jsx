@@ -11,7 +11,7 @@ import { addWeeks, startOfWeek, format } from 'date-fns';
 
 const Home = () => {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
-  const [transactions, setTransactions] = useTransactions([]);
+  const [transactions] = useTransactions([]);
   const [loading, setLoading] = useState(true);
   const { balance, income, expenses } = getTotals(transactions);
 
@@ -30,6 +30,7 @@ const Home = () => {
           `/filter?initialDate=${initialDate}&finalDate=${finalDate}`
         );
 
+        let balance = 0;
         const parsedTransactions = response.data.map(filteredTransaction => {
           const startOfWeekDate = startOfWeek(
             addWeeks(
@@ -40,12 +41,19 @@ const Home = () => {
           );
           const formatedDate = format(startOfWeekDate, 'dd MMM');
 
+          balance =
+            balance +
+            (filteredTransaction._id.type === 'expense'
+              ? -filteredTransaction.amount
+              : filteredTransaction.amount);
+
           return {
             value: filteredTransaction.amount,
             name: formatedDate,
             id: filteredTransaction.id[0],
             type: filteredTransaction._id.type,
             date: startOfWeekDate,
+            balance,
           };
         });
 
