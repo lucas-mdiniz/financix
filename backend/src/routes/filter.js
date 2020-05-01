@@ -18,9 +18,21 @@ router.get('/filter', async (req, res) => {
       },
       {
         $project: {
-          type: '$type',
+          expense: {
+            $cond: {
+              if: { $eq: ['expense', '$type'] },
+              then: '$amount',
+              else: '$$REMOVE',
+            },
+          },
+          earning: {
+            $cond: {
+              if: { $eq: ['income', '$type'] },
+              then: '$amount',
+              else: '$$REMOVE',
+            },
+          },
           date: '$date',
-          amount: '$amount',
           id: '$_id',
         },
       },
@@ -29,10 +41,19 @@ router.get('/filter', async (req, res) => {
           _id: {
             week: { $week: '$date' },
             year: { $year: '$date' },
-            type: '$type',
           },
-          amount: { $sum: '$amount' },
+          expense: { $sum: '$expense' },
+          earning: { $sum: '$earning' },
           id: { $addToSet: '$id' },
+        },
+      },
+      {
+        $project: {
+          _id: { $arrayElemAt: ['$id', 0] },
+          week: '$_id.week',
+          year: '$_id.year',
+          expense: '$expense',
+          earning: '$earning',
         },
       },
     ]);
@@ -41,9 +62,7 @@ router.get('/filter', async (req, res) => {
       return res.status(404).send();
     }
 
-    const sortedTransactions = transactions.sort(
-      (a, b) => a._id.week - b._id.week
-    );
+    const sortedTransactions = transactions.sort((a, b) => a.week - b.week);
 
     res.send(sortedTransactions);
   } catch (e) {

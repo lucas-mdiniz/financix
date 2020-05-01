@@ -101,7 +101,7 @@ export default {
       </CategoryIconExpense>
     ),
   },
-  incomes: {
+  income: {
     salary: (
       <CategoryIconEarning>
         <ReactIcons.FaStar />
