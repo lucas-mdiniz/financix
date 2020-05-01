@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyledCard from './styles';
+import { StyledCard } from './styles';
 
 function Card({
   borderRadius,

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropType from 'prop-types';
-import Pie from '../Graphs/Pie';
-import useTransactions from '../../hooks/useTransactions';
+import Pie from '../Charts/Pie';
 import {
   BudgetWrapper,
   BudgetDetailsWrapper,
@@ -10,62 +9,65 @@ import {
   BudgetData,
   BudgetPercentage,
 } from './styles';
+import EmptyData from '../EmptyData';
 
-const BudgetList = ({ data }) => {
-  const [transactions, loading] = useTransactions();
-  const budgets = [];
+const BudgetList = ({ budgets, transactions }) => {
+  let budgetsList = [];
 
-  data.forEach(budget => {
-    const [expense] = transactions.filter(
+  budgets.forEach(budget => {
+    const expenses = transactions.filter(
       transaction => transaction.category === budget.slug
     );
 
-    if (expense) {
-      budgets.push([
-        {
-          name: expense.title,
-          value: expense.amount,
-          id: expense._id,
-        },
-        {
-          ...budget,
-          value: budget.value - expense.amount,
-        },
-      ]);
+    if (expenses.length > 0) {
+      const expensesValue = Object.values(expenses).reduce(
+        (acc, { amount }) => acc.amount + amount
+      );
+
+      budgetsList.push({
+        ...budget,
+        value: budget.value,
+        expenses: expensesValue.amount || expensesValue,
+      });
     }
   });
 
-  const colors = ['#ff8300', '#ccc'];
-  return loading ? (
-    <p>Loading...</p>
+  const returnColors = budget => {
+    if (budget.expenses / budget.value < 1) {
+      return ['#ff8300', '#ccc'];
+    }
+    return ['#ff7f7f', '#ccc'];
+  };
+
+  return budgetsList.length === 0 ? (
+    <EmptyData>You don't have expenses for your budgets yet!</EmptyData>
   ) : (
-    budgets.map(budget => (
-      <BudgetWrapper key={budget[1]._id}>
+    budgetsList.map(budget => (
+      <BudgetWrapper key={budget._id}>
         <BudgetData>
           <Pie
-            data={budget}
+            data={[
+              { value: budget.expenses },
+              { value: budget.value - budget.expenses },
+            ]}
             width={50}
             height={50}
             innerRadius={15}
             outerRadius={25}
-            colors={colors}
+            colors={returnColors(budget)}
           />
           <BudgetDetailsWrapper>
-            <BudgetDetailsTitle>{budget[1].name}</BudgetDetailsTitle>
+            <BudgetDetailsTitle>{budget.name}</BudgetDetailsTitle>
             <BudgetDetailsContent>
-              Budget: R$ {budget[1].value + budget[0].value}
+              Budget: R$ {budget.value}
             </BudgetDetailsContent>
             <BudgetDetailsContent>
-              Spent: R$ {budget[0].value}
+              Spent: R$ {budget.expenses}
             </BudgetDetailsContent>
           </BudgetDetailsWrapper>
         </BudgetData>
         <BudgetPercentage>
-          {(
-            (budget[0].value / (budget[0].value + budget[1].value)) *
-            100
-          ).toFixed(0)}
-          %
+          {((budget.expenses / budget.value) * 100).toFixed(0)}%
         </BudgetPercentage>
       </BudgetWrapper>
     ))
@@ -73,7 +75,7 @@ const BudgetList = ({ data }) => {
 };
 
 BudgetList.defaultProps = {
-  data: {},
+  budgets: {},
 };
 
 BudgetList.propTypes = {

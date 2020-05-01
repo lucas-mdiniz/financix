@@ -11,4 +11,9 @@ const StyledCard = styled.div`
   overflow: auto;
 `;
 
-export default StyledCard;
+const CardTitle = styled.h2`
+  font-size: 25px;
+  font-weight: bold;
+`;
+
+export { StyledCard, CardTitle };

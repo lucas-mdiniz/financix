@@ -2,20 +2,14 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import tippy from 'tippy.js';
 import 'tippy.js/themes/light.css';
-import { compareAsc } from 'date-fns';
 import { ChartGrid, ChartHorizontalAxis, ChartContainer } from './styles';
 import { format, lastDayOfWeek } from 'date-fns';
 
-const ReportGraph = ({ width, height, data }) => {
+const ReportChart = ({ width, height, data }) => {
   const graphRef = useRef(null);
   const verticalGridRef = useRef(null);
   const horizontalGridRef = useRef(null);
   const horizontalAxisRef = useRef(null);
-
-  const sortedData = data.sort((a, b) => compareAsc(a.date, b.date));
-
-  const sortedIncome = sortedData.filter(data => data.type === 'income');
-  const sortedExpense = sortedData.filter(data => data.type === 'expense');
 
   useEffect(() => {
     const svg = d3.select(graphRef.current);
@@ -26,21 +20,45 @@ const ReportGraph = ({ width, height, data }) => {
     const innerWidth = width - margin.right - margin.left;
     const innerHeight = height - margin.top - margin.bottom;
 
-    const yValue = d => d.value;
     const xValue = d => d.name;
 
     /* Creates a linear scale for the Y axis */
+
     const yScale = d3
       .scaleLinear()
-      .domain([0, d3.max(sortedData, yValue)])
+      .domain([
+        Math.min(
+          0,
+          d3.min(data, d => d.balance),
+          d3.min(data, d => Math.min(d.expense, d.earning))
+        ),
+        Math.max(
+          d3.max(data, d => Math.max(d.expense, d.earning)),
+          d3.max(data, d => d.balance)
+        ),
+      ])
       .range([innerHeight, 0]);
 
     /* Creates a Band scale for horizontal axis */
     const xScale = d3
       .scaleBand()
-      .domain(sortedData.map(xValue))
+      .domain(data.map(xValue))
       .range([0, innerWidth])
       .padding(0.3);
+
+    // custom invert function
+    xScale.invert = (() => {
+      const domain = xScale.domain();
+      const range = xScale.range();
+      const scale = d3
+        .scaleQuantize()
+        .domain(range)
+        .range(domain);
+
+      return function(x) {
+        return scale(x);
+      };
+    })();
 
     /* Creates the background vertical grid */
     verticalGrid
@@ -50,7 +68,7 @@ const ReportGraph = ({ width, height, data }) => {
           .axisBottom(xScale)
           .ticks(10)
           .tickFormat('')
-          .tickSize(-height)
+          .tickSize(-innerHeight)
       )
       .attr('transform', `translate(0, ${innerHeight})`)
       .style('opacity', '0.7');
@@ -67,7 +85,7 @@ const ReportGraph = ({ width, height, data }) => {
     horizontalGrid.append('g').call(
       d3
         .axisLeft(yScale)
-        .ticks(4)
+        .ticks(8)
         .tickFormat('')
         .tickSize(-width)
     );
@@ -82,16 +100,102 @@ const ReportGraph = ({ width, height, data }) => {
         .style('font-size', newFontSize);
     }
 
+    /* create the line for the balance chart */
+    var line = d3
+      .line()
+      .x(d => xScale(xValue(d)) + xScale.bandwidth() / 2 - 0.75)
+      .y(d => yScale(d.balance))
+      .curve(d3.curveMonotoneX);
+
+    /* create the area for the balance chart */
+    const area = d3
+      .area()
+      .x(d => xScale(xValue(d)) + xScale.bandwidth() / 2 - 0.75)
+      .y1(d => yScale(d.balance))
+      .y0(yScale(0))
+      .curve(d3.curveMonotoneX);
+
+    const bullet = svg
+      .append('circle')
+      .attr('fill', '#5ad4ab')
+      .attr('r', 5)
+      .style('visibility', 'hidden');
+
+    svg
+      .append('path')
+      .attr('fill', 'rgba(90, 212, 171, 0.1)')
+      .attr('d', area(data))
+      .call(function(d) {
+        const pathReference = d._groups[0][0];
+
+        const tippyInstance = tippy(pathReference, {
+          arrow: false,
+          allowHTML: true,
+          theme: 'light',
+        });
+
+        const mousemove = () => {
+          const x0 = xScale.invert(d3.mouse(pathReference)[0]);
+          const trackedDateIndex = xAxisDomain.indexOf(x0);
+          const d = data[trackedDateIndex];
+          const tooltipX = xScale(d.name) + xScale.bandwidth() / 2;
+          const tooltipY = yScale(d.balance);
+
+          bullet
+            .attr('transform', `translate(${tooltipX}, ${tooltipY})`)
+            .style('visibility', 'visible');
+
+          const balanceTooltipContent = `
+            <span style="font-size: 12px; color: #696969; display: block">
+              Balance of ${d.name}
+            </span> 
+            <span style="font-size: 18px; font-weight: bold; color: ${
+              d.balance < 0 ? '#FF7F7F' : '#5ad4ab'
+            };">
+              R$ ${d.balance.toFixed(2)} 
+            </span>
+          `;
+
+          tippyInstance.setProps({
+            getReferenceClientRect() {
+              const rect = bullet._groups[0][0].getBoundingClientRect();
+              return {
+                width: 5,
+                height: 5,
+                left: rect.x,
+                top: rect.y,
+              };
+            },
+            content: balanceTooltipContent,
+          });
+        };
+
+        const mouseout = () => {
+          bullet.style('visibility', 'hidden');
+        };
+
+        d.on('mousemove', mousemove).on('mouseout', mouseout);
+
+        const xAxisDomain = data.map(d => d.name);
+      });
+
+    svg
+      .append('g')
+      .append('path')
+      .attr('stroke', '#5ad4ab')
+      .attr('fill', 'none')
+      .attr('d', line(data));
+
     /* create the expenses bars */
     svg
       .append('g')
       .selectAll('rect')
-      .data(sortedExpense, d => d.id)
+      .data(data, d => d._id)
       .enter()
       .append('rect')
       .attr('x', d => xScale(xValue(d)) - 1.5)
-      .attr('y', d => yScale(yValue(d)))
-      .attr('height', d => innerHeight - yScale(yValue(d)))
+      .attr('y', d => yScale(d.expense))
+      .attr('height', d => yScale(0) - yScale(d.expense))
       .attr('width', xScale.bandwidth() / 2 - 1.5)
       .attr('fill', '#FF7F7F')
       .each(function(d) {
@@ -103,7 +207,7 @@ const ReportGraph = ({ width, height, data }) => {
         const toolTipTemplate = `<span style="font-size: 12px; color: #696969; display: block">Expenses from ${
           d.name
         } to ${weekEnding}</span> 
-                                <span style="font-size: 18px; font-weight: bold; color: #FF7F7F;" >R$ ${d.value.toFixed(
+                                <span style="font-size: 18px; font-weight: bold; color: #FF7F7F;" >R$ ${d.expense.toFixed(
                                   2
                                 )} </span>`;
 
@@ -120,12 +224,12 @@ const ReportGraph = ({ width, height, data }) => {
     svg
       .append('g')
       .selectAll('rect')
-      .data(sortedIncome, d => d.id)
+      .data(data, d => d.id)
       .enter()
       .append('rect')
       .attr('x', d => xScale(xValue(d)) + xScale.bandwidth() / 2 + 1.5)
-      .attr('y', d => yScale(yValue(d)))
-      .attr('height', d => innerHeight - yScale(yValue(d)))
+      .attr('y', d => yScale(d.earning))
+      .attr('height', d => yScale(0) - yScale(d.earning))
       .attr('width', xScale.bandwidth() / 2 - 1.5)
       .attr('fill', '#5ad4ab')
       .each(function(d) {
@@ -137,7 +241,7 @@ const ReportGraph = ({ width, height, data }) => {
         const toolTipTemplate = `<span style="font-size: 12px; color: #696969; display: block">Earnings from ${
           d.name
         } to ${weekEnding}</span> 
-                                <span style="font-size: 18px; font-weight: bold; color: #5ad4ab;" >R$ ${d.value.toFixed(
+                                <span style="font-size: 18px; font-weight: bold; color: #5ad4ab;" >R$ ${d.earning.toFixed(
                                   2
                                 )} </span>`;
 
@@ -159,4 +263,4 @@ const ReportGraph = ({ width, height, data }) => {
   );
 };
 
-export default ReportGraph;
+export default ReportChart;

@@ -35,7 +35,7 @@ const GlobalStyle = createGlobalStyle`
 
 const StyledApp = styled.div`
   display: flex;
-  height: 100%;
+  min-height: 100%;
 `;
 
 export { StyledApp, GlobalStyle };

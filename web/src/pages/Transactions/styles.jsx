@@ -3,8 +3,6 @@ import styled from 'styled-components';
 const DeleteButton = styled.i`
   cursor: pointer;
   min-width: 16px;
-  position: absolute;
-  right: 0;
   opacity: 0;
   pointer-events: none;
   transition: 500ms;
@@ -14,15 +12,9 @@ const DeleteButton = styled.i`
   }
 `;
 
-const TransactionItem = styled.li`
-  position: relative;
-  margin: 0 10px;
-  padding: 10px 0;
-  border-bottom: 1px solid #f1f1f1;
-  display: flex;
-  align-items: center;
-  &:last-child {
-    border-bottom: none;
+const TransactionItem = styled.tr`
+  &:not(:last-child) {
+    border-bottom: 1px solid #e9e9e9;
   }
 
   &:hover {
@@ -34,37 +26,34 @@ const TransactionItem = styled.li`
   }
 `;
 
-const TransactionDate = styled.span`
-  min-width: 100px;
-  display: inline-block;
-  width: 20%;
-  padding: 0 5px;
+const TransactionsTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
 `;
 
-const TransactionTitle = styled.span`
-  display: inline-block;
-  width: 60%;
-  min-width: 200px;
-  padding: 0 5px;
+const TransactionCell = styled.td`
+  padding: 10px;
+  color: #696969;
+  font-size: 15px;
+  text-align: left;
+  vertical-align: middle;
+
+  &:last-child {
+    width: 16px;
+  }
 `;
 
-const TransactionStatus = styled.i`
-  width: 10%;
-  display: inline-block;
-  min-width: 20px;
-  padding: 0 5px;
-`;
-
-const TransactionValue = styled.span`
-  width: 10%;
-  display: inline-block;
-  min-width: 100px;
-  padding: 0 5px;
-`;
-
-const TransactionsTotals = styled(TransactionItem)`
+const TransactionsTotals = styled.div`
+  display: flex;
+  align-items: center;
   border-top: 2px solid #e6e6e6;
   justify-content: space-between;
+  padding: 20px 10px 10px 10px;
+`;
+
+const TransactionDateWrapper = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const BalanceColumn = styled.div`
@@ -104,12 +93,15 @@ const PaidButton = styled.i`
   cursor: pointer;
 `;
 
+const TransactionIcon = styled.span`
+  margin-right: 5px;
+`;
+
 export {
+  TransactionsTable,
+  TransactionCell,
   TransactionItem,
-  TransactionDate,
-  TransactionTitle,
-  TransactionStatus,
-  TransactionValue,
+  TransactionDateWrapper,
   TransactionsTotals,
   BalanceColumn,
   BalanceColumnData,
@@ -118,4 +110,5 @@ export {
   BalanceValue,
   PaidButton,
   DeleteButton,
+  TransactionIcon,
 };

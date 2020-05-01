@@ -7,7 +7,7 @@ const CategoryIconEarning = styled.i`
   padding: 10px;
   text-align: center;
   font-size: 20px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 `;

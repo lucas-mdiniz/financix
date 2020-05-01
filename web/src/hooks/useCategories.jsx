@@ -38,7 +38,7 @@ const useCategories = () => {
     return {
       label: income.name || '',
       value: income.slug || '',
-      icon: Icons.incomes[income.slug] || '',
+      icon: Icons.income[income.slug] || '',
       id: income.id,
       type: income.type,
     };

@@ -52,7 +52,8 @@ const AddTransaction = ({ modalClose }) => {
   });
 
   const handleSubmit = (values, { resetForm }) => {
-    const amount = values.amount.replace('.', '').replace(',', '.');
+    let amount = values.amount.replace('.', '').replace(',', '.');
+
     const newTransaction = {
       ...values,
       amount,

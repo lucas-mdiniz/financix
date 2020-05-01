@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import FlexRow from '../../containers/FlexRow';
+import Card from '../../containers/Card';
 import ShowValue from '../../components/ShowValue';
 import PageTitle from '../../components/PageTitle';
-import Card from '../../containers/Card';
 import useTransactions from '../../hooks/useTransactions';
 import getTotals from '../../utils/getTotals';
-import ReportGraph from '../../components/Graphs/Home';
+import ReportChart from '../../components/Charts/Home';
+import EmptyData from '../../components/EmptyData';
 import api from '../../services/api';
 import { addWeeks, startOfWeek, format } from 'date-fns';
+import ReportDetails from './DetailsTable/ReportDetails';
 
 const Home = () => {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
-  const [transactions, setTransactions] = useTransactions([]);
+  const [transactions] = useTransactions([]);
   const [loading, setLoading] = useState(true);
   const { balance, income, expenses } = getTotals(transactions);
 
   useEffect(() => {
     async function getTransactionsPerPeriod() {
-      const date = new Date();
+      const date = new Date('04/04/2020');
       const initialDate = new Date(
         Date.UTC(date.getFullYear(), date.getMonth(), 1)
       ).toISOString();
@@ -30,22 +32,25 @@ const Home = () => {
           `/filter?initialDate=${initialDate}&finalDate=${finalDate}`
         );
 
+        let balance = 0;
         const parsedTransactions = response.data.map(filteredTransaction => {
           const startOfWeekDate = startOfWeek(
             addWeeks(
-              new Date(filteredTransaction._id.year, 0, 0),
-              filteredTransaction._id.week
+              new Date(filteredTransaction.year, 0, 0),
+              filteredTransaction.week
             ),
             { weekStartsOn: 0 }
           );
           const formatedDate = format(startOfWeekDate, 'dd MMM');
 
+          balance =
+            balance + filteredTransaction.earning - filteredTransaction.expense;
+
           return {
-            value: filteredTransaction.amount,
             name: formatedDate,
-            id: filteredTransaction.id[0],
-            type: filteredTransaction._id.type,
             date: startOfWeekDate,
+            balance,
+            ...filteredTransaction,
           };
         });
 
@@ -64,22 +69,43 @@ const Home = () => {
   ) : (
     <>
       <PageTitle>Home</PageTitle>
-      <FlexRow>
-        <ShowValue
-          color="#00b300"
-          value={parseFloat(balance)}
-          title="Balance"
-        />
-        <ShowValue color="#00b300" value={parseFloat(income)} title="Income" />
-        <ShowValue
-          color="#e00000"
-          value={parseFloat(expenses)}
-          title="Expenses"
-        />
-      </FlexRow>
-      <Card borderRadius="10px" horizontalMargin="15px" padding="30px">
-        <ReportGraph width={800} height={350} data={filteredTransactions} />
-      </Card>
+      {filteredTransactions.length === 0 ? (
+        <Card borderRadius="10px" horizontalMargin="15px" padding="30px">
+          <EmptyData>You don't have transactions yet!</EmptyData>
+        </Card>
+      ) : (
+        <>
+          <FlexRow>
+            <ShowValue
+              color={parseFloat(balance) < 0 ? '#e00000' : '#00b300'}
+              value={parseFloat(balance)}
+              title="Balance"
+            />
+            <ShowValue
+              color="#00b300"
+              value={parseFloat(income)}
+              title="Income"
+            />
+            <ShowValue
+              color="#e00000"
+              value={parseFloat(expenses)}
+              title="Expenses"
+            />
+          </FlexRow>
+          <Card borderRadius="10px" horizontalMargin="15px" padding="30px">
+            {filteredTransactions.length === 0 ? (
+              <EmptyData>You don't have transactions yet!</EmptyData>
+            ) : (
+              <ReportChart
+                width={800}
+                height={350}
+                data={filteredTransactions}
+              />
+            )}
+          </Card>
+          <ReportDetails filteredTransactions={filteredTransactions} />
+        </>
+      )}
     </>
   );
 };
