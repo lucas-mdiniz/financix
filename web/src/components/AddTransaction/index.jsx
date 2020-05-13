@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import uuidv4 from 'uuid';
 import { Formik, Form } from 'formik';
@@ -19,12 +19,9 @@ import {
   InputItemCenter,
 } from '../FormComponents/styles';
 import { StyledFaMinus, StyledFaPlus, StyledCenteredButton } from './styles';
-import { TransactionsContext } from '../../contexts/TransactionContext';
 import useCategories from '../../hooks/useCategories';
 
-const AddTransaction = ({ modalClose }) => {
-  const [transactions, setTransactions] = useContext(TransactionsContext);
-
+const AddTransaction = ({ modalClose, setTransactions, transactions }) => {
   const [expensesCategories, earningsCategories] = useCategories();
 
   const initialFormValues = {
@@ -97,6 +94,7 @@ const AddTransaction = ({ modalClose }) => {
               name="type"
               value="expense"
               valueSelected={values.type}
+              id="type-expense"
             >
               <StyledFaMinus>
                 <FaMinus />
@@ -107,6 +105,7 @@ const AddTransaction = ({ modalClose }) => {
               name="type"
               value="income"
               valueSelected={values.type}
+              id="type-income"
             >
               <StyledFaPlus>
                 <FaPlus />

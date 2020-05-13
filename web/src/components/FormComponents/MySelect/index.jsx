@@ -49,8 +49,8 @@ const Option = props => {
 const MySelect = ({ label, ...props }) => {
   const [field, meta] = useField(props);
 
-  const { setFieldValue } = useFormikContext();
-  const { id, placeholder, options } = props;
+  const { setFieldValue, handleSubmit } = useFormikContext();
+  const { id, placeholder, options, submitOnChange } = props;
   const { name, value, onBlur } = field;
 
   return (
@@ -59,7 +59,10 @@ const MySelect = ({ label, ...props }) => {
       <Select
         id={id || name}
         styles={customStyles}
-        onChange={category => setFieldValue('category', category)}
+        onChange={value => {
+          setFieldValue(name, value);
+          submitOnChange && handleSubmit();
+        }}
         name={name}
         value={value}
         onBlur={onBlur}

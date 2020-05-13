@@ -15,8 +15,22 @@ router.post('/transactions', async (req, res) => {
 });
 
 router.get('/transactions', async (req, res) => {
+  let conditions = {};
+  const { initialDate, finalDate, paid } = req.query;
+
+  if (initialDate && finalDate) {
+    conditions.date = {
+      $gte: initialDate,
+      $lte: finalDate,
+    };
+  }
+
+  if (paid) {
+    paid === 'true' ? (conditions.paid = true) : (conditions.paid = false);
+  }
+
   try {
-    const transactions = await Transaction.find();
+    const transactions = await Transaction.find(conditions);
 
     res.send(transactions);
   } catch (e) {
