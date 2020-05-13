@@ -1,14 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import api from '../services/api';
+import { DateFilter } from '../contexts/DateFilterContext';
+import { startOfMonth, endOfMonth } from 'date-fns';
 
-const useTransactions = () => {
+const useTransactions = paid => {
+  const [selectedDate] = useContext(DateFilter);
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const initialDate = startOfMonth(selectedDate).toISOString();
+  const finalDate = endOfMonth(selectedDate).toISOString();
 
   useEffect(() => {
     async function getTransactions() {
       try {
-        const response = await api.get('/transactions');
+        const response = await api.get(
+          `/transactions/?initialDate=${initialDate}&finalDate=${finalDate}${
+            paid ? `&paid=${paid}` : ''
+          }`
+        );
         setTransactions(response.data);
         setLoading(false);
       } catch (error) {
@@ -17,9 +27,9 @@ const useTransactions = () => {
     }
 
     getTransactions();
-  }, []);
+  }, [initialDate, finalDate, paid]);
 
-  return [transactions, loading];
+  return [transactions, setTransactions, loading];
 };
 
 export default useTransactions;

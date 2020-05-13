@@ -1,8 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 import { FaCheck, FaTimes, FaMinus, FaPlus, FaTrashAlt } from 'react-icons/fa';
-import PageTitle from '../../components/PageTitle';
 import Card from '../../containers/Card';
 import api from '../../services/api';
+import Header from '../../components/Header';
+import { Button } from '../../components/Button';
+import Modal from '../../containers/Modal';
+import EmptyData from '../../components/EmptyData';
+import AddTransaction from '../../components/AddTransaction';
+import getTotals from '../../utils/getTotals';
+import Icons from '../../assets/Icons';
+import useTransactions from '../../hooks/useTransactions';
 import {
   TransactionItem,
   TransactionCell,
@@ -18,19 +25,11 @@ import {
   TransactionsTable,
   TransactionIcon,
 } from './styles';
-import { Button } from '../../components/Button';
-import Modal from '../../containers/Modal';
-import EmptyData from '../../components/EmptyData';
-import AddTransaction from '../../components/AddTransaction';
-import { TransactionsContext } from '../../contexts/TransactionContext';
-import getTotals from '../../utils/getTotals';
-import Icons from '../../assets/Icons';
 
 const Transactions = () => {
-  const [transactions, setTransactions] = useContext(TransactionsContext);
+  const [transactions, setTransactions, loading] = useTransactions();
   const [modalOpen, setModalOpen] = useState(false);
   const [showBalanceDetails, setShowBalanceDetails] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   const {
     income,
@@ -40,20 +39,6 @@ const Transactions = () => {
     balance,
     predictedBalance,
   } = getTotals(transactions);
-
-  useEffect(() => {
-    async function getTransactions() {
-      try {
-        const response = await api.get('/transactions');
-        setTransactions(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    getTransactions();
-  }, []);
 
   const handleClose = () => {
     setModalOpen(false);
@@ -91,13 +76,11 @@ const Transactions = () => {
       .catch(error => console.log(error));
   };
 
-  console.log(transactions);
-
   return loading ? (
     <p>Loading...</p>
   ) : (
     <>
-      <PageTitle>Transactions</PageTitle>
+      <Header>Transactions</Header>
       <Card backgroundColor="#fff" borderRadius="10px">
         {transactions.length === 0 ? (
           <EmptyData>You don't have transactions yet!</EmptyData>
@@ -201,7 +184,11 @@ const Transactions = () => {
       </Card>
       <Button onClick={() => setModalOpen(true)}>Add Transaction</Button>
       <Modal open={modalOpen} onClose={handleClose}>
-        <AddTransaction modalClose={handleClose} />
+        <AddTransaction
+          modalClose={handleClose}
+          setTransactions={setTransactions}
+          transactions={transactions}
+        />
       </Modal>
     </>
   );

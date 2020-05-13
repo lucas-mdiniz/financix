@@ -21,7 +21,7 @@ const BudgetList = ({ budgets, transactions }) => {
 
     if (expenses.length > 0) {
       const expensesValue = Object.values(expenses).reduce(
-        (acc, { amount }) => acc.amount + amount
+        (acc, { amount }) => (acc.amount || acc) + amount
       );
 
       budgetsList.push({

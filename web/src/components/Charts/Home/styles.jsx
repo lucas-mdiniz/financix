@@ -23,7 +23,7 @@ const ChartHorizontalAxis = styled.g`
   }
 `;
 
-const ChartContainer = styled.svg`
+const ChartContainer = styled.g`
   max-width: 1024px;
   display: block;
   margin: 0 auto;

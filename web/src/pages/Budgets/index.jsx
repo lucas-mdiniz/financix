@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import chroma from 'chroma-js';
+import Header from '../../components/Header';
 import AddBudgets from '../../components/AddBudgets';
 import BudgetsList from '../../components/BudgetsList';
-import PageTitle from '../../components/PageTitle';
 import { Button } from '../../components/Button';
 import Modal from '../../containers/Modal';
 import Card from '../../containers/Card';
@@ -15,7 +15,7 @@ import { CardTitle } from '../../containers/Card/styles';
 const Budgets = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const { budgets, loading, setBudgets } = useBudgets();
-  const [transactions, loadingTransactions] = useTransactions();
+  const [transactions, , loadingTransactions] = useTransactions(true);
 
   const handleSetBudgets = newBudget => {
     const filteredBudgets = budgets.filter(
@@ -42,8 +42,7 @@ const Budgets = () => {
     <p>Loading ...</p>
   ) : (
     <>
-      <PageTitle>Budgets</PageTitle>
-
+      <Header>Budgets</Header>
       <Card borderRadius="10px">
         {budgets.length === 0 ? (
           <EmptyData>You don't have any budget yet!</EmptyData>

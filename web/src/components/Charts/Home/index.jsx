@@ -21,7 +21,10 @@ const ReportChart = ({ width, height, data }) => {
     const innerHeight = height - margin.top - margin.bottom;
 
     const xValue = d => d.name;
-
+    svg.selectAll('*').remove();
+    verticalGrid.selectAll('*').remove();
+    horizontalGrid.selectAll('*').remove();
+    horizontalAxis.selectAll('*').remove();
     /* Creates a linear scale for the Y axis */
 
     const yScale = d3
@@ -115,13 +118,22 @@ const ReportChart = ({ width, height, data }) => {
       .y0(yScale(0))
       .curve(d3.curveMonotoneX);
 
-    const bullet = svg
+    const lineAreaChart = svg.append('g');
+    const barChart = svg.append('g');
+
+    const bullet = lineAreaChart
       .append('circle')
       .attr('fill', '#5ad4ab')
       .attr('r', 5)
       .style('visibility', 'hidden');
 
-    svg
+    lineAreaChart
+      .append('path')
+      .attr('stroke', '#5ad4ab')
+      .attr('fill', 'none')
+      .attr('d', line(data));
+
+    lineAreaChart
       .append('path')
       .attr('fill', 'rgba(90, 212, 171, 0.1)')
       .attr('d', area(data))
@@ -179,15 +191,8 @@ const ReportChart = ({ width, height, data }) => {
         const xAxisDomain = data.map(d => d.name);
       });
 
-    svg
-      .append('g')
-      .append('path')
-      .attr('stroke', '#5ad4ab')
-      .attr('fill', 'none')
-      .attr('d', line(data));
-
     /* create the expenses bars */
-    svg
+    barChart
       .append('g')
       .selectAll('rect')
       .data(data, d => d._id)
@@ -221,10 +226,10 @@ const ReportChart = ({ width, height, data }) => {
 
     /* create the earnings bars */
 
-    svg
+    barChart
       .append('g')
       .selectAll('rect')
-      .data(data, d => d.id)
+      .data(data, d => d._id)
       .enter()
       .append('rect')
       .attr('x', d => xScale(xValue(d)) + xScale.bandwidth() / 2 + 1.5)
@@ -252,14 +257,17 @@ const ReportChart = ({ width, height, data }) => {
           theme: 'light',
         });
       });
-  });
+  }, [data, width, height]);
 
   return (
-    <ChartContainer viewBox={`0 0 ${width} ${height}`} ref={graphRef}>
-      <ChartGrid ref={horizontalGridRef} />
-      <ChartGrid ref={verticalGridRef} />
-      <ChartHorizontalAxis ref={horizontalAxisRef} />
-    </ChartContainer>
+    <svg viewBox={`0 0 ${width} ${height}`}>
+      <g>
+        <ChartGrid ref={horizontalGridRef} />
+        <ChartGrid ref={verticalGridRef} />
+        <ChartHorizontalAxis ref={horizontalAxisRef} />
+      </g>
+      <ChartContainer ref={graphRef} />
+    </svg>
   );
 };
 

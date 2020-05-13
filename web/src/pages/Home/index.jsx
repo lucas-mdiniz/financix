@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import FlexRow from '../../containers/FlexRow';
 import Card from '../../containers/Card';
+import Header from '../../components/Header';
 import ShowValue from '../../components/ShowValue';
-import PageTitle from '../../components/PageTitle';
 import useTransactions from '../../hooks/useTransactions';
 import getTotals from '../../utils/getTotals';
 import ReportChart from '../../components/Charts/Home';
@@ -10,26 +10,31 @@ import EmptyData from '../../components/EmptyData';
 import api from '../../services/api';
 import { addWeeks, startOfWeek, format } from 'date-fns';
 import ReportDetails from './DetailsTable/ReportDetails';
+import { DateFilter } from '../../contexts/DateFilterContext';
+import ConsiderUnpaidSelector from '../../components/ConsiderUnpaidSelector';
 
 const Home = () => {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
-  const [transactions] = useTransactions([]);
+  const [selectedDate] = useContext(DateFilter);
+  const [transactions] = useTransactions();
   const [loading, setLoading] = useState(true);
   const { balance, income, expenses } = getTotals(transactions);
+  const [considerUnpaid, setConsiderUnpaid] = useState(false);
 
   useEffect(() => {
     async function getTransactionsPerPeriod() {
-      const date = new Date('04/04/2020');
       const initialDate = new Date(
-        Date.UTC(date.getFullYear(), date.getMonth(), 1)
+        Date.UTC(selectedDate.getFullYear(), selectedDate.getMonth(), 1)
       ).toISOString();
       const finalDate = new Date(
-        Date.UTC(date.getFullYear(), date.getMonth() + 1, 0)
+        Date.UTC(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 0)
       ).toISOString();
 
       try {
         const response = await api.get(
-          `/filter?initialDate=${initialDate}&finalDate=${finalDate}`
+          `/weekly?initialDate=${initialDate}&finalDate=${finalDate}${
+            !considerUnpaid ? `&paid=${!considerUnpaid}` : ''
+          }`
         );
 
         let balance = 0;
@@ -62,13 +67,17 @@ const Home = () => {
     }
 
     getTransactionsPerPeriod();
-  }, []);
+  }, [selectedDate, considerUnpaid]);
 
   return loading ? (
     <p>Loading</p>
   ) : (
     <>
-      <PageTitle>Home</PageTitle>
+      <Header>Home</Header>
+      <ConsiderUnpaidSelector
+        setConsiderUnpaid={setConsiderUnpaid}
+        considerUnpaid={considerUnpaid}
+      />
       {filteredTransactions.length === 0 ? (
         <Card borderRadius="10px" horizontalMargin="15px" padding="30px">
           <EmptyData>You don't have transactions yet!</EmptyData>
