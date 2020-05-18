@@ -22,6 +22,7 @@ const MyCheckbox = ({ children, ...props }) => {
           value={value}
           onBlur={onBlur}
           type="checkbox"
+          checked={value}
         />
         {children}
       </StyledCheckBox>

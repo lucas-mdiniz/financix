@@ -7,10 +7,12 @@ import { Button } from '../../components/Button';
 import Modal from '../../containers/Modal';
 import EmptyData from '../../components/EmptyData';
 import AddTransaction from '../../components/AddTransaction';
+import EditTransaction from '../../components/EditTransaction';
 import getTotals from '../../utils/getTotals';
 import Icons from '../../assets/Icons';
 import useTransactions from '../../hooks/useTransactions';
 import {
+  TransactionTitles,
   TransactionItem,
   TransactionCell,
   TransactionDateWrapper,
@@ -28,7 +30,9 @@ import {
 
 const Transactions = () => {
   const [transactions, setTransactions, loading] = useTransactions();
-  const [modalOpen, setModalOpen] = useState(false);
+  const [addModalOpen, setAddModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [currentTransaction, setCurrentTransaction] = useState({});
   const [showBalanceDetails, setShowBalanceDetails] = useState(false);
 
   const {
@@ -40,8 +44,12 @@ const Transactions = () => {
     predictedBalance,
   } = getTotals(transactions);
 
-  const handleClose = () => {
-    setModalOpen(false);
+  const handleCloseAdd = () => {
+    setAddModalOpen(false);
+  };
+
+  const handleCloseEdit = () => {
+    setEditModalOpen(false);
   };
 
   const handleDelete = id => {
@@ -55,6 +63,11 @@ const Transactions = () => {
         setTransactions(newTransactions);
       })
       .catch(error => console.log(error));
+  };
+
+  const handleEdit = currentTransaction => {
+    setCurrentTransaction(currentTransaction);
+    setEditModalOpen(true);
   };
 
   const handlePaidButton = id => {
@@ -88,30 +101,42 @@ const Transactions = () => {
           <>
             <TransactionsTable>
               <tbody>
-                <TransactionItem>
+                <TransactionTitles>
                   <TransactionCell as="th">Date</TransactionCell>
                   <TransactionCell as="th">Title</TransactionCell>
                   <TransactionCell as="th">Paid</TransactionCell>
                   <TransactionCell as="th">Value</TransactionCell>
                   <TransactionCell as="th"></TransactionCell>
-                </TransactionItem>
+                </TransactionTitles>
                 {transactions.map(transaction => {
                   return (
-                    <TransactionItem key={transaction._id}>
+                    <TransactionItem
+                      onClick={() => {
+                        handleEdit(transaction);
+                      }}
+                      key={transaction._id}
+                    >
                       <TransactionCell>
                         <TransactionDateWrapper>
                           <TransactionIcon>
-                            {Icons[transaction.type][transaction.category]}
+                            {
+                              Icons[transaction.type][
+                                transaction.category.value
+                              ]
+                            }
                           </TransactionIcon>
                           {new Date(transaction.date).toLocaleDateString()}
                         </TransactionDateWrapper>
                       </TransactionCell>
                       <TransactionCell>{transaction.title}</TransactionCell>
-                      <TransactionCell>
+                      <TransactionCell
+                        onClick={e => {
+                          e.stopPropagation();
+                          handlePaidButton(transaction._id);
+                        }}
+                        paidButton={true}
+                      >
                         <PaidButton
-                          onClick={() => {
-                            handlePaidButton(transaction._id);
-                          }}
                           status={transaction.paid ? 1 : 0}
                           as={transaction.paid ? FaCheck : FaTimes}
                         />
@@ -121,13 +146,14 @@ const Transactions = () => {
                           ? `-${transaction.amount}`
                           : transaction.amount}
                       </TransactionCell>
-                      <TransactionCell>
-                        <DeleteButton
-                          as={FaTrashAlt}
-                          onClick={() => {
-                            handleDelete(transaction._id);
-                          }}
-                        />
+                      <TransactionCell
+                        onClick={e => {
+                          e.stopPropagation();
+                          handleDelete(transaction._id);
+                        }}
+                        deleteButton={true}
+                      >
+                        <DeleteButton as={FaTrashAlt} />
                       </TransactionCell>
                     </TransactionItem>
                   );
@@ -182,14 +208,26 @@ const Transactions = () => {
           </>
         )}
       </Card>
-      <Button onClick={() => setModalOpen(true)}>Add Transaction</Button>
-      <Modal open={modalOpen} onClose={handleClose}>
-        <AddTransaction
-          modalClose={handleClose}
-          setTransactions={setTransactions}
-          transactions={transactions}
-        />
-      </Modal>
+      <Button onClick={() => setAddModalOpen(true)}>Add Transaction</Button>
+      {addModalOpen && (
+        <Modal open={addModalOpen} onClose={handleCloseAdd}>
+          <AddTransaction
+            modalClose={handleCloseAdd}
+            setTransactions={setTransactions}
+            transactions={transactions}
+          />
+        </Modal>
+      )}
+      {editModalOpen && (
+        <Modal open={editModalOpen} onClose={handleCloseEdit}>
+          <EditTransaction
+            modalClose={handleCloseEdit}
+            setTransactions={setTransactions}
+            transactions={transactions}
+            currentTransaction={currentTransaction}
+          />
+        </Modal>
+      )}
     </>
   );
 };

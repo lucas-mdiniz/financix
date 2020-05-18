@@ -60,7 +60,7 @@ const MySelect = ({ label, ...props }) => {
         id={id || name}
         styles={customStyles}
         onChange={value => {
-          setFieldValue(name, value);
+          setFieldValue(name, { value: value.value, label: value.label });
           submitOnChange && handleSubmit();
         }}
         name={name}

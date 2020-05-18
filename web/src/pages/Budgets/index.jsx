@@ -66,7 +66,7 @@ const Budgets = () => {
           <BudgetsList budgets={budgets} transactions={transactions} />
         </Card>
       )}
-      <Button onClick={handleOpenModal}>Add Budget</Button>
+      <Button onClick={handleOpenModal}>Add/Edit Budget</Button>
       <Modal open={modalOpen} onClose={handleClose}>
         <AddBudgets
           modalClose={handleClose}

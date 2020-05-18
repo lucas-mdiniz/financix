@@ -16,7 +16,7 @@ const BudgetList = ({ budgets, transactions }) => {
 
   budgets.forEach(budget => {
     const expenses = transactions.filter(
-      transaction => transaction.category === budget.slug
+      transaction => transaction.category.value === budget.slug
     );
 
     if (expenses.length > 0) {
@@ -42,35 +42,38 @@ const BudgetList = ({ budgets, transactions }) => {
   return budgetsList.length === 0 ? (
     <EmptyData>You don't have expenses for your budgets yet!</EmptyData>
   ) : (
-    budgetsList.map(budget => (
-      <BudgetWrapper key={budget._id}>
-        <BudgetData>
-          <Pie
-            data={[
-              { value: budget.expenses },
-              { value: budget.value - budget.expenses },
-            ]}
-            width={50}
-            height={50}
-            innerRadius={15}
-            outerRadius={25}
-            colors={returnColors(budget)}
-          />
-          <BudgetDetailsWrapper>
-            <BudgetDetailsTitle>{budget.name}</BudgetDetailsTitle>
-            <BudgetDetailsContent>
-              Budget: R$ {budget.value}
-            </BudgetDetailsContent>
-            <BudgetDetailsContent>
-              Spent: R$ {budget.expenses}
-            </BudgetDetailsContent>
-          </BudgetDetailsWrapper>
-        </BudgetData>
-        <BudgetPercentage>
-          {((budget.expenses / budget.value) * 100).toFixed(0)}%
-        </BudgetPercentage>
-      </BudgetWrapper>
-    ))
+    budgetsList.map(
+      budget =>
+        budget.value > 0 && (
+          <BudgetWrapper key={budget._id}>
+            <BudgetData>
+              <Pie
+                data={[
+                  { value: budget.expenses },
+                  { value: budget.value - budget.expenses },
+                ]}
+                width={50}
+                height={50}
+                innerRadius={15}
+                outerRadius={25}
+                colors={returnColors(budget)}
+              />
+              <BudgetDetailsWrapper>
+                <BudgetDetailsTitle>{budget.name}</BudgetDetailsTitle>
+                <BudgetDetailsContent>
+                  Budget: R$ {budget.value}
+                </BudgetDetailsContent>
+                <BudgetDetailsContent>
+                  Spent: R$ {budget.expenses}
+                </BudgetDetailsContent>
+              </BudgetDetailsWrapper>
+            </BudgetData>
+            <BudgetPercentage>
+              {((budget.expenses / budget.value) * 100).toFixed(0)}%
+            </BudgetPercentage>
+          </BudgetWrapper>
+        )
+    )
   );
 };
 
