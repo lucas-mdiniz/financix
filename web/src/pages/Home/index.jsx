@@ -12,6 +12,7 @@ import { addWeeks, startOfWeek, format } from 'date-fns';
 import ReportDetails from './DetailsTable/ReportDetails';
 import { DateFilter } from '../../contexts/DateFilterContext';
 import ConsiderUnpaidSelector from '../../components/ConsiderUnpaidSelector';
+import getWeeksOfMonth from '../../utils/getWeeksOfMonth';
 
 const Home = () => {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
@@ -37,8 +38,17 @@ const Home = () => {
           }`
         );
 
+        const weeksOfMonth = getWeeksOfMonth(selectedDate);
+
         let balance = 0;
-        const parsedTransactions = response.data.map(filteredTransaction => {
+        const parsedTransactions = weeksOfMonth.map(transactionWeek => {
+          const transactionIndex = response.data.findIndex(
+            transaction => transaction.week === transactionWeek.week
+          );
+
+          const filteredTransaction =
+            response.data[transactionIndex] || transactionWeek;
+
           const startOfWeekDate = startOfWeek(
             addWeeks(
               new Date(filteredTransaction.year, 0, 0),
@@ -109,6 +119,7 @@ const Home = () => {
                 width={800}
                 height={350}
                 data={filteredTransactions}
+                date={selectedDate}
               />
             )}
           </Card>

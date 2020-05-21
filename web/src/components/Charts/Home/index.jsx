@@ -5,7 +5,7 @@ import 'tippy.js/themes/light.css';
 import { ChartGrid, ChartHorizontalAxis, ChartContainer } from './styles';
 import { format, lastDayOfWeek } from 'date-fns';
 
-const ReportChart = ({ width, height, data }) => {
+const ReportChart = ({ width, height, data, date }) => {
   const graphRef = useRef(null);
   const verticalGridRef = useRef(null);
   const horizontalGridRef = useRef(null);
@@ -38,7 +38,7 @@ const ReportChart = ({ width, height, data }) => {
         Math.max(
           d3.max(data, d => Math.max(d.expense, d.earning)),
           d3.max(data, d => d.balance)
-        ),
+        ) * 1.1,
       ])
       .range([innerHeight, 0]);
 
