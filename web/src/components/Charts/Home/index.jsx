@@ -1,9 +1,10 @@
 import React, { useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import * as d3 from 'd3';
+import { format, lastDayOfWeek } from 'date-fns';
 import tippy from 'tippy.js';
 import 'tippy.js/themes/light.css';
 import { ChartGrid, ChartHorizontalAxis, ChartContainer } from './styles';
-import { format, lastDayOfWeek } from 'date-fns';
 
 const ReportChart = ({ width, height, data }) => {
   const graphRef = useRef(null);
@@ -38,7 +39,7 @@ const ReportChart = ({ width, height, data }) => {
         Math.max(
           d3.max(data, d => Math.max(d.expense, d.earning)),
           d3.max(data, d => d.balance)
-        ),
+        ) * 1.1,
       ])
       .range([innerHeight, 0]);
 
@@ -58,7 +59,7 @@ const ReportChart = ({ width, height, data }) => {
         .domain(range)
         .range(domain);
 
-      return function(x) {
+      return x => {
         return scale(x);
       };
     })();
@@ -97,14 +98,14 @@ const ReportChart = ({ width, height, data }) => {
 
     const newWidth = parseFloat(svg.style('width'));
     if (newWidth < 800) {
-      const newFontSize = 14 * (width / parseInt(newWidth));
+      const newFontSize = 14 * (width / parseInt(newWidth, 10));
       d3.selectAll('.tick')
         .select('text')
         .style('font-size', newFontSize);
     }
 
     /* create the line for the balance chart */
-    var line = d3
+    const line = d3
       .line()
       .x(d => xScale(xValue(d)) + xScale.bandwidth() / 2 - 0.75)
       .y(d => yScale(d.balance))
@@ -133,11 +134,13 @@ const ReportChart = ({ width, height, data }) => {
       .attr('fill', 'none')
       .attr('d', line(data));
 
+    const xAxisDomain = data.map(d => d.name);
+
     lineAreaChart
       .append('path')
       .attr('fill', 'rgba(90, 212, 171, 0.1)')
       .attr('d', area(data))
-      .call(function(d) {
+      .call(d => {
         const pathReference = d._groups[0][0];
 
         const tippyInstance = tippy(pathReference, {
@@ -149,9 +152,9 @@ const ReportChart = ({ width, height, data }) => {
         const mousemove = () => {
           const x0 = xScale.invert(d3.mouse(pathReference)[0]);
           const trackedDateIndex = xAxisDomain.indexOf(x0);
-          const d = data[trackedDateIndex];
-          const tooltipX = xScale(d.name) + xScale.bandwidth() / 2;
-          const tooltipY = yScale(d.balance);
+          const currentData = data[trackedDateIndex];
+          const tooltipX = xScale(currentData.name) + xScale.bandwidth() / 2;
+          const tooltipY = yScale(currentData.balance);
 
           bullet
             .attr('transform', `translate(${tooltipX}, ${tooltipY})`)
@@ -159,12 +162,12 @@ const ReportChart = ({ width, height, data }) => {
 
           const balanceTooltipContent = `
             <span style="font-size: 12px; color: #696969; display: block">
-              Balance of ${d.name}
+              Balance of ${currentData.name}
             </span> 
             <span style="font-size: 18px; font-weight: bold; color: ${
-              d.balance < 0 ? '#FF7F7F' : '#5ad4ab'
+              currentData.balance < 0 ? '#FF7F7F' : '#5ad4ab'
             };">
-              R$ ${d.balance.toFixed(2)} 
+              R$ ${currentData.balance.toFixed(2)} 
             </span>
           `;
 
@@ -187,8 +190,6 @@ const ReportChart = ({ width, height, data }) => {
         };
 
         d.on('mousemove', mousemove).on('mouseout', mouseout);
-
-        const xAxisDomain = data.map(d => d.name);
       });
 
     /* create the expenses bars */
@@ -203,7 +204,7 @@ const ReportChart = ({ width, height, data }) => {
       .attr('height', d => yScale(0) - yScale(d.expense))
       .attr('width', xScale.bandwidth() / 2 - 1.5)
       .attr('fill', '#FF7F7F')
-      .each(function(d) {
+      .each(function barChartExpensesToolptip(d) {
         const weekEnding = format(
           lastDayOfWeek(d.date, { weekStartsOn: 0 }),
           'dd MMM'
@@ -212,9 +213,9 @@ const ReportChart = ({ width, height, data }) => {
         const toolTipTemplate = `<span style="font-size: 12px; color: #696969; display: block">Expenses from ${
           d.name
         } to ${weekEnding}</span> 
-                                <span style="font-size: 18px; font-weight: bold; color: #FF7F7F;" >R$ ${d.expense.toFixed(
-                                  2
-                                )} </span>`;
+                                  <span style="font-size: 18px; font-weight: bold; color: #FF7F7F;" >R$ ${d.expense.toFixed(
+                                    2
+                                  )} </span>`;
 
         tippy(pathReference, {
           content: toolTipTemplate,
@@ -237,7 +238,7 @@ const ReportChart = ({ width, height, data }) => {
       .attr('height', d => yScale(0) - yScale(d.earning))
       .attr('width', xScale.bandwidth() / 2 - 1.5)
       .attr('fill', '#5ad4ab')
-      .each(function(d) {
+      .each(function barChartEarningsToolptip(d) {
         const weekEnding = format(
           lastDayOfWeek(d.date, { weekStartsOn: 0 }),
           'dd MMM'
@@ -269,6 +270,17 @@ const ReportChart = ({ width, height, data }) => {
       <ChartContainer ref={graphRef} />
     </svg>
   );
+};
+
+ReportChart.defaultProps = {
+  width: 500,
+  height: 500,
+};
+
+ReportChart.propTypes = {
+  width: PropTypes.number,
+  height: PropTypes.number,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ReportChart;

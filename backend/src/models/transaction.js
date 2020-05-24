@@ -9,7 +9,7 @@ const Transaction = mongoose.model('Transaction', {
     type: String,
     required: true,
   },
-  decription: {
+  description: {
     type: String,
   },
   date: {
@@ -25,8 +25,14 @@ const Transaction = mongoose.model('Transaction', {
     required: true,
   },
   category: {
-    type: String,
-    required: true,
+    value: {
+      type: String,
+      required: true,
+    },
+    label: {
+      type: String,
+      required: true,
+    },
   },
 });
 

@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
+import { startOfMonth, endOfMonth } from 'date-fns';
 import api from '../services/api';
 import { DateFilter } from '../contexts/DateFilterContext';
-import { startOfMonth, endOfMonth } from 'date-fns';
 
 const useTransactions = paid => {
   const [selectedDate] = useContext(DateFilter);

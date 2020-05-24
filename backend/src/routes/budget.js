@@ -17,7 +17,7 @@ router.patch('/budgets/:id', async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = 'amount';
 
-  const isValidOperation = updates.every(update =>
+  const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
   );
 
@@ -37,7 +37,7 @@ router.patch('/budgets/:id', async (req, res) => {
 
     res.send(budget);
   } catch (e) {
-    res.status.send(400);
+    res.status(400).send();
   }
 });
 

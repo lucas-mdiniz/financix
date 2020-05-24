@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post('/transactions', async (req, res) => {
   const transaction = new Transaction(req.body);
+
   try {
     await transaction.save();
 
@@ -35,6 +36,24 @@ router.get('/transactions', async (req, res) => {
     res.send(transactions);
   } catch (e) {
     res.status(500).send();
+  }
+});
+
+router.put('/transactions/:id', async (req, res) => {
+  try {
+    const transaction = await Transaction.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
+    if (!transaction) {
+      return res.status(404).send();
+    }
+
+    res.send(transaction);
+  } catch (e) {
+    res.status(400).send();
   }
 });
 
@@ -72,7 +91,7 @@ router.patch('/transactions/:id', async (req, res) => {
     );
 
     if (!transaction) {
-      return res.status(404).send(0);
+      return res.status(404).send();
     }
 
     res.send(transaction);

@@ -1,38 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import uuidv4 from 'uuid';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { FaPlus, FaMinus } from 'react-icons/fa';
-import api from '../../services/api';
-import MyMaskedInput from '../FormComponents/MyMaskedInput';
-import MySelect from '../FormComponents/MySelect';
-import MyTextInput from '../FormComponents/MyTextInput';
-import MyTextArea from '../FormComponents/MyTextArea';
-import MyDateField from '../FormComponents/MyDateField';
-import MyCheckbox from '../FormComponents/MyCheckbox';
-import MyTransactionTypeButton from '../FormComponents/MyTransactionTypeButton';
+import MyMaskedInput from '../../../components/FormComponents/MyMaskedInput';
+import MySelect from '../../../components/FormComponents/MySelect';
+import MyTextInput from '../../../components/FormComponents/MyTextInput';
+import MyTextArea from '../../../components/FormComponents/MyTextArea';
+import MyDateField from '../../../components/FormComponents/MyDateField';
+import MyCheckbox from '../../../components/FormComponents/MyCheckbox';
+import MyTransactionTypeButton from '../../../components/FormComponents/MyTransactionTypeButton';
 import {
   InputItem,
   InputGroup,
   InputItemCenter,
-} from '../FormComponents/styles';
+} from '../../../components/FormComponents/styles';
 import { StyledFaMinus, StyledFaPlus, StyledCenteredButton } from './styles';
-import useCategories from '../../hooks/useCategories';
+import useCategories from '../../../hooks/useCategories';
 
-const AddTransaction = ({ modalClose, setTransactions, transactions }) => {
+const TransactionForm = ({ initialFormValues, handleSubmit }) => {
   const [expensesCategories, earningsCategories] = useCategories();
-
-  const initialFormValues = {
-    amount: '',
-    title: '',
-    description: '',
-    date: new Date(),
-    paid: false,
-    type: 'expense',
-    category: null,
-  };
 
   const addTransactionSchema = Yup.object({
     title: Yup.string()
@@ -47,32 +35,6 @@ const AddTransaction = ({ modalClose, setTransactions, transactions }) => {
       .required('Required'),
     category: Yup.object().required(),
   });
-
-  const handleSubmit = (values, { resetForm }) => {
-    let amount = values.amount.replace('.', '').replace(',', '.');
-
-    const newTransaction = {
-      ...values,
-      amount,
-      category: values.category.value,
-      id: uuidv4(),
-      date: values.date.toUTCString(),
-    };
-
-    async function postTransaction() {
-      try {
-        const response = await api.post('/transactions', newTransaction);
-
-        setTransactions([...transactions, response.data]);
-        modalClose();
-        resetForm();
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    postTransaction();
-  };
 
   const numberMask = createNumberMask({
     allowDecimal: true,
@@ -161,8 +123,17 @@ const AddTransaction = ({ modalClose, setTransactions, transactions }) => {
   );
 };
 
-AddTransaction.propTypes = {
-  modalClose: PropTypes.func.isRequired,
+TransactionForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  initialFormValues: PropTypes.shape({
+    amount: PropTypes.string,
+    category: PropTypes.objectOf(PropTypes.string),
+    date: PropTypes.instanceOf(Date),
+    description: PropTypes.string,
+    paid: PropTypes.bool,
+    title: PropTypes.string,
+    type: PropTypes.string,
+  }).isRequired,
 };
 
-export default AddTransaction;
+export default TransactionForm;

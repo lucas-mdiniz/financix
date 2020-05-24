@@ -6,18 +6,26 @@ const DeleteButton = styled.i`
   opacity: 0;
   pointer-events: none;
   transition: 500ms;
-
-  &:hover {
-    color: #e20000;
-  }
 `;
 
-const TransactionItem = styled.tr`
+const PaidButton = styled.i`
+  color: ${props => props.status && '#008000'};
+  cursor: pointer;
+`;
+
+const TransactionTitles = styled.tr`
   &:not(:last-child) {
     border-bottom: 1px solid #e9e9e9;
   }
+`;
+
+const TransactionItem = styled(TransactionTitles)`
+  cursor: pointer;
+  transition: 300ms;
 
   &:hover {
+    background: #ff83002e;
+    transition: 300ms;
     ${DeleteButton} {
       opacity: 1;
       pointer-events: all;
@@ -41,6 +49,22 @@ const TransactionCell = styled.td`
   &:last-child {
     width: 16px;
   }
+
+  ${props =>
+    props.deleteButton &&
+    `&:hover {
+      ${DeleteButton}{
+        color: #e20000;
+      }
+    }`}
+
+  ${props =>
+    props.paidButton &&
+    `&:hover {
+        ${PaidButton}{
+          color: #ff8300;
+        }
+      }`}
 `;
 
 const TransactionsTotals = styled.div`
@@ -88,11 +112,6 @@ const BalanceValue = styled.span`
   font-weight: ${props => props.fontWeight || '400'};
 `;
 
-const PaidButton = styled.i`
-  color: ${props => props.status && '#008000'};
-  cursor: pointer;
-`;
-
 const TransactionIcon = styled.span`
   margin-right: 5px;
 `;
@@ -100,6 +119,7 @@ const TransactionIcon = styled.span`
 export {
   TransactionsTable,
   TransactionCell,
+  TransactionTitles,
   TransactionItem,
   TransactionDateWrapper,
   TransactionsTotals,

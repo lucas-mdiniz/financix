@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import { getMonth, format } from 'date-fns';
 import MySelect from '../FormComponents/MySelect';
@@ -28,9 +29,14 @@ const MonthSelector = ({ setSelectedDate, selectedDate }) => {
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-      <MySelect name="selectedMonth" options={options} submitOnChange={true} />
+      <MySelect name="selectedMonth" options={options} submitOnChange />
     </Formik>
   );
+};
+
+MonthSelector.propTypes = {
+  setSelectedDate: PropTypes.func.isRequired,
+  selectedDate: PropTypes.instanceOf(Date).isRequired,
 };
 
 export default MonthSelector;

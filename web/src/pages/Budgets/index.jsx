@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import chroma from 'chroma-js';
 import Header from '../../components/Header';
-import AddBudgets from '../../components/AddBudgets';
-import BudgetsList from '../../components/BudgetsList';
+import AddBudgets from './AddBudgets';
+import BudgetsList from './BudgetsList';
 import { Button } from '../../components/Button';
 import Modal from '../../containers/Modal';
 import Card from '../../containers/Card';
@@ -45,7 +45,7 @@ const Budgets = () => {
       <Header>Budgets</Header>
       <Card borderRadius="10px">
         {budgets.length === 0 ? (
-          <EmptyData>You don't have any budget yet!</EmptyData>
+          <EmptyData>You don&apos;t have any budget yet!</EmptyData>
         ) : (
           <Pie
             width={300}
@@ -66,7 +66,7 @@ const Budgets = () => {
           <BudgetsList budgets={budgets} transactions={transactions} />
         </Card>
       )}
-      <Button onClick={handleOpenModal}>Add Budget</Button>
+      <Button onClick={handleOpenModal}>Add/Edit Budget</Button>
       <Modal open={modalOpen} onClose={handleClose}>
         <AddBudgets
           modalClose={handleClose}

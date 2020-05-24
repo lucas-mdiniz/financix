@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { addWeeks, startOfWeek, format } from 'date-fns';
 import FlexRow from '../../containers/FlexRow';
 import Card from '../../containers/Card';
 import Header from '../../components/Header';
@@ -8,10 +9,10 @@ import getTotals from '../../utils/getTotals';
 import ReportChart from '../../components/Charts/Home';
 import EmptyData from '../../components/EmptyData';
 import api from '../../services/api';
-import { addWeeks, startOfWeek, format } from 'date-fns';
 import ReportDetails from './DetailsTable/ReportDetails';
 import { DateFilter } from '../../contexts/DateFilterContext';
 import ConsiderUnpaidSelector from '../../components/ConsiderUnpaidSelector';
+import getWeeksOfMonth from '../../utils/getWeeksOfMonth';
 
 const Home = () => {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
@@ -37,8 +38,17 @@ const Home = () => {
           }`
         );
 
-        let balance = 0;
-        const parsedTransactions = response.data.map(filteredTransaction => {
+        const weeksOfMonth = getWeeksOfMonth(selectedDate);
+
+        let weeklyBalance = 0;
+        const parsedTransactions = weeksOfMonth.map(transactionWeek => {
+          const transactionIndex = response.data.findIndex(
+            transaction => transaction.week === transactionWeek.week
+          );
+
+          const filteredTransaction =
+            response.data[transactionIndex] || transactionWeek;
+
           const startOfWeekDate = startOfWeek(
             addWeeks(
               new Date(filteredTransaction.year, 0, 0),
@@ -48,13 +58,15 @@ const Home = () => {
           );
           const formatedDate = format(startOfWeekDate, 'dd MMM');
 
-          balance =
-            balance + filteredTransaction.earning - filteredTransaction.expense;
+          weeklyBalance =
+            weeklyBalance +
+            filteredTransaction.earning -
+            filteredTransaction.expense;
 
           return {
             name: formatedDate,
             date: startOfWeekDate,
-            balance,
+            balance: weeklyBalance,
             ...filteredTransaction,
           };
         });
@@ -80,7 +92,7 @@ const Home = () => {
       />
       {filteredTransactions.length === 0 ? (
         <Card borderRadius="10px" horizontalMargin="15px" padding="30px">
-          <EmptyData>You don't have transactions yet!</EmptyData>
+          <EmptyData>You don&apos;t have transactions yet!</EmptyData>
         </Card>
       ) : (
         <>
@@ -103,12 +115,13 @@ const Home = () => {
           </FlexRow>
           <Card borderRadius="10px" horizontalMargin="15px" padding="30px">
             {filteredTransactions.length === 0 ? (
-              <EmptyData>You don't have transactions yet!</EmptyData>
+              <EmptyData>You don&apos;t have transactions yet!</EmptyData>
             ) : (
               <ReportChart
                 width={800}
                 height={350}
                 data={filteredTransactions}
+                date={selectedDate}
               />
             )}
           </Card>

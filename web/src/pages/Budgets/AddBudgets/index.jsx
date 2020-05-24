@@ -1,13 +1,17 @@
 import React from 'react';
+import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { Formik, Form } from 'formik';
-import api from '../../services/api';
-import MySelect from '../FormComponents/MySelect';
-import MyMaskedInput from '../FormComponents/MyMaskedInput';
-import { InputItem, InputGroup } from '../FormComponents/styles';
-import { CenteredButton } from '../Button';
-import useCategories from '../../hooks/useCategories';
+import api from '../../../services/api';
+import MySelect from '../../../components/FormComponents/MySelect';
+import MyMaskedInput from '../../../components/FormComponents/MyMaskedInput';
+import {
+  InputItem,
+  InputGroup,
+} from '../../../components/FormComponents/styles';
+import { CenteredButton } from '../../../components/Button';
+import useCategories from '../../../hooks/useCategories';
 
 const AddBudgets = ({ modalClose, handleSetBudgets }) => {
   const [expensesCategories] = useCategories();
@@ -16,6 +20,11 @@ const AddBudgets = ({ modalClose, handleSetBudgets }) => {
     category: null,
     amount: '',
   };
+
+  const addBudgetSchema = Yup.object({
+    amount: Yup.string().required('Required'),
+    category: Yup.object().required('Required'),
+  });
 
   const numberMask = createNumberMask({
     allowDecimal: true,
@@ -26,13 +35,16 @@ const AddBudgets = ({ modalClose, handleSetBudgets }) => {
 
   const handleSubmit = values => {
     const value = parseFloat(values.amount.replace('.', '').replace(',', '.'));
+    const [currentBudget] = expensesCategories.filter(
+      expenseCategory => expenseCategory.value === values.category.value
+    );
 
     const budget = {
       name: values.category.label,
-      _id: values.category.id,
+      _id: currentBudget.id,
       value,
       slug: values.category.value,
-      type: values.category.type,
+      type: currentBudget.type,
     };
 
     async function patchCategory() {
@@ -51,7 +63,11 @@ const AddBudgets = ({ modalClose, handleSetBudgets }) => {
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      validationSchema={addBudgetSchema}
+    >
       <Form>
         <InputGroup>
           <InputItem>
