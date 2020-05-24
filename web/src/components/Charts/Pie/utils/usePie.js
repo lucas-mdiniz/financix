@@ -20,7 +20,6 @@ const usePie = (graphRef, arcs, colors, pieRadius, tooltip, total) => {
 
         if (tooltip) {
           return pieToRender.each(function creatTolltip(d) {
-            // eslint-disable-next-line no-underscore-dangle
             const pathReference = d3.select(this)._groups[0][0];
 
             tippy(pathReference, {

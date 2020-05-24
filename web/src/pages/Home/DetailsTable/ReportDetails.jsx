@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { lastDayOfWeek, format } from 'date-fns';
 import { DetailsTable, TableFirstCol, TableItem, TableRow } from './styles';
 import { CardTitle } from '../../../containers/Card/styles';
 import Card from '../../../containers/Card';
-import { lastDayOfWeek, format } from 'date-fns';
 
 const ReportDetails = ({ filteredTransactions }) => {
   return (
@@ -59,6 +60,10 @@ const ReportDetails = ({ filteredTransactions }) => {
       </DetailsTable>
     </Card>
   );
+};
+
+ReportDetails.propTypes = {
+  filteredTransactions: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ReportDetails;

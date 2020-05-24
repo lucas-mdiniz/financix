@@ -6,8 +6,8 @@ import Header from '../../components/Header';
 import { Button } from '../../components/Button';
 import Modal from '../../containers/Modal';
 import EmptyData from '../../components/EmptyData';
-import AddTransaction from '../../components/AddTransaction';
-import EditTransaction from '../../components/EditTransaction';
+import AddTransaction from './AddTransaction';
+import EditTransaction from './EditTransaction';
 import getTotals from '../../utils/getTotals';
 import Icons from '../../assets/Icons';
 import useTransactions from '../../hooks/useTransactions';
@@ -65,8 +65,8 @@ const Transactions = () => {
       .catch(error => console.log(error));
   };
 
-  const handleEdit = currentTransaction => {
-    setCurrentTransaction(currentTransaction);
+  const handleEdit = transaction => {
+    setCurrentTransaction(transaction);
     setEditModalOpen(true);
   };
 
@@ -96,7 +96,7 @@ const Transactions = () => {
       <Header>Transactions</Header>
       <Card backgroundColor="#fff" borderRadius="10px">
         {transactions.length === 0 ? (
-          <EmptyData>You don't have transactions yet!</EmptyData>
+          <EmptyData>You don&apos;t have transactions yet!</EmptyData>
         ) : (
           <>
             <TransactionsTable>
@@ -106,7 +106,7 @@ const Transactions = () => {
                   <TransactionCell as="th">Title</TransactionCell>
                   <TransactionCell as="th">Paid</TransactionCell>
                   <TransactionCell as="th">Value</TransactionCell>
-                  <TransactionCell as="th"></TransactionCell>
+                  <TransactionCell as="th" />
                 </TransactionTitles>
                 {transactions.map(transaction => {
                   return (
@@ -134,7 +134,7 @@ const Transactions = () => {
                           e.stopPropagation();
                           handlePaidButton(transaction._id);
                         }}
-                        paidButton={true}
+                        paidButton
                       >
                         <PaidButton
                           status={transaction.paid ? 1 : 0}
@@ -151,7 +151,7 @@ const Transactions = () => {
                           e.stopPropagation();
                           handleDelete(transaction._id);
                         }}
-                        deleteButton={true}
+                        deleteButton
                       >
                         <DeleteButton as={FaTrashAlt} />
                       </TransactionCell>

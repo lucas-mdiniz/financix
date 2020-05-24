@@ -14,9 +14,10 @@ const useBudgets = () => {
         const filteredBudgets = budgetsData
           .filter(budget => budget.type === 'expense' && budget.amount > 0)
           .map(budget => {
-            budget['value'] = budget['amount'];
-            delete budget['amount'];
-            return budget;
+            const filteredBudget = budget;
+            filteredBudget.value = budget.amount;
+            delete filteredBudget.amount;
+            return filteredBudget;
           });
 
         setBudgets(filteredBudgets);

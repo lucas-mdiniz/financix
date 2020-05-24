@@ -16,7 +16,7 @@ const MyCheckbox = ({ children, ...props }) => {
           id={id || name}
           onChange={e => {
             onChange(e);
-            submitOnChange && handleSubmit();
+            if (submitOnChange) handleSubmit();
           }}
           name={name}
           value={value}
@@ -35,11 +35,13 @@ const MyCheckbox = ({ children, ...props }) => {
 
 MyCheckbox.defaultProps = {
   id: '',
+  submitOnChange: false,
 };
 
 MyCheckbox.propTypes = {
   children: PropTypes.node.isRequired,
   id: PropTypes.string,
+  submitOnChange: PropTypes.bool,
 };
 
 export default MyCheckbox;

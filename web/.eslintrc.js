@@ -31,5 +31,6 @@ module.exports = {
         },
       },
     ],
+    'no-underscore-dangle': [2, { allow: ['_id', '_groups'] }],
   },
 };

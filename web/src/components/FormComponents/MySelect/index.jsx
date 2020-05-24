@@ -41,6 +41,7 @@ const Option = props => {
   return (
     <StyledOption style={{ display: 'flex', alignItems: 'center' }}>
       {data.icon && <i className="input-select__icon">{data.icon}</i>}
+      {/* eslint-disable-next-line react/jsx-props-no-spreading */}
       <components.Option {...props} />
     </StyledOption>
   );
@@ -59,9 +60,12 @@ const MySelect = ({ label, ...props }) => {
       <Select
         id={id || name}
         styles={customStyles}
-        onChange={value => {
-          setFieldValue(name, { value: value.value, label: value.label });
-          submitOnChange && handleSubmit();
+        onChange={currentValue => {
+          setFieldValue(name, {
+            value: currentValue.value,
+            label: currentValue.label,
+          });
+          if (submitOnChange) handleSubmit();
         }}
         name={name}
         value={value}
@@ -81,6 +85,7 @@ MySelect.defaultProps = {
   label: '',
   placeholder: '',
   id: null,
+  submitOnChange: false,
 };
 
 MySelect.propTypes = {
@@ -88,6 +93,7 @@ MySelect.propTypes = {
   label: PropTypes.string,
   id: PropTypes.string,
   placeholder: PropTypes.string,
+  submitOnChange: PropTypes.bool,
 };
 
 Option.propTypes = {

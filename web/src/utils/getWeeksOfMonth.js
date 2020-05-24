@@ -1,5 +1,4 @@
 import {
-  format,
   startOfMonth,
   endOfMonth,
   differenceInCalendarWeeks,
@@ -14,9 +13,9 @@ const getWeeksOfMonth = date => {
   const monthStart = startOfMonth(date);
   const monthEnd = endOfMonth(date);
   const numberOfWeeks = differenceInCalendarWeeks(monthEnd, monthStart);
-  let weeksOfCurrentMonth = [];
+  const weeksOfCurrentMonth = [];
 
-  for (let i = 0; i < numberOfWeeks; i++) {
+  for (let i = 0; i < numberOfWeeks; i += 1) {
     const week = startOfWeek(addWeeks(monthStart, i), { weekStartsOn: 0 });
     weeksOfCurrentMonth.push({
       week: getISOWeek(week),

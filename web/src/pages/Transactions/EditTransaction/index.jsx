@@ -1,5 +1,6 @@
 import React from 'react';
-import api from '../../services/api';
+import PropTypes from 'prop-types';
+import api from '../../../services/api';
 import TransactionForm from '../TransactionForm';
 
 const EditTransaction = ({
@@ -21,7 +22,7 @@ const EditTransaction = ({
   };
 
   const handleSubmit = (values, { resetForm }) => {
-    let amount =
+    const amount =
       values.amount.replace('.', '').replace(',', '.') || values.amount;
 
     const editTransaction = {
@@ -60,6 +61,22 @@ const EditTransaction = ({
       handleSubmit={handleSubmit}
     />
   );
+};
+
+EditTransaction.propTypes = {
+  modalClose: PropTypes.func.isRequired,
+  currentTransaction: PropTypes.shape({
+    amount: PropTypes.number,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    date: PropTypes.string,
+    paid: PropTypes.bool,
+    type: PropTypes.string,
+    category: PropTypes.objectOf(PropTypes.string),
+    _id: PropTypes.string,
+  }).isRequired,
+  transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setTransactions: PropTypes.func.isRequired,
 };
 
 export default EditTransaction;

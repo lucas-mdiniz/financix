@@ -3,12 +3,15 @@ import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { Formik, Form } from 'formik';
-import api from '../../services/api';
-import MySelect from '../FormComponents/MySelect';
-import MyMaskedInput from '../FormComponents/MyMaskedInput';
-import { InputItem, InputGroup } from '../FormComponents/styles';
-import { CenteredButton } from '../Button';
-import useCategories from '../../hooks/useCategories';
+import api from '../../../services/api';
+import MySelect from '../../../components/FormComponents/MySelect';
+import MyMaskedInput from '../../../components/FormComponents/MyMaskedInput';
+import {
+  InputItem,
+  InputGroup,
+} from '../../../components/FormComponents/styles';
+import { CenteredButton } from '../../../components/Button';
+import useCategories from '../../../hooks/useCategories';
 
 const AddBudgets = ({ modalClose, handleSetBudgets }) => {
   const [expensesCategories] = useCategories();

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import uuidv4 from 'uuid';
-import api from '../../services/api';
+import api from '../../../services/api';
 import TransactionForm from '../TransactionForm';
 
 const AddTransaction = ({ modalClose, setTransactions, transactions }) => {
@@ -16,7 +16,7 @@ const AddTransaction = ({ modalClose, setTransactions, transactions }) => {
   };
 
   const handleSubmit = (values, { resetForm }) => {
-    let amount = values.amount.replace('.', '').replace(',', '.');
+    const amount = values.amount.replace('.', '').replace(',', '.');
 
     const newTransaction = {
       ...values,
@@ -51,6 +51,8 @@ const AddTransaction = ({ modalClose, setTransactions, transactions }) => {
 
 AddTransaction.propTypes = {
   modalClose: PropTypes.func.isRequired,
+  transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  setTransactions: PropTypes.func.isRequired,
 };
 
 export default AddTransaction;

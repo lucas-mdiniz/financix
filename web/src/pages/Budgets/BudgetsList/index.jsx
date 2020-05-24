@@ -1,6 +1,6 @@
 import React from 'react';
-import PropType from 'prop-types';
-import Pie from '../Charts/Pie';
+import PropTypes from 'prop-types';
+import Pie from '../../../components/Charts/Pie';
 import {
   BudgetWrapper,
   BudgetDetailsWrapper,
@@ -9,10 +9,10 @@ import {
   BudgetData,
   BudgetPercentage,
 } from './styles';
-import EmptyData from '../EmptyData';
+import EmptyData from '../../../components/EmptyData';
 
 const BudgetList = ({ budgets, transactions }) => {
-  let budgetsList = [];
+  const budgetsList = [];
 
   budgets.forEach(budget => {
     const expenses = transactions.filter(
@@ -40,7 +40,7 @@ const BudgetList = ({ budgets, transactions }) => {
   };
 
   return budgetsList.length === 0 ? (
-    <EmptyData>You don't have expenses for your budgets yet!</EmptyData>
+    <EmptyData>You don&apos;t have expenses for your budgets yet!</EmptyData>
   ) : (
     budgetsList.map(
       budget =>
@@ -77,12 +77,9 @@ const BudgetList = ({ budgets, transactions }) => {
   );
 };
 
-BudgetList.defaultProps = {
-  budgets: {},
-};
-
 BudgetList.propTypes = {
-  data: PropType.arrayOf(PropType.object),
+  budgets: PropTypes.arrayOf(PropTypes.object).isRequired,
+  transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default BudgetList;

@@ -20,7 +20,11 @@ const Modal = ({ children, open, onClose, overflowY }) => {
   };
 
   return (
-    <ModalWrapper open={open} onClick={handleOutsideClose} overflowY>
+    <ModalWrapper
+      open={open}
+      onClick={handleOutsideClose}
+      overflowY={overflowY}
+    >
       <ModalBox>
         <StyledFaTimes onClick={handleButtonClose} />
         {children}
@@ -31,12 +35,14 @@ const Modal = ({ children, open, onClose, overflowY }) => {
 
 Modal.defaultProps = {
   open: false,
+  overflowY: false,
 };
 
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
   open: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
+  overflowY: PropTypes.bool,
 };
 
 export default Modal;

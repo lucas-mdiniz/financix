@@ -1,22 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { FaPlus, FaMinus } from 'react-icons/fa';
-import MyMaskedInput from '../FormComponents/MyMaskedInput';
-import MySelect from '../FormComponents/MySelect';
-import MyTextInput from '../FormComponents/MyTextInput';
-import MyTextArea from '../FormComponents/MyTextArea';
-import MyDateField from '../FormComponents/MyDateField';
-import MyCheckbox from '../FormComponents/MyCheckbox';
-import MyTransactionTypeButton from '../FormComponents/MyTransactionTypeButton';
+import MyMaskedInput from '../../../components/FormComponents/MyMaskedInput';
+import MySelect from '../../../components/FormComponents/MySelect';
+import MyTextInput from '../../../components/FormComponents/MyTextInput';
+import MyTextArea from '../../../components/FormComponents/MyTextArea';
+import MyDateField from '../../../components/FormComponents/MyDateField';
+import MyCheckbox from '../../../components/FormComponents/MyCheckbox';
+import MyTransactionTypeButton from '../../../components/FormComponents/MyTransactionTypeButton';
 import {
   InputItem,
   InputGroup,
   InputItemCenter,
-} from '../FormComponents/styles';
+} from '../../../components/FormComponents/styles';
 import { StyledFaMinus, StyledFaPlus, StyledCenteredButton } from './styles';
-import useCategories from '../../hooks/useCategories';
+import useCategories from '../../../hooks/useCategories';
 
 const TransactionForm = ({ initialFormValues, handleSubmit }) => {
   const [expensesCategories, earningsCategories] = useCategories();
@@ -120,6 +121,19 @@ const TransactionForm = ({ initialFormValues, handleSubmit }) => {
       )}
     </Formik>
   );
+};
+
+TransactionForm.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  initialFormValues: PropTypes.shape({
+    amount: PropTypes.string,
+    category: PropTypes.objectOf(PropTypes.string),
+    date: PropTypes.instanceOf(Date),
+    description: PropTypes.string,
+    paid: PropTypes.bool,
+    title: PropTypes.string,
+    type: PropTypes.string,
+  }).isRequired,
 };
 
 export default TransactionForm;
