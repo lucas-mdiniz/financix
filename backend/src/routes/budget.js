@@ -22,22 +22,19 @@ router.patch('/budgets/:id', async (req, res) => {
   );
 
   if (!isValidOperation) {
-    return res.status(400).send({ error: 'Invalid updates!' });
-  }
+    res.status(400).send({ error: 'Invalid updates!' });
+  } else {
+    try {
+      const budget = await Budget.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+      });
 
-  try {
-    const budget = await Budget.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!budget) {
-      return res.status(404).send();
+      if (!budget) res.status(404).send();
+      else res.send(budget);
+    } catch (e) {
+      res.status(400).send();
     }
-
-    res.send(budget);
-  } catch (e) {
-    res.status(400).send();
   }
 });
 

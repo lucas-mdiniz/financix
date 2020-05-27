@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/weekly', async (req, res) => {
   const { initialDate, finalDate, paid } = req.query;
 
-  let pipeline = [
+  const pipeline = [
     {
       $match: {
         date: {
@@ -58,21 +58,19 @@ router.get('/weekly', async (req, res) => {
   ];
 
   if (paid) {
-    paid === 'true'
-      ? (pipeline[0].$match.paid = true)
-      : (pipeline[0].$match.paid = false);
+    if (paid === 'true') pipeline[0].$match.paid = true;
+    else pipeline[0].$match.paid = false;
   }
 
   try {
     const transactions = await Transaction.aggregate(pipeline);
 
     if (!transactions) {
-      return res.status(404).send();
+      res.status(404).send();
+    } else {
+      const sortedTransactions = transactions.sort((a, b) => a.week - b.week);
+      res.send(sortedTransactions);
     }
-
-    const sortedTransactions = transactions.sort((a, b) => a.week - b.week);
-
-    res.send(sortedTransactions);
   } catch (e) {
     res.status(500).send();
   }

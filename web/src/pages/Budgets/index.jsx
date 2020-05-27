@@ -25,6 +25,7 @@ const Budgets = () => {
     const newBudgets = [...filteredBudgets, newBudget];
     setBudgets(newBudgets);
   };
+
   const colors = chroma
     .scale(['#007bff', '#9c6cf3', '#dd5ad8', '#ff6760', '#ff8738', '#ffa600'])
     .mode('lch')

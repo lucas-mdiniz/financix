@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { FaMinus, FaPlus } from 'react-icons/fa';
-import { CenteredButton } from '../Button';
+import { CenteredButton } from '../../../components/Button';
 
 const StyledFaMinus = styled(FaMinus)`
   margin-right: 5px;

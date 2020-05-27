@@ -22,8 +22,13 @@ const AddBudgets = ({ modalClose, handleSetBudgets }) => {
   };
 
   const addBudgetSchema = Yup.object({
-    amount: Yup.string().required('Required'),
-    category: Yup.object().required('Required'),
+    amount: Yup.string()
+      .required()
+      .label('Amount'),
+    category: Yup.object()
+      .nullable()
+      .required()
+      .label('Category'),
   });
 
   const numberMask = createNumberMask({
@@ -52,10 +57,10 @@ const AddBudgets = ({ modalClose, handleSetBudgets }) => {
         await api.patch(`/budgets/${budget._id}`, {
           amount: value,
         });
-        handleSetBudgets(budget);
+        await handleSetBudgets(budget);
         modalClose();
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     }
 

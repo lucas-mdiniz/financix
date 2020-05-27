@@ -25,15 +25,24 @@ const TransactionForm = ({ initialFormValues, handleSubmit }) => {
   const addTransactionSchema = Yup.object({
     title: Yup.string()
       .max(15, 'Must be 60 characters or less')
-      .required('Required'),
-    amount: Yup.string().required('Required'),
-    date: Yup.date().required('Required'),
+      .required()
+      .label('Title'),
+    amount: Yup.string()
+      .required()
+      .label('Amount'),
+    date: Yup.date()
+      .required()
+      .label('Date'),
     description: Yup.string().max(140, 'Must be 280 characters or less'),
     paid: Yup.boolean().required('Required'),
     type: Yup.string()
       .oneOf(['income', 'expense'])
-      .required('Required'),
-    category: Yup.object().required(),
+      .required()
+      .label('Type'),
+    category: Yup.object()
+      .required()
+      .nullable()
+      .label('Category'),
   });
 
   const numberMask = createNumberMask({

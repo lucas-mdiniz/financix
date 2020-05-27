@@ -44,11 +44,11 @@ const EditTransaction = ({
             : transaction
         );
 
-        setTransactions(filteredTransactions);
+        await setTransactions(filteredTransactions);
         modalClose();
         resetForm();
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     }
 

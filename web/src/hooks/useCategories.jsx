@@ -17,7 +17,7 @@ const useCategories = () => {
           response.data.filter(category => category.type === 'income')
         );
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     }
 

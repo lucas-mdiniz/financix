@@ -71,10 +71,10 @@ const Home = () => {
           };
         });
 
-        setFilteredTransactions(parsedTransactions);
+        await setFilteredTransactions(parsedTransactions);
         setLoading(false);
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        throw new Error(error);
       }
     }
 
