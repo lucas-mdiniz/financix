@@ -43,7 +43,7 @@ const Transactions = () => {
     balance,
     predictedBalance,
   } = getTotals(transactions);
-
+  console.log('teste');
   const handleCloseAdd = () => {
     setAddModalOpen(false);
   };
@@ -52,17 +52,17 @@ const Transactions = () => {
     setEditModalOpen(false);
   };
 
-  const handleDelete = id => {
+  const handleDelete = async id => {
     const newTransactions = transactions.filter(
       transaction => id !== transaction._id
     );
 
-    api
-      .delete(`/transactions/${id}`)
-      .then(() => {
-        setTransactions(newTransactions);
-      })
-      .catch(error => console.log(error));
+    try {
+      await api.delete(`/transactions/${id}`);
+      setTransactions(newTransactions);
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   const handleEdit = transaction => {
@@ -70,7 +70,7 @@ const Transactions = () => {
     setEditModalOpen(true);
   };
 
-  const handlePaidButton = id => {
+  const handlePaidButton = async id => {
     const newTransactions = transactions.map(transaction =>
       transaction._id === id
         ? { ...transaction, paid: !transaction.paid }
@@ -81,12 +81,12 @@ const Transactions = () => {
       transaction => transaction._id === id
     );
 
-    api
-      .patch(`/transactions/${id}`, { paid: newTransaction.paid })
-      .then(() => {
-        setTransactions(newTransactions);
-      })
-      .catch(error => console.log(error));
+    try {
+      await api.patch(`/transactions/${id}`, { paid: newTransaction.paid });
+      setTransactions(newTransactions);
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   return loading ? (
@@ -209,25 +209,21 @@ const Transactions = () => {
         )}
       </Card>
       <Button onClick={() => setAddModalOpen(true)}>Add Transaction</Button>
-      {addModalOpen && (
-        <Modal open={addModalOpen} onClose={handleCloseAdd}>
-          <AddTransaction
-            modalClose={handleCloseAdd}
-            setTransactions={setTransactions}
-            transactions={transactions}
-          />
-        </Modal>
-      )}
-      {editModalOpen && (
-        <Modal open={editModalOpen} onClose={handleCloseEdit}>
-          <EditTransaction
-            modalClose={handleCloseEdit}
-            setTransactions={setTransactions}
-            transactions={transactions}
-            currentTransaction={currentTransaction}
-          />
-        </Modal>
-      )}
+      <Modal open={addModalOpen} onClose={handleCloseAdd}>
+        <AddTransaction
+          modalClose={handleCloseAdd}
+          setTransactions={setTransactions}
+          transactions={transactions}
+        />
+      </Modal>
+      <Modal open={editModalOpen} onClose={handleCloseEdit}>
+        <EditTransaction
+          modalClose={handleCloseEdit}
+          setTransactions={setTransactions}
+          transactions={transactions}
+          currentTransaction={currentTransaction}
+        />
+      </Modal>
     </>
   );
 };

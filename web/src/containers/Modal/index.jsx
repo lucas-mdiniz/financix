@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ModalWrapper, ModalBox, StyledFaTimes } from './styles';
 
-const Modal = ({ children, open, onClose, overflowY }) => {
-  document.body.addEventListener('keydown', e => {
-    if (e.keyCode === 27) {
-      onClose();
+const Modal = ({ open, children, onClose, overflowY }) => {
+  useEffect(() => {
+    async function handleClose(e) {
+      if (e.keyCode === 27) {
+        onClose();
+      }
     }
+
+    document.body.addEventListener('keydown', handleClose);
+
+    return () => document.body.removeEventListener('keydown', handleClose);
   });
 
   const handleOutsideClose = e => {
@@ -19,18 +25,14 @@ const Modal = ({ children, open, onClose, overflowY }) => {
     onClose();
   };
 
-  return (
-    <ModalWrapper
-      open={open}
-      onClick={handleOutsideClose}
-      overflowY={overflowY}
-    >
+  return open ? (
+    <ModalWrapper onClick={handleOutsideClose} overflowY={overflowY}>
       <ModalBox>
         <StyledFaTimes onClick={handleButtonClose} />
         {children}
       </ModalBox>
     </ModalWrapper>
-  );
+  ) : null;
 };
 
 Modal.defaultProps = {

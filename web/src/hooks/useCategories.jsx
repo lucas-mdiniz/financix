@@ -7,21 +7,27 @@ const useCategories = () => {
   const [incomeCategories, setIncomeCategories] = useState([{}]);
 
   useEffect(() => {
+    let isMounted = true;
     async function getCategories() {
       try {
         const response = await api.get('/budgets');
-        setExpenseCategories(
-          response.data.filter(category => category.type === 'expense')
-        );
-        setIncomeCategories(
-          response.data.filter(category => category.type === 'income')
-        );
+        if (isMounted) {
+          setExpenseCategories(
+            response.data.filter(category => category.type === 'expense')
+          );
+          setIncomeCategories(
+            response.data.filter(category => category.type === 'income')
+          );
+        }
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     }
 
     getCategories();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const expenses = expenseCategories.map(expense => {

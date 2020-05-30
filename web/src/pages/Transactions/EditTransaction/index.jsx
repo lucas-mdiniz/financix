@@ -45,10 +45,10 @@ const EditTransaction = ({
         );
 
         setTransactions(filteredTransactions);
-        modalClose();
         resetForm();
+        modalClose();
       } catch (error) {
-        console.log(error);
+        throw new Error(error);
       }
     }
 

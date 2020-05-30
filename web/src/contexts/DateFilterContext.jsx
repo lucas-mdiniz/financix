@@ -5,7 +5,6 @@ const DateFilter = createContext();
 
 const DateFilterProvider = ({ children }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
-
   return (
     <DateFilter.Provider value={[selectedDate, setSelectedDate]}>
       {children}

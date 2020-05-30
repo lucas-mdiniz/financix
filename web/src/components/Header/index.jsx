@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, memo } from 'react';
 import PropTypes from 'prop-types';
 import PageTitle from './PageTitle';
 import { DateFilter } from '../../contexts/DateFilterContext';
@@ -25,4 +25,4 @@ Header.propTypes = {
   children: PropTypes.string.isRequired,
 };
 
-export default Header;
+export default memo(Header);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import { getMonth, format } from 'date-fns';
@@ -39,4 +39,4 @@ MonthSelector.propTypes = {
   selectedDate: PropTypes.instanceOf(Date).isRequired,
 };
 
-export default MonthSelector;
+export default memo(MonthSelector);
