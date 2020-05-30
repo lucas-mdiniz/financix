@@ -43,7 +43,7 @@ const Transactions = () => {
     balance,
     predictedBalance,
   } = getTotals(transactions);
-
+  console.log('teste');
   const handleCloseAdd = () => {
     setAddModalOpen(false);
   };
@@ -209,25 +209,21 @@ const Transactions = () => {
         )}
       </Card>
       <Button onClick={() => setAddModalOpen(true)}>Add Transaction</Button>
-      {addModalOpen && (
-        <Modal open={addModalOpen} onClose={handleCloseAdd}>
-          <AddTransaction
-            modalClose={handleCloseAdd}
-            setTransactions={setTransactions}
-            transactions={transactions}
-          />
-        </Modal>
-      )}
-      {editModalOpen && (
-        <Modal open={editModalOpen} onClose={handleCloseEdit}>
-          <EditTransaction
-            modalClose={handleCloseEdit}
-            setTransactions={setTransactions}
-            transactions={transactions}
-            currentTransaction={currentTransaction}
-          />
-        </Modal>
-      )}
+      <Modal open={addModalOpen} onClose={handleCloseAdd}>
+        <AddTransaction
+          modalClose={handleCloseAdd}
+          setTransactions={setTransactions}
+          transactions={transactions}
+        />
+      </Modal>
+      <Modal open={editModalOpen} onClose={handleCloseEdit}>
+        <EditTransaction
+          modalClose={handleCloseEdit}
+          setTransactions={setTransactions}
+          transactions={transactions}
+          currentTransaction={currentTransaction}
+        />
+      </Modal>
     </>
   );
 };

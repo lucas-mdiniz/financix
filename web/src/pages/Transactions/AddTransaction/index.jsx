@@ -30,9 +30,9 @@ const AddTransaction = ({ modalClose, setTransactions, transactions }) => {
       try {
         const response = await api.post('/transactions', newTransaction);
 
-        await setTransactions([...transactions, response.data]);
-        modalClose();
+        setTransactions([...transactions, response.data]);
         resetForm();
+        modalClose();
       } catch (error) {
         throw new Error(error);
       }

@@ -44,9 +44,9 @@ const EditTransaction = ({
             : transaction
         );
 
-        await setTransactions(filteredTransactions);
-        modalClose();
+        setTransactions(filteredTransactions);
         resetForm();
+        modalClose();
       } catch (error) {
         throw new Error(error);
       }

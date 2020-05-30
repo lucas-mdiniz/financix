@@ -19,7 +19,7 @@ const useTransactions = paid => {
             paid ? `&paid=${paid}` : ''
           }`
         );
-        await setTransactions(response.data);
+        setTransactions(response.data);
         setLoading(false);
       } catch (error) {
         throw new Error(error);

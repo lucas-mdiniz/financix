@@ -20,7 +20,7 @@ const useBudgets = () => {
             return filteredBudget;
           });
 
-        await setBudgets(filteredBudgets);
+        setBudgets(filteredBudgets);
         setLoading(false);
       } catch (error) {
         throw new Error(error);

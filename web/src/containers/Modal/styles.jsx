@@ -8,7 +8,7 @@ const ModalWrapper = styled.div`
   right: 0;
   left: 0;
   background: #00000096;
-  display: ${props => (props.open ? 'flex' : 'none')};
+  display: flex;
   align-items: center;
   justify-content: center;
 `;

@@ -71,7 +71,7 @@ const Home = () => {
           };
         });
 
-        await setFilteredTransactions(parsedTransactions);
+        setFilteredTransactions(parsedTransactions);
         setLoading(false);
       } catch (error) {
         throw new Error(error);
