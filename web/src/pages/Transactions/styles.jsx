@@ -3,9 +3,7 @@ import styled from 'styled-components';
 const DeleteButton = styled.i`
   cursor: pointer;
   min-width: 16px;
-  opacity: 0;
   pointer-events: none;
-  transition: 500ms;
 `;
 
 const PaidButton = styled.i`
@@ -26,17 +24,13 @@ const TransactionItem = styled(TransactionTitles)`
   &:hover {
     background: #ff83002e;
     transition: 300ms;
-    ${DeleteButton} {
-      opacity: 1;
-      pointer-events: all;
-      transition: 300ms;
-    }
   }
 `;
 
 const TransactionsTable = styled.table`
   width: 100%;
   border-collapse: collapse;
+  border-bottom: 2px solid #e6e6e6;
 `;
 
 const TransactionCell = styled.td`
@@ -70,9 +64,13 @@ const TransactionCell = styled.td`
 const TransactionsTotals = styled.div`
   display: flex;
   align-items: center;
-  border-top: 2px solid #e6e6e6;
   justify-content: space-between;
-  padding: 20px 10px 10px 10px;
+  padding: 10px 10px 10px 10px;
+  flex-wrap: wrap;
+`;
+
+const BalanceTitle = styled.div`
+  margin-top: 15px;
 `;
 
 const TransactionDateWrapper = styled.div`
@@ -84,6 +82,7 @@ const BalanceColumn = styled.div`
   display: flex;
   align-items: center;
   min-width: 20%;
+  margin-top: 15px;
 `;
 
 const BalanceColumnData = styled.div`
@@ -131,4 +130,5 @@ export {
   PaidButton,
   DeleteButton,
   TransactionIcon,
+  BalanceTitle,
 };

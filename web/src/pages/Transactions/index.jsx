@@ -26,6 +26,7 @@ import {
   DeleteButton,
   TransactionsTable,
   TransactionIcon,
+  BalanceTitle,
 } from './styles';
 
 const Transactions = () => {
@@ -43,7 +44,7 @@ const Transactions = () => {
     balance,
     predictedBalance,
   } = getTotals(transactions);
-  console.log('teste');
+
   const handleCloseAdd = () => {
     setAddModalOpen(false);
   };
@@ -161,9 +162,9 @@ const Transactions = () => {
               </tbody>
             </TransactionsTable>
             <TransactionsTotals as="div">
-              <div>
+              <BalanceTitle>
                 <h3>Balance</h3>
-              </div>
+              </BalanceTitle>
               <BalanceColumn>
                 <BalanceColumnData>
                   {showBalanceDetails && (
@@ -209,14 +210,14 @@ const Transactions = () => {
         )}
       </Card>
       <Button onClick={() => setAddModalOpen(true)}>Add Transaction</Button>
-      <Modal open={addModalOpen} onClose={handleCloseAdd}>
+      <Modal overflowY open={addModalOpen} onClose={handleCloseAdd}>
         <AddTransaction
           modalClose={handleCloseAdd}
           setTransactions={setTransactions}
           transactions={transactions}
         />
       </Modal>
-      <Modal open={editModalOpen} onClose={handleCloseEdit}>
+      <Modal overflowY open={editModalOpen} onClose={handleCloseEdit}>
         <EditTransaction
           modalClose={handleCloseEdit}
           setTransactions={setTransactions}

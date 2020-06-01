@@ -7,7 +7,7 @@ import Card from '../../../containers/Card';
 
 const ReportDetails = ({ filteredTransactions }) => {
   return (
-    <Card borderRadius="10px" horizontalMargin="15px" padding="30px">
+    <Card OverflowX borderRadius="10px" horizontalMargin="15px" padding="30px">
       <CardTitle>Details</CardTitle>
       <DetailsTable>
         <thead>

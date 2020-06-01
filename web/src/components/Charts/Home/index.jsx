@@ -4,7 +4,12 @@ import * as d3 from 'd3';
 import { format, lastDayOfWeek } from 'date-fns';
 import tippy from 'tippy.js';
 import 'tippy.js/themes/light.css';
-import { ChartGrid, ChartHorizontalAxis, ChartContainer } from './styles';
+import {
+  ChartGrid,
+  ChartHorizontalAxis,
+  ChartContainer,
+  StyledSvg,
+} from './styles';
 
 const ReportChart = ({ width, height, data }) => {
   const graphRef = useRef(null);
@@ -261,14 +266,14 @@ const ReportChart = ({ width, height, data }) => {
   }, [data, width, height]);
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`}>
+    <StyledSvg viewBox={`0 0 ${width} ${height}`}>
       <g>
         <ChartGrid ref={horizontalGridRef} />
         <ChartGrid ref={verticalGridRef} />
         <ChartHorizontalAxis ref={horizontalAxisRef} />
       </g>
       <ChartContainer ref={graphRef} />
-    </svg>
+    </StyledSvg>
   );
 };
 

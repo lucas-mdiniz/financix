@@ -31,6 +31,18 @@ const GlobalStyle = createGlobalStyle`
     svg, img {
         vertical-align: top;
     }
+
+    ::-webkit-scrollbar {
+      -webkit-appearance: none;
+      height: 3px;
+      width: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: #ff83008a;
+      box-shadow: 0 0 1px rgba(255,255,255,.5);
+    }
 `;
 
 const StyledApp = styled.div`

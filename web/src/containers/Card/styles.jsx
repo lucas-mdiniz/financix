@@ -14,6 +14,7 @@ const StyledCard = styled.div`
 const CardTitle = styled.h2`
   font-size: 25px;
   font-weight: bold;
+  margin-bottom: 20px;
 `;
 
 export { StyledCard, CardTitle };

@@ -29,4 +29,8 @@ const ChartContainer = styled.g`
   margin: 0 auto;
 `;
 
-export { ChartGrid, ChartHorizontalAxis, ChartContainer };
+const StyledSvg = styled.svg`
+  min-width: 600px;
+`;
+
+export { ChartGrid, ChartHorizontalAxis, ChartContainer, StyledSvg };

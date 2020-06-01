@@ -26,8 +26,8 @@ const Modal = ({ open, children, onClose, overflowY }) => {
   };
 
   return open ? (
-    <ModalWrapper onClick={handleOutsideClose} overflowY={overflowY}>
-      <ModalBox>
+    <ModalWrapper onClick={handleOutsideClose}>
+      <ModalBox overflowY={overflowY}>
         <StyledFaTimes onClick={handleButtonClose} />
         {children}
       </ModalBox>
