@@ -1,14 +1,19 @@
 const express = require('express');
-const Transaction = require('../models/transaction');
+const User = require('../models/user');
+
+const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-router.get('/weekly', async (req, res) => {
+router.get('/weekly', auth, async (req, res) => {
   const { initialDate, finalDate, paid } = req.query;
 
   const pipeline = [
     {
       $match: {
+        $expr: {
+          $eq: ['$owner', '$$id'],
+        },
         date: {
           $gte: new Date(initialDate),
           $lte: new Date(finalDate),
@@ -63,16 +68,28 @@ router.get('/weekly', async (req, res) => {
   }
 
   try {
-    const transactions = await Transaction.aggregate(pipeline);
+    const user = await User.aggregate([
+      {
+        $match: {
+          _id: req.user._id,
+        },
+      },
+      {
+        $lookup: {
+          from: 'transactions',
+          let: { id: '$_id' },
+          pipeline,
+          as: 'transactions',
+        },
+      },
+    ]);
 
-    if (!transactions) {
-      res.status(404).send();
-    } else {
-      const sortedTransactions = transactions.sort((a, b) => a.week - b.week);
-      res.send(sortedTransactions);
-    }
+    const sortedTransactions = user[0].transactions.sort(
+      (a, b) => a.week - b.week
+    );
+    res.send(sortedTransactions);
   } catch (e) {
-    res.status(500).send();
+    res.status(500).send(e);
   }
 });
 

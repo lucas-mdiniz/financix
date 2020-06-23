@@ -1,13 +1,61 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
+const SideBarWrapper = styled.div`
+  @media only screen and (max-width: 1024px) {
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    z-index: 10;
+
+    &:after {
+      content: '';
+      background: #0000007a;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: -1;
+    }
+  }
+`;
+
 const StyledSideBar = styled.aside`
   width: 300px;
   padding: 50px 10px;
+  background: #fff;
+
+  @keyframes slideIn {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+
+  @keyframes slideOut {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  @media only screen and (max-width: 1024px) {
+    animation: ${props => (props.sideBarOpen ? 'slideIn' : 'slideOut')} 300ms;
+    position: fixed;
+    height: 100%;
+  }
 `;
 
 const StyledIcons = styled.i`
   margin-left: 10px;
+  color: #ff8300;
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -32,4 +80,27 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-export { StyledSideBar, StyledNavLink, StyledIcons };
+const SideBarCloseButtonWrapper = styled.button`
+  position: absolute;
+  border: none;
+  background: none;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+
+  ${StyledIcons} {
+    font-size: 20px;
+  }
+
+  @media only screen and (min-width: 1025px) {
+    display: none;
+  }
+`;
+
+export {
+  StyledSideBar,
+  StyledNavLink,
+  StyledIcons,
+  SideBarCloseButtonWrapper,
+  SideBarWrapper,
+};
