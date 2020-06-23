@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-const Transaction = mongoose.model('Transaction', {
+const { Schema } = mongoose;
+
+const transactionSchema = new Schema({
   amount: {
     type: Number,
     required: true,
@@ -34,6 +36,13 @@ const Transaction = mongoose.model('Transaction', {
       required: true,
     },
   },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
 });
+
+const Transaction = mongoose.model('Transaction', transactionSchema);
 
 module.exports = Transaction;

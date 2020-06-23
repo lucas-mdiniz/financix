@@ -1,21 +1,25 @@
 const express = require('express');
-const Budget = require('../models/budget');
+
+const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-router.get('/budgets', async (req, res) => {
+router.get('/budgets', auth, (req, res) => {
   try {
-    const budgets = await Budget.find();
+    const { budgets } = req.user;
 
-    res.send(budgets);
+    if (!budgets) res.status(404).send();
+    else res.send(budgets);
   } catch (e) {
-    res.status(500).send();
+    res.status(500).send(e);
   }
 });
 
-router.patch('/budgets/:id', async (req, res) => {
+router.patch('/budgets/:id', auth, async (req, res) => {
+  const { id } = req.params;
+  const { budgets } = req.user;
   const updates = Object.keys(req.body);
-  const allowedUpdates = 'amount';
+  const allowedUpdates = ['amount'];
 
   const isValidOperation = updates.every((update) =>
     allowedUpdates.includes(update)
@@ -25,15 +29,21 @@ router.patch('/budgets/:id', async (req, res) => {
     res.status(400).send({ error: 'Invalid updates!' });
   } else {
     try {
-      const budget = await Budget.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true,
+      const budget = budgets.filter((currentBudget) => {
+        if (currentBudget.id === id) {
+          updates.forEach((update) => {
+            currentBudget[update] = req.body[update];
+          });
+        }
+        return currentBudget.id === id;
       });
+
+      await req.user.save();
 
       if (!budget) res.status(404).send();
       else res.send(budget);
     } catch (e) {
-      res.status(400).send();
+      res.status(400).send(e);
     }
   }
 });
