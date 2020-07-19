@@ -41,7 +41,7 @@ const Login = () => {
       const user = await api.post('users/login', values);
       resetForm();
       setLoginFail(false);
-      setUser(user.data);
+      setUser(user.data.user);
     } catch (e) {
       if (e.response.status === 401) {
         setLoginFail(true);

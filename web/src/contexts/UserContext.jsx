@@ -13,7 +13,7 @@ const UserProvider = ({ children }) => {
     async function getUser() {
       try {
         const currentUser = await api.get('/users/me');
-        setUser(currentUser);
+        setUser(currentUser.data);
         setLoading(false);
       } catch (e) {
         throw new Error(e);
