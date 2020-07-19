@@ -64,6 +64,14 @@ userSchema.methods.generateAuthToken = async function generateAuthToken() {
   return token;
 };
 
+userSchema.methods.createCookie = (res, token) => {
+  const cookieExpireDays = 10;
+  res.cookie('token', token, {
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * cookieExpireDays),
+    httpOnly: true,
+  });
+};
+
 userSchema.pre('save', async function hashPassword(next) {
   /* hash the password before saving in the database with bcrypt */
   const user = this;
@@ -84,18 +92,19 @@ userSchema.pre('save', async function hashPassword(next) {
 /* find user by email and check the password and return the user */
 userSchema.statics.findByCredentials = async function findByCredentials(
   email,
-  password
+  password,
+  res
 ) {
   const user = await User.findOne({ email });
 
   if (!user) {
-    throw new Error('Unable to login');
+    return res.status(401).send({ error: 'Unable to login' });
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
 
   if (!isMatch) {
-    throw new Error('Unable to login');
+    return res.status(401).send({ error: 'Unable to login' });
   }
 
   return user;

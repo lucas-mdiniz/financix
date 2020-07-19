@@ -3,7 +3,7 @@ const User = require('../models/user');
 
 const auth = async (req, res, next) => {
   try {
-    const token = req.header('Authorization').replace('Bearer ', '');
+    const { token } = req.cookies;
 
     const { _id } = jwt.verify(token, 'thisIsASecret');
 
@@ -18,7 +18,7 @@ const auth = async (req, res, next) => {
 
     next();
   } catch (e) {
-    res.status(401).send({ error: 'Please authenticate!' });
+    res.status(403).send({ error: 'Please authenticate!' });
   }
 };
 

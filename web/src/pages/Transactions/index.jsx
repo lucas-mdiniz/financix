@@ -28,6 +28,7 @@ import {
   TransactionIcon,
   BalanceTitle,
 } from './styles';
+import SinglePageLoading from '../../components/SinglePageLoading';
 
 const Transactions = () => {
   const [transactions, setTransactions, loading] = useTransactions();
@@ -91,7 +92,7 @@ const Transactions = () => {
   };
 
   return loading ? (
-    <p>Loading...</p>
+    <SinglePageLoading />
   ) : (
     <>
       <Header>Transactions</Header>

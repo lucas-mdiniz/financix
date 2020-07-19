@@ -7,10 +7,11 @@ const Button = styled.button`
   color: #fff;
   font-weight: bold;
   border-radius: 10px;
-  font-size: 17px;
+  font-size: 18px;
   cursor: pointer;
   display: block;
   min-width: 120px;
+  font-family: Montserrat, sans-serif;
 
   &:hover {
     background: #da7000;

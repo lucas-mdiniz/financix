@@ -25,8 +25,12 @@ const SideBarWrapper = styled.div`
 
 const StyledSideBar = styled.aside`
   width: 300px;
-  padding: 50px 10px;
+  padding: 50px 25px;
   background: #fff;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  height: 100vh;
 
   @keyframes slideIn {
     0% {
@@ -80,6 +84,35 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
+const LogoutButton = styled.button`
+  background: none;
+  border: none;
+  font-weight: bold;
+  color: #696969;
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    color: #ff8300;
+  }
+
+  svg {
+    margin-right: 10px;
+    color: #ff8300;
+  }
+
+  &:hover svg {
+    transform: rotate(360deg);
+    transition: 300ms;
+  }
+`;
+
+const LogoutWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const SideBarCloseButtonWrapper = styled.button`
   position: absolute;
   border: none;
@@ -103,4 +136,6 @@ export {
   StyledIcons,
   SideBarCloseButtonWrapper,
   SideBarWrapper,
+  LogoutButton,
+  LogoutWrapper,
 };

@@ -5,16 +5,26 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
+router.get('/users/me', auth, async (req, res) => {
+  try {
+    res.send(req.user);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
+
 router.post('/users', async (req, res) => {
   try {
     const user = new User(req.body);
 
     const token = await user.generateAuthToken();
 
+    user.createCookie(res, token);
+
     res.status(201).send({ user, token });
   } catch (e) {
     if (e.name === 'MongoError' && e.code === 11000)
-      res.status(422).send({ error: 'User email already exists.' });
+      res.status(409).send({ error: 'User email already exists.' });
     else res.status(500).send();
   }
 });
@@ -23,12 +33,19 @@ router.post('/users/login', async (req, res) => {
   try {
     const user = await User.findByCredentials(
       req.body.email,
-      req.body.password
+      req.body.password,
+      res
     );
 
-    const token = await user.generateAuthToken();
+    if (!user) {
+      res.status(401).send({ error: 'Wrong credentials' });
+    } else {
+      const token = await user.generateAuthToken();
 
-    res.status(200).send({ user, token });
+      user.createCookie(res, token);
+
+      res.status(200).send({ user, token });
+    }
   } catch (e) {
     res.status(400).send();
   }
@@ -42,6 +59,7 @@ router.post('/users/logout', auth, async (req, res) => {
 
     await user.save();
 
+    res.clearCookie('token');
     res.status(200).send(user);
   } catch (e) {
     res.status(500).send();

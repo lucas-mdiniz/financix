@@ -13,6 +13,7 @@ import ReportDetails from './DetailsTable/ReportDetails';
 import { DateFilter } from '../../contexts/DateFilterContext';
 import ConsiderUnpaidSelector from '../../components/ConsiderUnpaidSelector';
 import getWeeksOfMonth from '../../utils/getWeeksOfMonth';
+import SinglePageLoading from '../../components/SinglePageLoading';
 
 const Home = () => {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
@@ -82,7 +83,7 @@ const Home = () => {
   }, [selectedDate, considerUnpaid]);
 
   return loading ? (
-    <p>Loading</p>
+    <SinglePageLoading />
   ) : (
     <>
       <Header>Home</Header>

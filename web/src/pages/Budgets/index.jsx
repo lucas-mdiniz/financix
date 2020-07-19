@@ -11,6 +11,7 @@ import useBudgets from '../../hooks/useBudgets';
 import EmptyData from '../../components/EmptyData';
 import useTransactions from '../../hooks/useTransactions';
 import { CardTitle } from '../../containers/Card/styles';
+import SinglePageLoading from '../../components/SinglePageLoading';
 
 const Budgets = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -40,7 +41,7 @@ const Budgets = () => {
   };
 
   return loading ? (
-    <p>Loading ...</p>
+    <SinglePageLoading />
   ) : (
     <>
       <Header>Budgets</Header>

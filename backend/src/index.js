@@ -1,6 +1,7 @@
 const express = require('express');
 require('./db/mongoose');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const port = process.env.PORT || 3333;
@@ -9,6 +10,7 @@ const budgetRouter = require('./routes/budget');
 const weeklyRouter = require('./routes/weekly');
 const userRouter = require('./routes/user');
 
+app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
 app.use(transactionRouter);
