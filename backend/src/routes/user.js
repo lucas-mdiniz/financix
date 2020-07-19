@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const User = require('../models/user');
 const Transaction = require('../models/transaction');
 const auth = require('../middleware/auth');
@@ -75,6 +76,27 @@ router.post('/users/logoutAll', auth, async (req, res) => {
     await user.save();
 
     res.status(200).send(user);
+  } catch (e) {
+    res.status(500).send();
+  }
+});
+
+router.patch('/users/password-update', auth, async (req, res) => {
+  try {
+    const { user } = req;
+
+    const passwordIsMatch = await bcrypt.compare(
+      req.body.currentPassword,
+      user.password
+    );
+
+    if (!passwordIsMatch) {
+      res.status(409).send({ error: 'Your password is wrong' });
+    } else {
+      user.password = req.body.password;
+      await user.save();
+      res.send();
+    }
   } catch (e) {
     res.status(500).send();
   }

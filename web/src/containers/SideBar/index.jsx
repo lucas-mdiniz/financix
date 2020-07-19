@@ -6,6 +6,7 @@ import {
   FaTimes,
   FaSignOutAlt,
   FaPowerOff,
+  FaUserAlt,
 } from 'react-icons/fa';
 import { MdAttachMoney } from 'react-icons/md';
 import {
@@ -89,6 +90,16 @@ function SideBar({ sideBarOpen, handleSideBarToggle }) {
                   Budget
                   <StyledIcons>
                     <MdAttachMoney />
+                  </StyledIcons>
+                </StyledNavLink>
+                <StyledNavLink
+                  to="/my-account"
+                  activeClassName="selected"
+                  exact
+                >
+                  My account
+                  <StyledIcons>
+                    <FaUserAlt />
                   </StyledIcons>
                 </StyledNavLink>
               </li>
