@@ -1,6 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { FaExchangeAlt, FaHome, FaTimes } from 'react-icons/fa';
+import {
+  FaExchangeAlt,
+  FaHome,
+  FaTimes,
+  FaSignOutAlt,
+  FaPowerOff,
+} from 'react-icons/fa';
 import { MdAttachMoney } from 'react-icons/md';
 import {
   StyledSideBar,
@@ -8,10 +14,15 @@ import {
   StyledIcons,
   SideBarCloseButtonWrapper,
   SideBarWrapper,
+  LogoutButton,
+  LogoutWrapper,
 } from './styles';
+import api from '../../services/api';
+import { UserContext } from '../../contexts/UserContext';
 
 function SideBar({ sideBarOpen, handleSideBarToggle }) {
   const [shouldRender, setRender] = useState(sideBarOpen);
+  const [, setUser] = useContext(UserContext);
 
   useEffect(() => {
     if (sideBarOpen) setRender(true);
@@ -23,6 +34,26 @@ function SideBar({ sideBarOpen, handleSideBarToggle }) {
 
   const handleCloseOnClick = e => {
     if (e.target === e.currentTarget) handleSideBarToggle();
+  };
+
+  const handleLogOut = async e => {
+    e.preventDefault();
+    try {
+      await api.post('/users/logout');
+      setUser(false);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  const handleLogOutAll = async e => {
+    e.preventDefault();
+    try {
+      await api.post('/users/logoutAll');
+      setUser(false);
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   return (
@@ -63,6 +94,16 @@ function SideBar({ sideBarOpen, handleSideBarToggle }) {
               </li>
             </ul>
           </nav>
+          <LogoutWrapper>
+            <LogoutButton type="button" onClick={handleLogOut}>
+              <FaSignOutAlt />
+              Logout
+            </LogoutButton>
+            <LogoutButton type="button" onClick={handleLogOutAll}>
+              <FaPowerOff />
+              LogoutAll
+            </LogoutButton>
+          </LogoutWrapper>
         </StyledSideBar>
       </SideBarWrapper>
     )

@@ -9,7 +9,6 @@ const router = express.Router();
 
 router.post('/transactions', auth, async (req, res) => {
   const transaction = new Transaction({ ...req.body, owner: req.user._id });
-
   try {
     await transaction.save();
 
@@ -61,11 +60,7 @@ router.get('/transactions', auth, async (req, res) => {
       },
     ]);
 
-    if (user[0].transactions.length === 0) {
-      res.status(404).send();
-    } else {
-      res.send(user[0].transactions);
-    }
+    res.send(user[0].transactions);
   } catch (e) {
     res.status(500).send(e);
   }

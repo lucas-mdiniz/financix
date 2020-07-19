@@ -5,7 +5,7 @@ import { StyledInput, StyledLabel, ErrorMessage } from '../styles';
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
-  const { id, placeholder } = props;
+  const { id, placeholder, type, required, className } = props;
   const { name, value, onBlur, onChange } = field;
 
   return (
@@ -14,10 +14,13 @@ const MyTextInput = ({ label, ...props }) => {
       <StyledInput
         id={id || name}
         onChange={onChange}
+        type={type || 'text'}
         name={name}
         value={value}
         onBlur={onBlur}
         placeholder={placeholder}
+        className={className}
+        required={required}
       />
       {meta.touched && meta.error ? (
         <ErrorMessage>{meta.error}</ErrorMessage>
@@ -30,12 +33,18 @@ MyTextInput.defaultProps = {
   label: '',
   placeholder: '',
   id: null,
+  type: 'text',
+  required: false,
+  className: undefined,
 };
 
 MyTextInput.propTypes = {
   label: PropTypes.string,
   id: PropTypes.string,
   placeholder: PropTypes.string,
+  className: PropTypes.string,
+  type: PropTypes.string,
+  required: PropTypes.bool,
 };
 
 export default MyTextInput;
