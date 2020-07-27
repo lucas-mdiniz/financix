@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Loader, LoaderWrapper } from './styles';
 
-const FullPageLoading = ({ className }) => {
+const FullPageLoading = ({ className, overlay }) => {
   return (
-    <LoaderWrapper className={className}>
+    <LoaderWrapper className={className} overlay={overlay}>
       <Loader />
     </LoaderWrapper>
   );
@@ -12,10 +12,12 @@ const FullPageLoading = ({ className }) => {
 
 FullPageLoading.defaultProps = {
   className: '',
+  overlay: false,
 };
 
 FullPageLoading.propTypes = {
   className: PropTypes.string,
+  overlay: PropTypes.bool,
 };
 
 export default FullPageLoading;

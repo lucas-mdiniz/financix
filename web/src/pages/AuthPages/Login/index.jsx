@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import { Link } from 'react-router-dom';
+import Modal from '../../../containers/Modal';
 import MyTextInput from '../../../components/FormComponents/MyTextInput';
 import { Button } from '../../../components/Button';
 import {
@@ -13,15 +14,18 @@ import {
   LoginWrapper,
   StyledInput,
   FormControl,
-  LoginFailMessage,
   StyledLink,
   AccountText,
+  ForgotPasswordText,
 } from '../styles';
+import ForgotPasswordForm from './ForgotPassword';
 import { UserContext } from '../../../contexts/UserContext';
 import api from '../../../services/api';
+import NotificationMessage from '../../../components/NotificationMessage';
 
 const Login = () => {
   const [loginFail, setLoginFail] = useState(false);
+  const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
   const [, setUser] = useContext(UserContext);
 
   const initialValues = {
@@ -37,6 +41,7 @@ const Login = () => {
   });
 
   const handleSubmit = async (values, { resetForm }) => {
+    setLoginFail(false);
     try {
       const user = await api.post('users/login', values);
       resetForm();
@@ -79,7 +84,11 @@ const Login = () => {
           <StyledButton as={Button} type="submit">
             Login
           </StyledButton>
-          {loginFail && <LoginFailMessage>Unable to login</LoginFailMessage>}
+          {loginFail && (
+            <NotificationMessage type="error">
+              Unable to login
+            </NotificationMessage>
+          )}
         </StyledForm>
       </Formik>
       <AccountText>
@@ -88,6 +97,17 @@ const Login = () => {
           Signup
         </StyledLink>
       </AccountText>
+      <ForgotPasswordText onClick={() => setForgotPasswordOpen(true)}>
+        Forgot your password?
+      </ForgotPasswordText>
+      {forgotPasswordOpen && (
+        <Modal
+          open={forgotPasswordOpen}
+          onClose={() => setForgotPasswordOpen(false)}
+        >
+          <ForgotPasswordForm />
+        </Modal>
+      )}
       <StyledBackgroundDecorationTop />
     </LoginWrapper>
   );

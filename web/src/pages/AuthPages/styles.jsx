@@ -24,6 +24,15 @@ const StyledLink = styled.a`
   line-height: 15px;
 `;
 
+const ForgotPasswordText = styled(StyledLink).attrs({
+  as: 'button',
+})`
+  background: none;
+  border: none;
+  margin-top: 15px;
+  cursor: pointer;
+`;
+
 const StyledBackgroundDecorationTop = styled(BackgroundLoginSVG)`
   width: 50%;
   height: auto;
@@ -80,16 +89,6 @@ const FormControl = styled.div`
   margin-bottom: 30px;
 `;
 
-const LoginFailMessage = styled.p`
-  color: #b20000;
-  background: #ff00005e;
-  height: 50px;
-  border-radius: 15px;
-  line-height: 50px;
-  padding: 0 20px;
-  margin-top: 30px;
-`;
-
 export {
   Title,
   StyledBackgroundDecorationTop,
@@ -99,7 +98,7 @@ export {
   LoginWrapper,
   StyledInput,
   FormControl,
-  LoginFailMessage,
   StyledLink,
   AccountText,
+  ForgotPasswordText,
 };

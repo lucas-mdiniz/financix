@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv-safe').config();
 require('./db/mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
