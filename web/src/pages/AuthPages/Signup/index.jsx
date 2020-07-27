@@ -13,12 +13,12 @@ import {
   LoginWrapper,
   StyledInput,
   FormControl,
-  LoginFailMessage,
   StyledLink,
   AccountText,
 } from '../styles';
 import { UserContext } from '../../../contexts/UserContext';
 import api from '../../../services/api';
+import NotificationMessage from '../../../components/NotificationMessage';
 
 const Signup = ({ history }) => {
   const [emailConflict, setEmailConflict] = useState(false);
@@ -40,13 +40,15 @@ const Signup = ({ history }) => {
     password: Yup.string()
       .required('Required')
       .min(8, 'You password must have at least 8 characters'),
-    confirmPassword: Yup.string().oneOf(
-      [Yup.ref('password'), null],
-      'Passwords must match'
-    ),
+    confirmPassword: Yup.string()
+      .required('Required')
+      .oneOf([Yup.ref('password'), null], 'Passwords must match'),
   });
 
   const handleSubmit = async (values, { resetForm }) => {
+    setEmailConflict(false);
+    setGenericError(false);
+
     try {
       const { confirmPassword, ...userData } = values;
       const user = await api.post('users', userData);
@@ -102,14 +104,14 @@ const Signup = ({ history }) => {
             Signup
           </StyledButton>
           {emailConflict && (
-            <LoginFailMessage>
+            <NotificationMessage type="error">
               This email is already registred.
-            </LoginFailMessage>
+            </NotificationMessage>
           )}
           {genericError && (
-            <LoginFailMessage>
+            <NotificationMessage type="error">
               Something went wrong, try again.
-            </LoginFailMessage>
+            </NotificationMessage>
           )}
         </StyledForm>
       </Formik>

@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(
-  'mongodb+srv://lucas_financix:financix32120720@cluster0-u1eaa.mongodb.net/financix?retryWrites=true&w=majority',
-  { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
-);
+mongoose.connect(process.env.CONNECTION_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

@@ -49,19 +49,46 @@ const userSchema = new mongoose.Schema({
       },
     },
   ],
+  resetPasswordToken: {
+    type: String,
+    select: false,
+  },
 });
 
 /* generate a new token with JWT and save to the user */
 userSchema.methods.generateAuthToken = async function generateAuthToken() {
   const user = this;
 
-  const token = jwt.sign({ _id: user._id.toString() }, 'thisIsASecret');
+  const token = jwt.sign(
+    { _id: user._id.toString() },
+    process.env.AUTH_TOKEN_SECRET
+  );
 
   user.tokens = user.tokens.concat({ token });
 
   await user.save();
 
   return token;
+};
+
+userSchema.methods.generatePasswordRecoveryToken = async function generatePasswordRecoveryToken() {
+  try {
+    const user = this;
+
+    const token = jwt.sign(
+      { _id: user._id.toString() },
+      process.env.RECOVERY_TOKEN_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    user.resetPasswordToken = token;
+
+    await user.save();
+
+    return token;
+  } catch (e) {
+    throw new Error(e);
+  }
 };
 
 userSchema.methods.createCookie = (res, token) => {

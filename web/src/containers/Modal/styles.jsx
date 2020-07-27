@@ -31,7 +31,7 @@ const StyledFaTimes = styled(FaTimes)`
   cursor: pointer;
   font-size: 20px;
   color: #696969;
-  z-index: 999;
+  z-index: 9;
 
   &:hover {
     color: #ff8300;
