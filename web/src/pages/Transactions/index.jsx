@@ -29,6 +29,7 @@ import {
   BalanceTitle,
 } from './styles';
 import SinglePageLoading from '../../components/SinglePageLoading';
+import FullPageLoading from '../../components/FullPageLoading';
 
 const Transactions = () => {
   const [transactions, setTransactions, loading] = useTransactions();
@@ -36,6 +37,8 @@ const Transactions = () => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [currentTransaction, setCurrentTransaction] = useState({});
   const [showBalanceDetails, setShowBalanceDetails] = useState(false);
+
+  const [loadingForm, setLoadingForm] = useState(false);
 
   const {
     income,
@@ -216,6 +219,7 @@ const Transactions = () => {
           modalClose={handleCloseAdd}
           setTransactions={setTransactions}
           transactions={transactions}
+          setLoading={currentState => setLoadingForm(currentState)}
         />
       </Modal>
       <Modal overflowY open={editModalOpen} onClose={handleCloseEdit}>
@@ -224,8 +228,12 @@ const Transactions = () => {
           setTransactions={setTransactions}
           transactions={transactions}
           currentTransaction={currentTransaction}
+          setLoading={currentState => {
+            setLoadingForm(currentState);
+          }}
         />
       </Modal>
+      {loadingForm && <FullPageLoading overlay />}
     </>
   );
 };

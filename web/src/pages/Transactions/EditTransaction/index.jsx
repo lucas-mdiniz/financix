@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import api from '../../../services/api';
 import TransactionForm from '../TransactionForm';
+import NotificationMessage from '../../../components/NotificationMessage';
 
 const EditTransaction = ({
   modalClose,
   setTransactions,
   transactions,
   currentTransaction,
+  setLoading,
 }) => {
+  const [error, setError] = useState(false);
+
   const initialFormValues = {
     amount: currentTransaction.amount.toString(),
     title: currentTransaction.title,
@@ -22,6 +26,8 @@ const EditTransaction = ({
   };
 
   const handleSubmit = (values, { resetForm }) => {
+    setError(false);
+    setLoading(true);
     const amount =
       values.amount.replace('.', '').replace(',', '.') || values.amount;
 
@@ -47,8 +53,10 @@ const EditTransaction = ({
         setTransactions(filteredTransactions);
         resetForm();
         modalClose();
-      } catch (error) {
-        throw new Error(error);
+      } catch (e) {
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -56,10 +64,17 @@ const EditTransaction = ({
   };
 
   return (
-    <TransactionForm
-      initialFormValues={initialFormValues}
-      handleSubmit={handleSubmit}
-    />
+    <>
+      <TransactionForm
+        initialFormValues={initialFormValues}
+        handleSubmit={handleSubmit}
+      />
+      {error && (
+        <NotificationMessage type="error">
+          Something went wront, try again later.
+        </NotificationMessage>
+      )}
+    </>
   );
 };
 

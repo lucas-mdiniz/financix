@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
-import { withRouter, Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import MyTextInput from '../../../components/FormComponents/MyTextInput';
 import { Button } from '../../../components/Button';
 import {
@@ -19,11 +19,15 @@ import {
 import { UserContext } from '../../../contexts/UserContext';
 import api from '../../../services/api';
 import NotificationMessage from '../../../components/NotificationMessage';
+import FullPageLoading from '../../../components/FullPageLoading';
 
-const Signup = ({ history }) => {
+const Signup = () => {
   const [emailConflict, setEmailConflict] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [genericError, setGenericError] = useState(false);
   const [, setUser] = useContext(UserContext);
+
+  const history = useHistory();
 
   const initialValues = {
     name: '',
@@ -48,11 +52,14 @@ const Signup = ({ history }) => {
   const handleSubmit = async (values, { resetForm }) => {
     setEmailConflict(false);
     setGenericError(false);
+    setLoading(true);
 
     try {
       const { confirmPassword, ...userData } = values;
       const user = await api.post('users', userData);
       resetForm();
+      setLoading(false);
+
       history.push('/');
       setUser(user.data);
     } catch (e) {
@@ -62,6 +69,7 @@ const Signup = ({ history }) => {
         setGenericError(true);
         throw new Error(e);
       }
+      setLoading(false);
     }
   };
 
@@ -122,8 +130,9 @@ const Signup = ({ history }) => {
         </StyledLink>
       </AccountText>
       <StyledBackgroundDecorationTop />
+      {loading && <FullPageLoading overlay />}
     </LoginWrapper>
   );
 };
 
-export default withRouter(Signup);
+export default Signup;

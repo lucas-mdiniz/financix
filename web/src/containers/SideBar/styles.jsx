@@ -24,6 +24,9 @@ const SideBarWrapper = styled.div`
 `;
 
 const StyledSideBar = styled.aside`
+  position: sticky;
+  top: 0;
+  left: 0;
   width: 300px;
   padding: 50px 25px;
   background: #fff;

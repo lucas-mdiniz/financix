@@ -24,6 +24,7 @@ const Home = () => {
   const [considerUnpaid, setConsiderUnpaid] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     async function getTransactionsPerPeriod() {
       const initialDate = new Date(
         Date.UTC(selectedDate.getFullYear(), selectedDate.getMonth(), 1)
