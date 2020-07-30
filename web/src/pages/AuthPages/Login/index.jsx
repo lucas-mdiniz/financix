@@ -22,10 +22,12 @@ import ForgotPasswordForm from './ForgotPassword';
 import { UserContext } from '../../../contexts/UserContext';
 import api from '../../../services/api';
 import NotificationMessage from '../../../components/NotificationMessage';
+import FullPageLoading from '../../../components/FullPageLoading';
 
 const Login = () => {
   const [loginFail, setLoginFail] = useState(false);
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [, setUser] = useContext(UserContext);
 
   const initialValues = {
@@ -42,6 +44,7 @@ const Login = () => {
 
   const handleSubmit = async (values, { resetForm }) => {
     setLoginFail(false);
+    setLoading(true);
     try {
       const user = await api.post('users/login', values);
       resetForm();
@@ -53,6 +56,8 @@ const Login = () => {
       } else {
         throw new Error(e);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -109,6 +114,7 @@ const Login = () => {
         </Modal>
       )}
       <StyledBackgroundDecorationTop />
+      {loading && <FullPageLoading overlay />}
     </LoginWrapper>
   );
 };

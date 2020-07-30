@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
@@ -12,9 +12,13 @@ import {
 } from '../../../components/FormComponents/styles';
 import { CenteredButton } from '../../../components/Button';
 import useCategories from '../../../hooks/useCategories';
+import FullPageLoading from '../../../components/FullPageLoading';
+import NotificationMessage from '../../../components/NotificationMessage';
 
 const AddBudgets = ({ modalClose, handleSetBudgets }) => {
   const [expensesCategories] = useCategories();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const initialValues = {
     category: null,
@@ -39,6 +43,9 @@ const AddBudgets = ({ modalClose, handleSetBudgets }) => {
   });
 
   const handleSubmit = values => {
+    setLoading(true);
+    setError(false);
+
     const value = parseFloat(values.amount.replace('.', '').replace(',', '.'));
     const [currentBudget] = expensesCategories.filter(
       expenseCategory => expenseCategory.value === values.category.value
@@ -59,8 +66,10 @@ const AddBudgets = ({ modalClose, handleSetBudgets }) => {
         });
         await handleSetBudgets(budget);
         modalClose();
-      } catch (error) {
-        throw new Error(error);
+      } catch (e) {
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -68,33 +77,41 @@ const AddBudgets = ({ modalClose, handleSetBudgets }) => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={addBudgetSchema}
-    >
-      <Form>
-        <InputGroup>
-          <InputItem>
-            <MySelect
-              options={expensesCategories}
-              name="category"
-              label="Category"
-              placeholder="Select..."
-            />
-          </InputItem>
-          <InputItem>
-            <MyMaskedInput
-              mask={numberMask}
-              label="Amount"
-              name="amount"
-              placeholder="0.00"
-            />
-          </InputItem>
-        </InputGroup>
-        <CenteredButton type="submit">Submit</CenteredButton>
-      </Form>
-    </Formik>
+    <>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={addBudgetSchema}
+      >
+        <Form>
+          <InputGroup>
+            <InputItem>
+              <MySelect
+                options={expensesCategories}
+                name="category"
+                label="Category"
+                placeholder="Select..."
+              />
+            </InputItem>
+            <InputItem>
+              <MyMaskedInput
+                mask={numberMask}
+                label="Amount"
+                name="amount"
+                placeholder="0.00"
+              />
+            </InputItem>
+          </InputGroup>
+          <CenteredButton type="submit">Submit</CenteredButton>
+        </Form>
+      </Formik>
+      {loading && <FullPageLoading overlay />}
+      {error && (
+        <NotificationMessage type="error">
+          Something went wront, try again later.
+        </NotificationMessage>
+      )}
+    </>
   );
 };
 

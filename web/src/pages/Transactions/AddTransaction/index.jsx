@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import uuidv4 from 'uuid';
 import api from '../../../services/api';
 import TransactionForm from '../TransactionForm';
+import NotificationMessage from '../../../components/NotificationMessage';
 
-const AddTransaction = ({ modalClose, setTransactions, transactions }) => {
+const AddTransaction = ({
+  modalClose,
+  setTransactions,
+  transactions,
+  setLoading,
+}) => {
+  const [error, setError] = useState(false);
   const initialFormValues = {
     amount: '',
     title: '',
@@ -16,6 +23,8 @@ const AddTransaction = ({ modalClose, setTransactions, transactions }) => {
   };
 
   const handleSubmit = (values, { resetForm }) => {
+    setLoading(true);
+    setError(false);
     const amount = values.amount.replace('.', '').replace(',', '.');
 
     const newTransaction = {
@@ -33,8 +42,10 @@ const AddTransaction = ({ modalClose, setTransactions, transactions }) => {
         setTransactions([...transactions, response.data]);
         resetForm();
         modalClose();
-      } catch (error) {
-        throw new Error(error);
+      } catch (e) {
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -42,10 +53,17 @@ const AddTransaction = ({ modalClose, setTransactions, transactions }) => {
   };
 
   return (
-    <TransactionForm
-      initialFormValues={initialFormValues}
-      handleSubmit={handleSubmit}
-    />
+    <>
+      <TransactionForm
+        initialFormValues={initialFormValues}
+        handleSubmit={handleSubmit}
+      />
+      {error && (
+        <NotificationMessage type="error">
+          Something went wront, try again later.
+        </NotificationMessage>
+      )}
+    </>
   );
 };
 

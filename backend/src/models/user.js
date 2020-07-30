@@ -55,6 +55,16 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+/* remove hidden fields from responses */
+userSchema.methods.toJSON = function hiddenFields() {
+  const user = this;
+  const userObject = user.toObject();
+  delete userObject.password;
+  delete userObject.tokens;
+
+  return userObject;
+};
+
 /* generate a new token with JWT and save to the user */
 userSchema.methods.generateAuthToken = async function generateAuthToken() {
   const user = this;

@@ -13,6 +13,7 @@ const useTransactions = paid => {
 
   useEffect(() => {
     async function getTransactions() {
+      setLoading(true);
       try {
         const response = await api.get(
           `/transactions/?initialDate=${initialDate}&finalDate=${finalDate}${
@@ -20,9 +21,10 @@ const useTransactions = paid => {
           }`
         );
         setTransactions(response.data);
-        setLoading(false);
       } catch (error) {
         throw new Error(error);
+      } finally {
+        setLoading(false);
       }
     }
 
