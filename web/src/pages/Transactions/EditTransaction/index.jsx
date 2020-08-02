@@ -92,6 +92,7 @@ EditTransaction.propTypes = {
   }).isRequired,
   transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
   setTransactions: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
 };
 
 export default EditTransaction;
