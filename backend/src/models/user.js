@@ -132,6 +132,7 @@ userSchema.statics.findByCredentials = async function findByCredentials(
   password,
   res
 ) {
+  // eslint-disable-next-line
   const user = await User.findOne({ email });
 
   if (!user) {

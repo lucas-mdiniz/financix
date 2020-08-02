@@ -71,6 +71,7 @@ AddTransaction.propTypes = {
   modalClose: PropTypes.func.isRequired,
   transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
   setTransactions: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
 };
 
 export default AddTransaction;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const BackgroundLoginSVG = ({ className }) => {
   return (
@@ -57,6 +58,10 @@ const BackgroundLoginSVG = ({ className }) => {
       </defs>
     </svg>
   );
+};
+
+BackgroundLoginSVG.propTypes = {
+  className: PropTypes.string.isRequired,
 };
 
 export default BackgroundLoginSVG;
