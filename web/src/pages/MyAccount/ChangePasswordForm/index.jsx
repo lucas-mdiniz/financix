@@ -43,6 +43,7 @@ const ChangePasswordForm = ({ modalClose }) => {
     try {
       await api.patch('/users/password-update', { password, currentPassword });
       setCurrentPasswordError(false);
+      setLoading(false);
       modalClose();
     } catch (e) {
       if (e.response.status === 409) {
@@ -50,7 +51,6 @@ const ChangePasswordForm = ({ modalClose }) => {
       } else {
         setError(true);
       }
-    } finally {
       setLoading(false);
     }
   };
@@ -69,6 +69,7 @@ const ChangePasswordForm = ({ modalClose }) => {
                 label="Current Password"
                 name="currentPassword"
                 type="password"
+                autoComplete="current-password"
               />
               {currentPasswordError && (
                 <ErrorMessage>Your password is wrong</ErrorMessage>
@@ -81,6 +82,7 @@ const ChangePasswordForm = ({ modalClose }) => {
                 label="New Password"
                 name="newPassword"
                 type="password"
+                autoComplete="new-password"
               />
             </InputItem>
           </InputGroup>
@@ -90,6 +92,7 @@ const ChangePasswordForm = ({ modalClose }) => {
                 label="Confirm New Password"
                 name="newPasswordConfirmation"
                 type="password"
+                autoComplete="new-password"
               />
             </InputItem>
           </InputGroup>

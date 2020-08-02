@@ -49,6 +49,7 @@ const Login = () => {
       const user = await api.post('users/login', values);
       resetForm();
       setLoginFail(false);
+      setLoading(false);
       setUser(user.data.user);
     } catch (e) {
       if (e.response.status === 401) {
@@ -56,7 +57,6 @@ const Login = () => {
       } else {
         throw new Error(e);
       }
-    } finally {
       setLoading(false);
     }
   };
@@ -83,6 +83,7 @@ const Login = () => {
               type="password"
               label="Password"
               name="password"
+              autoComplete="current-password"
               required
             />
           </FormControl>

@@ -1,9 +1,8 @@
 import {
   startOfMonth,
   endOfMonth,
-  differenceInCalendarWeeks,
+  eachWeekOfInterval,
   startOfWeek,
-  addWeeks,
   getISOWeek,
   getYear,
 } from 'date-fns';
@@ -12,11 +11,14 @@ import uuid from 'uuid';
 const getWeeksOfMonth = date => {
   const monthStart = startOfMonth(date);
   const monthEnd = endOfMonth(date);
-  const numberOfWeeks = differenceInCalendarWeeks(monthEnd, monthStart);
   const weeksOfCurrentMonth = [];
+  const weeksOfMonth = eachWeekOfInterval({
+    start: monthStart,
+    end: monthEnd,
+  });
 
-  for (let i = 0; i < numberOfWeeks; i += 1) {
-    const week = startOfWeek(addWeeks(monthStart, i), { weekStartsOn: 0 });
+  for (let i = 0; i < weeksOfMonth.length; i += 1) {
+    const week = startOfWeek(weeksOfMonth[i]);
     weeksOfCurrentMonth.push({
       week: getISOWeek(week),
       year: getYear(week),

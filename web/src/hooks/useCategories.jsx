@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import Icons from '../assets/Icons';
 import api from '../services/api';
 
@@ -8,6 +9,9 @@ const useCategories = () => {
 
   useEffect(() => {
     let isMounted = true;
+    const { CancelToken } = axios;
+    const source = CancelToken.source();
+
     async function getCategories() {
       try {
         const response = await api.get('/budgets');
@@ -26,6 +30,7 @@ const useCategories = () => {
 
     getCategories();
     return () => {
+      source.cancel('cancel');
       isMounted = false;
     };
   }, []);

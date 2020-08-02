@@ -61,7 +61,7 @@ const Signup = () => {
       setLoading(false);
 
       history.push('/');
-      setUser(user.data);
+      setUser(user.data.user);
     } catch (e) {
       if (e.response.status === 409) {
         setEmailConflict(true);
@@ -98,6 +98,7 @@ const Signup = () => {
               type="password"
               label="Password"
               name="password"
+              autoComplete="new-password"
             />
           </FormControl>
           <FormControl>
@@ -106,6 +107,7 @@ const Signup = () => {
               type="password"
               label="Confirm password"
               name="confirmPassword"
+              autoComplete="new-password"
             />
           </FormControl>
           <StyledButton as={Button} type="submit">

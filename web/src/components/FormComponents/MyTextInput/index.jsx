@@ -5,7 +5,7 @@ import { StyledInput, StyledLabel, ErrorMessage } from '../styles';
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
-  const { id, placeholder, type, required, className } = props;
+  const { id, placeholder, type, required, className, autoComplete } = props;
   const { name, value, onBlur, onChange } = field;
 
   return (
@@ -21,6 +21,7 @@ const MyTextInput = ({ label, ...props }) => {
         placeholder={placeholder}
         className={className}
         required={required}
+        autoComplete={autoComplete || 'true'}
       />
       {meta.touched && meta.error ? (
         <ErrorMessage>{meta.error}</ErrorMessage>
@@ -36,6 +37,7 @@ MyTextInput.defaultProps = {
   type: 'text',
   required: false,
   className: undefined,
+  autoComplete: 'true',
 };
 
 MyTextInput.propTypes = {
@@ -45,6 +47,7 @@ MyTextInput.propTypes = {
   className: PropTypes.string,
   type: PropTypes.string,
   required: PropTypes.bool,
+  autoComplete: PropTypes.string,
 };
 
 export default MyTextInput;

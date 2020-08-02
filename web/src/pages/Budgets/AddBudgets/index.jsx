@@ -42,7 +42,7 @@ const AddBudgets = ({ modalClose, handleSetBudgets }) => {
     decimalSymbol: ',',
   });
 
-  const handleSubmit = values => {
+  const handleSubmit = (values, { resetForm }) => {
     setLoading(true);
     setError(false);
 
@@ -65,10 +65,11 @@ const AddBudgets = ({ modalClose, handleSetBudgets }) => {
           amount: value,
         });
         await handleSetBudgets(budget);
+        resetForm();
+        setLoading(false);
         modalClose();
       } catch (e) {
         setError(true);
-      } finally {
         setLoading(false);
       }
     }

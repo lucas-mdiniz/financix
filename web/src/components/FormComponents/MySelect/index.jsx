@@ -60,6 +60,7 @@ const MySelect = ({ label, ...props }) => {
       <Select
         id={id || name}
         styles={customStyles}
+        captureMenuScroll={false}
         onChange={currentValue => {
           setFieldValue(name, {
             value: currentValue.value,
