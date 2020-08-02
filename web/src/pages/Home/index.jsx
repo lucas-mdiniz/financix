@@ -1,86 +1,68 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { addWeeks, startOfWeek, format } from 'date-fns';
+import axios from 'axios';
+import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import FlexRow from '../../containers/FlexRow';
 import Card from '../../containers/Card';
 import Header from '../../components/Header';
 import ShowValue from '../../components/ShowValue';
-import useTransactions from '../../hooks/useTransactions';
-import getTotals from '../../utils/getTotals';
+import api from '../../services/api';
 import ReportChart from '../../components/Charts/Home';
 import EmptyData from '../../components/EmptyData';
-import api from '../../services/api';
 import ReportDetails from './DetailsTable/ReportDetails';
 import { DateFilter } from '../../contexts/DateFilterContext';
 import ConsiderUnpaidSelector from '../../components/ConsiderUnpaidSelector';
-import getWeeksOfMonth from '../../utils/getWeeksOfMonth';
 import SinglePageLoading from '../../components/SinglePageLoading';
+import getTransactionsPerPeriod from './utils/getTransactionsPerPeriod';
+import getTotals from './utils/getTotals';
 
 const Home = () => {
   const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [monthTotals, setMonthTotals] = useState({});
   const [selectedDate] = useContext(DateFilter);
-  const [transactions] = useTransactions();
   const [loading, setLoading] = useState(true);
-  const { balance, income, expenses } = getTotals(transactions);
   const [considerUnpaid, setConsiderUnpaid] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    async function getTransactionsPerPeriod() {
-      const initialDate = new Date(
-        Date.UTC(selectedDate.getFullYear(), selectedDate.getMonth(), 1)
-      ).toISOString();
-      const finalDate = new Date(
-        Date.UTC(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 0)
-      ).toISOString();
 
+    const { CancelToken } = axios;
+    const source = CancelToken.source();
+    let unmountController = false;
+
+    const initialDate = startOfWeek(startOfMonth(selectedDate));
+    const finalDate = endOfWeek(endOfMonth(selectedDate));
+
+    async function getTransactions() {
       try {
         const response = await api.get(
           `/weekly?initialDate=${initialDate}&finalDate=${finalDate}${
             !considerUnpaid ? `&paid=${!considerUnpaid}` : ''
           }`
         );
+        if (!unmountController) {
+          const transactionsPerPeriod = response.data;
 
-        const weeksOfMonth = getWeeksOfMonth(selectedDate);
-
-        let weeklyBalance = 0;
-        const parsedTransactions = weeksOfMonth.map(transactionWeek => {
-          const transactionIndex = response.data.findIndex(
-            transaction => transaction.week === transactionWeek.week
+          getTransactionsPerPeriod(
+            selectedDate,
+            setFilteredTransactions,
+            transactionsPerPeriod
           );
 
-          const filteredTransaction =
-            response.data[transactionIndex] || transactionWeek;
+          const [balance, expenses, income] = getTotals(transactionsPerPeriod);
+          setMonthTotals({ balance, expenses, income });
 
-          const startOfWeekDate = startOfWeek(
-            addWeeks(
-              new Date(filteredTransaction.year, 0, 0),
-              filteredTransaction.week
-            ),
-            { weekStartsOn: 0 }
-          );
-          const formatedDate = format(startOfWeekDate, 'dd MMM');
-
-          weeklyBalance =
-            weeklyBalance +
-            filteredTransaction.earning -
-            filteredTransaction.expense;
-
-          return {
-            name: formatedDate,
-            date: startOfWeekDate,
-            balance: weeklyBalance,
-            ...filteredTransaction,
-          };
-        });
-
-        setFilteredTransactions(parsedTransactions);
-        setLoading(false);
+          setLoading(false);
+        }
       } catch (error) {
         throw new Error(error);
       }
     }
+    getTransactions();
 
-    getTransactionsPerPeriod();
+    return () => {
+      unmountController = true;
+      source.cancel();
+    };
   }, [selectedDate, considerUnpaid]);
 
   return loading ? (
@@ -100,18 +82,20 @@ const Home = () => {
         <>
           <FlexRow>
             <ShowValue
-              color={parseFloat(balance) < 0 ? '#e00000' : '#00b300'}
-              value={parseFloat(balance)}
+              color={
+                parseFloat(monthTotals.balance) < 0 ? '#e00000' : '#00b300'
+              }
+              value={parseFloat(monthTotals.balance)}
               title="Balance"
             />
             <ShowValue
               color="#00b300"
-              value={parseFloat(income)}
+              value={parseFloat(monthTotals.income)}
               title="Income"
             />
             <ShowValue
               color="#e00000"
-              value={parseFloat(expenses)}
+              value={parseFloat(monthTotals.expenses)}
               title="Expenses"
             />
           </FlexRow>

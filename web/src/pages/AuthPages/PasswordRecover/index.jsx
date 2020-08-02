@@ -81,6 +81,7 @@ const PasswordRecover = () => {
                   label="New Password"
                   name="newPassword"
                   type="password"
+                  autoComplete="new-password"
                 />
               </InputItem>
             </InputGroup>
@@ -91,6 +92,7 @@ const PasswordRecover = () => {
                   label="Confirm Password"
                   name="confirmNewPassword"
                   type="password"
+                  autoComplete="new-password"
                 />
               </InputItem>
             </InputGroup>

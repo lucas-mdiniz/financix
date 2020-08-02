@@ -43,7 +43,7 @@ router.get('/weekly', auth, async (req, res) => {
     {
       $group: {
         _id: {
-          week: { $week: '$date' },
+          week: { $isoWeek: '$date' },
           year: { $year: '$date' },
         },
         expense: { $sum: '$expense' },
