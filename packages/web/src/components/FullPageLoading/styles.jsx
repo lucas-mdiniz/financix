@@ -36,7 +36,7 @@ const LoaderWrapper = styled.div`
   align-items: center;
   justify-content: center;
   background: ${props => (props.overlay ? '#00000096' : '#e2e2e2')};
-  z-index: 99;
+  z-index: 9;
 `;
 
 export { Loader, LoaderWrapper };

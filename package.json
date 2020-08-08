@@ -1,0 +1,14 @@
+{
+  "name": "financix",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:lucas-mdiniz/financix.git",
+  "author": "Lucas Diniz <lucas.mdiniz@live.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}
