@@ -16,7 +16,8 @@ const UserProvider = ({ children }) => {
         if (currentUser) setUser(currentUser.data);
         setLoading(false);
       } catch (e) {
-        throw new Error(e);
+        if (e.response.status !== 403) throw new Error(e);
+        else setLoading(false);
       }
     }
 

@@ -147,7 +147,7 @@ router.post('/users/forgot-password', async (req, res) => {
         subject: 'Financix - Password Recovery',
         text: `To reset your password acess the link: ${user.resetPasswordToken}`,
         html: `<p>To reset your password acess the link bellow:</p> 
-        <a href="http://${process.env.DOMAIN}/password-recovery/${user.resetPasswordToken}">Reset Password</a>`,
+        <a href="http://${process.env.CLIENT_DOMAIN}/password-recovery/${user.resetPasswordToken}">Reset Password</a>`,
       };
 
       await transporter.sendMail(message);
