@@ -1,0 +1,136 @@
+const budgetsMock = [
+  {
+    name: 'Bar & restaurants',
+    slug: 'bar_restaurants',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Debts & loans',
+    slug: 'debts_loans',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Education',
+    slug: 'education',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Entertainment & hobbies',
+    slug: 'entertainment_hobbies',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Familly & children',
+    slug: 'familly_children',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Food',
+    slug: 'food',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Groceries',
+    slug: 'groceries',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Health',
+    slug: 'health',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Home',
+    slug: 'home',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Investments',
+    slug: 'investments',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Others',
+    slug: 'others',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Personal care',
+    slug: 'personal_care',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Pets',
+    slug: 'pets',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Shopping',
+    slug: 'shopping',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Subscriptions & services',
+    slug: 'subscriptions_services',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Taxes',
+    slug: 'taxes',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Transportation',
+    slug: 'transportation',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Travel',
+    slug: 'travel',
+    amount: 0,
+    type: 'expense',
+  },
+  {
+    name: 'Salary',
+    slug: 'salary',
+    amount: 0,
+    type: 'income',
+  },
+  {
+    name: 'Loan',
+    slug: 'loan',
+    amount: 0,
+    type: 'income',
+  },
+  {
+    name: 'Investments',
+    slug: 'investments',
+    amount: 0,
+    type: 'income',
+  },
+  {
+    name: 'Other Earnings',
+    slug: 'other_earnings',
+    amount: 0,
+    type: 'income',
+  },
+];
+
+module.exports = budgetsMock;

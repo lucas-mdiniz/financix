@@ -1,0 +1,238 @@
+{
+  "transactions": [
+    {
+      "amount": "456",
+      "title": "teste",
+      "description": "",
+      "date": "Sun, 15 Mar 2020 14:29:36 GMT",
+      "paid": true,
+      "type": "expense",
+      "category": "entertainment_hobbies",
+      "id": "9871a4b1-2f3a-4562-ad03-6448ef5c4348"
+    },
+    {
+      "amount": "300",
+      "title": "ITAUSA",
+      "description": "",
+      "date": "Sun, 22 Mar 2020 14:04:57 GMT",
+      "paid": true,
+      "type": "income",
+      "category": "investments",
+      "id": "02b2bd56-9e45-4ce5-ba8c-f2df840f8b44"
+    },
+    {
+      "amount": "300",
+      "title": "renner",
+      "description": "",
+      "date": "Sun, 22 Mar 2020 14:09:31 GMT",
+      "paid": false,
+      "type": "expense",
+      "category": "clothing",
+      "id": "5dde03d0-184b-4d92-b2f2-e907dc7ea76e"
+    },
+    {
+      "amount": "200",
+      "title": "beer",
+      "description": "",
+      "date": "Sun, 22 Mar 2020 14:17:47 GMT",
+      "paid": false,
+      "type": "expense",
+      "category": "bar_restaurants",
+      "id": "044410e8-a585-43de-815a-8867d98688ee"
+    },
+    {
+      "amount": "500",
+      "title": "teste",
+      "description": "",
+      "date": "Tue, 10 Mar 2020 22:55:09 GMT",
+      "paid": false,
+      "type": "expense",
+      "category": "clothing",
+      "id": "3a9dd249-37b3-42b7-9891-1f30026532d5"
+    },
+    {
+      "amount": "3520.45",
+      "title": "teste",
+      "description": "",
+      "date": "Wed, 04 Mar 2020 22:59:38 GMT",
+      "paid": false,
+      "type": "income",
+      "category": "investments",
+      "id": "ef8e8b7f-d489-41ac-b82b-4845515cac71"
+    },
+    {
+      "amount": "250.00",
+      "title": "teste",
+      "description": "teste",
+      "date": "Fri, 27 Mar 2020 22:23:33 GMT",
+      "paid": false,
+      "type": "expense",
+      "category": "debts_loans",
+      "id": "1b0c5547-a990-4970-8999-25fc7601a930"
+    }
+  ],
+  "totals": {
+    "expenses": "0",
+    "predictedExpenses": "0",
+    "earnings": "0",
+    "predictedEarnings": "0",
+    "balance": "0",
+    "predictedBalance": "0"
+  },
+  "categories": [
+    {
+      "name": "Bar & restaurants",
+      "slug": "bar_restaurants",
+      "type": "expense",
+      "amount": "1000",
+      "id": "1"
+    },
+    {
+      "name": "Clothing",
+      "slug": "bar_restaurants",
+      "type": "expense",
+      "id": "2",
+      "amount": "700"
+    },
+    {
+      "name": "Debts & loans",
+      "slug": "debts_loans",
+      "type": "expense",
+      "id": "3",
+      "amount": "1000"
+    },
+    {
+      "name": "Education",
+      "slug": "education",
+      "type": "expense",
+      "amount": "",
+      "id": "4"
+    },
+    {
+      "name": "Entertainment & hobbies",
+      "slug": "entertainment_hobbies",
+      "type": "expense",
+      "amount": "",
+      "id": "5"
+    },
+    {
+      "name": "Familly & children",
+      "slug": "familly_children",
+      "type": "expense",
+      "id": "6",
+      "amount": ""
+    },
+    {
+      "name": "Food",
+      "slug": "food",
+      "type": "expense",
+      "id": "7",
+      "amount": ""
+    },
+    {
+      "name": "Groceries",
+      "slug": "groceries",
+      "type": "expense",
+      "id": "8"
+    },
+    {
+      "name": "Health",
+      "slug": "health",
+      "type": "expense",
+      "id": "9",
+      "amount": ""
+    },
+    {
+      "name": "Home",
+      "slug": "home",
+      "type": "expense",
+      "id": "10",
+      "amount": ""
+    },
+    {
+      "name": "Investments",
+      "slug": "investments",
+      "type": "expense",
+      "id": "11"
+    },
+    {
+      "name": "Others",
+      "slug": "others",
+      "type": "expense",
+      "id": "12",
+      "amount": ""
+    },
+    {
+      "name": "Personal care",
+      "slug": "personal_care",
+      "type": "expense",
+      "id": "13"
+    },
+    {
+      "name": "Pets",
+      "slug": "pets",
+      "type": "expense",
+      "id": "14",
+      "amount": ""
+    },
+    {
+      "name": "Shopping",
+      "slug": "shopping",
+      "type": "expense",
+      "id": "15",
+      "amount": "300"
+    },
+    {
+      "name": "Subscriptions & services",
+      "slug": "subscriptions_services",
+      "type": "expense",
+      "id": "16",
+      "amount": ""
+    },
+    {
+      "name": "Taxes",
+      "slug": "taxes",
+      "type": "expense",
+      "id": "17"
+    },
+    {
+      "name": "Transportation",
+      "slug": "transportation",
+      "type": "expense",
+      "id": "18"
+    },
+    {
+      "name": "Travel",
+      "slug": "travel",
+      "type": "expense",
+      "id": "19"
+    },
+    {
+      "name": "Salary",
+      "slug": "salary",
+      "type": "earning",
+      "id": "20"
+    },
+    {
+      "name": "Loan",
+      "slug": "loan",
+      "type": "earning",
+      "id": "21"
+    },
+    {
+      "name": "Investments",
+      "slug": "investments",
+      "type": "earning",
+      "id": "22"
+    },
+    {
+      "name": "Other Earnings",
+      "slug": "other_earnings",
+      "type": "earning",
+      "id": "23"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
