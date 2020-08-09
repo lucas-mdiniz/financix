@@ -1,1 +1,1 @@
-api: yarn start
+web: yarn start
