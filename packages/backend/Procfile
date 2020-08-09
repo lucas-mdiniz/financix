@@ -1,1 +1,1 @@
-web: node packages/backend/src/index.js
+web: yarn workspace @financix/backend start
