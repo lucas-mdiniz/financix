@@ -1,1 +1,0 @@
-web: node packages/backend/src/index.js
