@@ -6,12 +6,12 @@
   "author": "Lucas Diniz <lucas.mdiniz@live.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "heroku-postbuild": "bash ./scripts/heroku.sh"
+  },
   "workspaces": {
     "packages": [
       "packages/*"
     ]
-  },
-  "scripts": {
-    "heroku-postbuild": "scripts/heroku.build"
   }
 }
