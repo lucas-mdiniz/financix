@@ -12,6 +12,6 @@
     ]
   },
   "scripts": {
-    "heroku-postbuild": "./scripts/heroku.build"
+    "heroku-postbuild": "scripts/heroku.build"
   }
 }
