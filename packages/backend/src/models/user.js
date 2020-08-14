@@ -106,8 +106,8 @@ userSchema.methods.createCookie = (res, token) => {
   res.cookie('token', token, {
     expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * cookieExpireDays),
     httpOnly: true,
-    SameSite: 'None',
-    Secure: true,
+    sameSite: 'none',
+    secure: true,
   });
 };
 
