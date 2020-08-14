@@ -16,8 +16,5 @@ fi
 
   if [ "$BUILD_ENV" = "web" ]; then
     yarn workspace @financix/web build
-  else
-    echo "Error: no build config for BUILD_ENV value '$BUILD_ENV'"
-    exit 1
   fi
 )
