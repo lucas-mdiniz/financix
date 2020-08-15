@@ -20,7 +20,9 @@ const Home = () => {
   const [monthTotals, setMonthTotals] = useState({});
   const [selectedDate] = useContext(DateFilter);
   const [loading, setLoading] = useState(true);
-  const [considerUnpaid, setConsiderUnpaid] = useState(false);
+  const [considerUnpaid, setConsiderUnpaid] = useState(
+    JSON.parse(localStorage.getItem('considerUnpaid')) || false
+  );
 
   useEffect(() => {
     setLoading(true);
@@ -64,6 +66,10 @@ const Home = () => {
       source.cancel();
     };
   }, [selectedDate, considerUnpaid]);
+
+  useEffect(() => {
+    localStorage.setItem('considerUnpaid', JSON.stringify(considerUnpaid));
+  }, [considerUnpaid]);
 
   return loading ? (
     <SinglePageLoading />
