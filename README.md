@@ -12,7 +12,7 @@ A simple app to organize your finances.
 
 ## Demo
 
-Live app: https://financix.herokuapp.com
+Live app: https://financix.vercel.app/
 
 ![](https://i.imgur.com/cKQL3PE.gif)
 
